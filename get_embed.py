@@ -47,10 +47,10 @@ text2_save_filename = "benign_embeddings_val.pt"
 
 # generate embeddings for images
 img_embed_list = []
-# for img in os.listdir(f"{source_dir}/image"):
-#     ret = get_img_embedding(f"{source_dir}/image/{img}")
-#     img_embed_list.append(ret)
-img_embed_list.append(get_img_embedding(f"{source_dir}/image/prompt_constrained_16.bmp"))
+for img in os.listdir(f"{source_dir}/image"):
+    ret = get_img_embedding(f"{source_dir}/image/{img}")
+    img_embed_list.append(ret)
+# img_embed_list.append(get_img_embedding(f"{source_dir}/image/prompt_constrained_16.bmp"))
 
 # generate embeddings for text
 malicious_text_embed_list = []
@@ -74,7 +74,7 @@ with open(f"{source_dir}/text/{text_benign_file}", "r") as f:
     reader = csv.reader(f)
     cnt=0
     for row in reader:
-        if cnt>=40:
+        if cnt>=40: # get the first 40 rows
             break
         cnt+=1
         text = row[0]+"\tA.{}\tB.{}\tC.{}\tD.{}".format(row[1],row[2],row[3],row[4])
