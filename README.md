@@ -52,10 +52,18 @@ TODO:
   * [x] img
 * [x] algorithm to calculate cosine similarity
 * [x] automamtic runnig
-* [ ] data analysis
+* [x] data analysis
   * [x] 16扰动
-  * [ ] other
+  * [x] other
 
+
+### UPD 4.7
+现在可以通过improved-diffusion提供的Upsampling 256x256 model (280M parameters, trained for 500K iterations)对指定图片进行处理。直观上来说噪音没有减小，图像对比度增强。
+结果保存在`/src/samples`(array)和`/src/image/denoised`(image)中。
+
+### UPD 3.30
+直接用均值方法得到了[1,4096]维的*句向量*，与最低扰动的图像之间测试余弦相似度，得到结果有一定的显著性
+明天继续进行更多测试+写周报
 
 ### UPD 3.29
 由于目前得到的embedding后的图片和文本的维度不同([576,4096] v.s. [50,4096]), 希望得到统一维度后再进行cosine similarity的计算。
@@ -64,9 +72,7 @@ TODO:
 2. 将emcode后的向量做平均得到句向量([1,4096])，再计算cosine similarity
 3. 看看能不能用CLIP直接得到一维向量
 
-### UPD 3.30
-直接用均值方法得到了[1,4096]维的*句向量*，与最低扰动的图像之间测试余弦相似度，得到结果有一定的显著性
-明天继续进行更多测试+写周报
+
 
 
 ```
