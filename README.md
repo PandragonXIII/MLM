@@ -56,6 +56,12 @@ TODO:
   * [x] 16扰动
   * [x] other
 
+### MEET 4.8
+- [ ] 测试clean图片经过降噪后的效果
+- [ ] 计算所有图片经过降噪后的embedding的结果
+- [ ] 看magnet
+- [ ] 可视化
+
 
 ### UPD 4.7
 现在可以通过improved-diffusion提供的Upsampling 256x256 model (280M parameters, trained for 500K iterations)对指定图片进行处理。直观上来说噪音没有减小，图像对比度增强。

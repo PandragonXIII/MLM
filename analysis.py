@@ -4,15 +4,15 @@ import pandas as pd
 
 ###################
 source_dir = "./src"
-img_save_filename = "image_embeddings_val.pt"
+img_save_filename = "image_+denoised_embeddings_val.pt"
 text1_save_filename = "harmbench_embeddings_val.pt"
 text2_save_filename = "benign_embeddings_val.pt"
 ###################
 
 # read the embedded files
-img_embed_list = torch.load(f"{source_dir}/embedding/{img_save_filename}.pt")
-malicious_text_embed_list = torch.load(f"{source_dir}/embedding/{text1_save_filename}.pt")
-benign_text_embed_list = torch.load(f"{source_dir}/embedding/{text2_save_filename}.pt")
+img_embed_list = torch.load(f"{source_dir}/embedding/{img_save_filename}")
+malicious_text_embed_list = torch.load(f"{source_dir}/embedding/{text1_save_filename}")
+benign_text_embed_list = torch.load(f"{source_dir}/embedding/{text2_save_filename}")
 
 # calculate cosine similarity
 def compute_cosine(a_vec , b_vec):
@@ -46,6 +46,7 @@ for image in os.listdir(f"{source_dir}/image"):
     pics.append(image.split(".")[0])
 
 def save_csv():
+    '''save text and corresponding cosine similarity'''    
     # get malicious text
     m_text = []
     with open(f"{source_dir}/text/harmbench_behaviors_text_val.csv", "r", encoding="utf-8") as f:
@@ -80,13 +81,19 @@ def save_csv():
         "adv-16": malicious_result[1].tolist() + benign_result[1].tolist(),
         "adv-32": malicious_result[2].tolist() + benign_result[2].tolist(),
         "adv-64": malicious_result[3].tolist() + benign_result[3].tolist(),
-        "adv-inf": malicious_result[4].tolist() + benign_result[4].tolist()
+        "adv-inf": malicious_result[4].tolist() + benign_result[4].tolist(),
     }
+    if malicious_result.shape[1]>5:
+        result_dict["clean-denoised"] = malicious_result[5].tolist() + benign_result[5].tolist()
+        result_dict["adv-16-denoised"] = malicious_result[6].tolist() + benign_result[6].tolist()
+        result_dict["adv-32-denoised"] = malicious_result[7].tolist() + benign_result[7].tolist()
+        result_dict["adv-64-denoised"] = malicious_result[8].tolist() + benign_result[8].tolist()
+        result_dict["adv-inf-denoised"] = malicious_result[9].tolist() + benign_result[9].tolist()
     # save the full result in csv
     result = pd.DataFrame(result_dict)
     result.to_csv(f"{source_dir}/analysis/cosine-similarity.csv", index=False)
 
-# save_csv()
+save_csv()
 
 # analysis
 
