@@ -1,9 +1,9 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 import pandas as pd
 import joypy
+import skimage
 
 def show_sampled_pic(path):
     # read the npz file and show the sampled images
@@ -27,8 +27,8 @@ def show_sampled_pic(path):
         plt.show()
 
 def img_to_array(path:str):
-    # convert image under the path dir to array and save them as one .npz file, 
-    # the image is arr_0 and label(388) is arr_1 
+    """ convert image under the path dir to array and save them as one .npz file, 
+     the image is arr_0 and label(388) is arr_1 """
     arr = np.array([])
     for image in os.listdir(path):
         if image.endswith((".jpeg")):
@@ -50,7 +50,6 @@ def array_to_img(path:str):
         name = path.split("\\")[-1].split("/")[-1].split(".")[0]
         plt.imsave(f"E:\\research\\MLLM\\src\\image\\denoised\\{name}_{i}.bmp", samples[i])
     return
-
 
 def cos_sim_distribution(path:str):
     '''input: cosine similarity csv file 
@@ -96,9 +95,41 @@ def cos_sim_distribution(path:str):
     plt.savefig(".\\src\\results\\cos_sim_of_sep_text.png")
     return
 
+def add_gaussian_noise(path:str, savepath:str, var=0.01, times=1):
+    '''add gaussian noise to the image, 
+    return the output path'''
+    img = skimage.io.imread(path)
+    for _ in range(times):
+        img = skimage.util.random_noise(img, mode='gaussian', var=var)
+    img = skimage.util.img_as_ubyte(img)
+    skimage.io.imsave(savepath, img)
+    return
+
+def denoise(path:str, savepath:str):
+    """filter with sklearn Total variation filter"""
+    img = skimage.io.imread(path)
+    denoised = skimage.restoration.denoise_tv_chambolle(img, weight=0.1)
+    denoised = skimage.util.img_as_ubyte(denoised)
+    skimage.io.imsave(savepath, denoised)
+    return
+
 if __name__ == "__main__":
     # img_to_array(".\\src\\image")
     # show_sampled_pic("src\image\prompt_constrained_16.npz")
     # show_sampled_pic("src\samples\samples_1x256x256x3_pandas16.npz")
     # array_to_img("src\samples\samples_4x256x256x3.npz")
-    cos_sim_distribution(".\\src\\analysis\\cosine_similarity.csv")
+    # cos_sim_distribution(".\\src\\analysis\\cosine_similarity.csv")
+    noise = ".\\src\\image\\clean.jpeg"
+    plt.imshow(skimage.io.imread(noise))
+    for j in range(1,8,3):
+        new_path = f".\\src\\image\\clean_noise\\{j}.bmp"
+        add_gaussian_noise(noise,new_path, var=0.01,times=j)
+        plt.imshow(skimage.io.imread(new_path))
+        plt.show()
+        # denoise the noised image
+        denoised_path = f".\\src\\image\\clean_noise\\{j}_filtered.bmp"
+        denoise(new_path, denoised_path)
+        plt.imshow(skimage.io.imread(denoised_path))
+        plt.show()
+
+    img_to_array("./src/image/clean_noise")
