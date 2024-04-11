@@ -95,22 +95,44 @@ def cos_sim_distribution(path:str):
     plt.savefig(".\\src\\results\\cos_sim_of_sep_text.png")
     return
 
-def add_gaussian_noise(path:str, savepath:str, var=0.01, times=1):
+def add_gaussian_noise(fpath:str, savepath:str, var=0.01, times=1):
     '''add gaussian noise to the image, 
-    return the output path'''
-    img = skimage.io.imread(path)
+    '''
+    img = skimage.io.imread(fpath)
     for _ in range(times):
         img = skimage.util.random_noise(img, mode='gaussian', var=var)
     img = skimage.util.img_as_ubyte(img)
     skimage.io.imsave(savepath, img)
     return
 
-def denoise(path:str, savepath:str):
+def denoise(fpath:str, savepath:str,w=0.1):
     """filter with sklearn Total variation filter"""
-    img = skimage.io.imread(path)
-    denoised = skimage.restoration.denoise_tv_chambolle(img, weight=0.1)
+    img = skimage.io.imread(fpath)
+    denoised = skimage.restoration.denoise_tv_chambolle(img, weight=w)
     denoised = skimage.util.img_as_ubyte(denoised)
     skimage.io.imsave(savepath, denoised)
+    return
+
+def robustness_test(fpath:str, save:str, var=0.01, times=1):
+    '''add gaussian noise to the image, and filter it with TV filter
+    '''
+    add_gaussian_noise(fpath, save, var, times)
+    denoise(save, save)
+    return
+
+def batch_process(func, dir:str, save_dir=None, **kwargs):
+    '''batch process the images in the dir with the function
+    save in a sub dir "processed" by default
+    '''
+    if save_dir==None:
+        save_dir = dir + "\\processed"
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    
+    for image in os.listdir(dir):
+        if image.endswith((".jpeg",".bmp")):
+            save_path = save_dir + "\\" + image
+            func(dir + "\\" + image, save_path, **kwargs)
     return
 
 if __name__ == "__main__":
@@ -119,17 +141,20 @@ if __name__ == "__main__":
     # show_sampled_pic("src\samples\samples_1x256x256x3_pandas16.npz")
     # array_to_img("src\samples\samples_4x256x256x3.npz")
     # cos_sim_distribution(".\\src\\analysis\\cosine_similarity.csv")
-    noise = ".\\src\\image\\clean.jpeg"
-    plt.imshow(skimage.io.imread(noise))
-    for j in range(1,8,3):
-        new_path = f".\\src\\image\\clean_noise\\{j}.bmp"
-        add_gaussian_noise(noise,new_path, var=0.01,times=j)
-        plt.imshow(skimage.io.imread(new_path))
-        plt.show()
-        # denoise the noised image
-        denoised_path = f".\\src\\image\\clean_noise\\{j}_filtered.bmp"
-        denoise(new_path, denoised_path)
-        plt.imshow(skimage.io.imread(denoised_path))
-        plt.show()
+    # #############
+    # noise = ".\\src\\image\\clean.jpeg"
+    # plt.imshow(skimage.io.imread(noise))
+    # for j in range(1,8,3):
+    #     new_path = f".\\src\\image\\clean_noise\\{j}.bmp"
+    #     add_gaussian_noise(noise,new_path, var=0.01,times=j)
+    #     plt.imshow(skimage.io.imread(new_path))
+    #     plt.show()
+    #     # denoise the noised image
+    #     denoised_path = f".\\src\\image\\clean_noise\\{j}_filtered.bmp"
+    #     denoise(new_path, denoised_path)
+    #     plt.imshow(skimage.io.imread(denoised_path))
+    #     plt.show()
 
-    img_to_array("./src/image/clean_noise")
+    # img_to_array("./src/image/clean_noise")
+    # ##############
+    cos_sim_distribution("./src/analysis/image+noise+filter_embeddings_valcosine-similarity.csv")

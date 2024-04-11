@@ -4,13 +4,14 @@ import pandas as pd
 
 ###################
 source_dir = "./src"
-img_save_filename = "image_+denoised_embeddings_val.pt"
+img_save_filename = "image+noise+filter_embeddings_val.pt"
 text1_save_filename = "harmbench_embeddings_val.pt"
 text2_save_filename = "benign_embeddings_val.pt"
+pic_labels = ["clean", "adv-16-filter", "adv-32-f", "adv-64-f", "adv-inf-f"]
 ###################
 
 # read the embedded files
-img_embed_list = torch.load(f"{source_dir}/embedding/{img_save_filename}")
+img_embed_list = torch.load(f"{source_dir}/embedding/{img_save_filename}", map_location=torch.device('cuda:0'))
 malicious_text_embed_list = torch.load(f"{source_dir}/embedding/{text1_save_filename}")
 benign_text_embed_list = torch.load(f"{source_dir}/embedding/{text2_save_filename}")
 
@@ -41,9 +42,6 @@ for i in range(len(img_embed_list)):
         cos_sim = compute_cosine(img_embed, text_embed)
         benign_result[i, j] = cos_sim
 
-pics = []
-for image in os.listdir(f"{source_dir}/image"):
-    pics.append(image.split(".")[0])
 
 def save_csv():
     '''save text and corresponding cosine similarity'''    
@@ -77,21 +75,26 @@ def save_csv():
 
     result_dict = {
         "text": m_text + b_text,
-        "clean": malicious_result[0].tolist() + benign_result[0].tolist(),
-        "adv-16": malicious_result[1].tolist() + benign_result[1].tolist(),
-        "adv-32": malicious_result[2].tolist() + benign_result[2].tolist(),
-        "adv-64": malicious_result[3].tolist() + benign_result[3].tolist(),
-        "adv-inf": malicious_result[4].tolist() + benign_result[4].tolist(),
+        # "clean": malicious_result[0].tolist() + benign_result[0].tolist(),
+        # "adv-16": malicious_result[1].tolist() + benign_result[1].tolist(),
+        # "adv-32": malicious_result[2].tolist() + benign_result[2].tolist(),
+        # "adv-64": malicious_result[3].tolist() + benign_result[3].tolist(),
+        # "adv-inf": malicious_result[4].tolist() + benign_result[4].tolist(),
     }
-    if malicious_result.shape[1]>5:
-        result_dict["clean-denoised"] = malicious_result[5].tolist() + benign_result[5].tolist()
-        result_dict["adv-16-denoised"] = malicious_result[6].tolist() + benign_result[6].tolist()
-        result_dict["adv-32-denoised"] = malicious_result[7].tolist() + benign_result[7].tolist()
-        result_dict["adv-64-denoised"] = malicious_result[8].tolist() + benign_result[8].tolist()
-        result_dict["adv-inf-denoised"] = malicious_result[9].tolist() + benign_result[9].tolist()
+    for i in range(len(pic_labels)):
+        result_dict[pic_labels[i]] = malicious_result[i].tolist() + \
+            benign_result[i].tolist()
+
+    # if malicious_result.shape[0]>5:
+    #     result_dict["clean-denoised"] = malicious_result[5].tolist() + benign_result[5].tolist()
+    #     result_dict["adv-16-denoised"] = malicious_result[6].tolist() + benign_result[6].tolist()
+    #     result_dict["adv-32-denoised"] = malicious_result[7].tolist() + benign_result[7].tolist()
+    #     result_dict["adv-64-denoised"] = malicious_result[8].tolist() + benign_result[8].tolist()
+    #     result_dict["adv-inf-denoised"] = malicious_result[9].tolist() + benign_result[9].tolist()
+    
     # save the full result in csv
     result = pd.DataFrame(result_dict)
-    result.to_csv(f"{source_dir}/analysis/cosine-similarity.csv", index=False)
+    result.to_csv(f"{source_dir}/analysis/{img_save_filename.split('.')[0]}_cosine-similarity.csv", index=False)
 
 save_csv()
 
@@ -118,7 +121,7 @@ from matplotlib import ticker
 
 # 热力图效果不好，同一个问题对应不同图片差距较小
 
-"""# 两类text分别与所有img的cosine similarity均值和标准差
+# 两类text分别与所有img的cosine similarity均值和标准差
 malicious_avg = np.mean(malicious_result, axis=1)
 mailcious_std = np.std(malicious_result, axis=1)
 benign_avg = np.mean(benign_result, axis=1)
@@ -126,24 +129,23 @@ benign_std = np.std(benign_result, axis=1)
 print("malicious_avg:{}\tmailcious_std:{}\nbenign_avg:{}\tbenign_std{}".format(
     malicious_avg, mailcious_std, benign_avg, benign_std
 ))
-"""
 
-"""# 对同一图片的结果求平均画图(分为malicious & benign两类)
 
-# plt.errorbar(pics, malicious_avg, mailcious_std, fmt='o', label='malicious', alpha=0.5)
-# plt.errorbar(pics, benign_avg, benign_std, fmt='x', label='benign', alpha=0.5)
-# plt.legend(loc = 'upper left')
-# plt.xticks(rotation=45)
+# 对同一图片的结果求平均画图(分为malicious & benign两类)
 
-# # 加入另一坐标轴画出两者差值相对值
-# clean_diff = benign_avg[0]-malicious_avg[0]
-# plt.twinx()
-# plt.plot(pics, benign_avg-malicious_avg, 'r', label='benign-malicious', alpha=0.5)
-# plt.gca().yaxis.set_major_formatter(ticker.PercentFormatter(xmax=clean_diff))
-# plt.legend()
-# plt.xticks(rotation=30)
-# plt.title("cosine similarity between image and text")
+plt.errorbar(pic_labels, malicious_avg, mailcious_std, fmt='o', label='malicious', alpha=0.5)
+plt.errorbar(pic_labels, benign_avg, benign_std, fmt='x', label='benign', alpha=0.5)
+plt.legend(loc = 'upper left')
+plt.xticks(rotation=45)
 
-# plt.tight_layout()
-# plt.savefig(f"{source_dir}/different-pic-result.png")
-"""
+# 加入另一坐标轴画出两者差值相对值
+clean_diff = benign_avg[0]-malicious_avg[0]
+plt.twinx()
+plt.plot(pic_labels, benign_avg-malicious_avg, 'r', label='benign-malicious', alpha=0.5)
+plt.gca().yaxis.set_major_formatter(ticker.PercentFormatter(xmax=clean_diff))
+plt.legend()
+plt.xticks(rotation=30)
+plt.title("cosine similarity between image and text")
+
+plt.tight_layout()
+plt.savefig(f"{source_dir}/different-pic-result.png")
