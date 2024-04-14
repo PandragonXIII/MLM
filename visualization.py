@@ -71,7 +71,7 @@ if __name__ == "__main__":
     for i in range(5):
         single_type_text_line(malicious.iloc[:,[j for j in range(i*8,i*8+8)]+[-1]], ax)
     plt.tight_layout()
-    plt.savefig(f"./src/results/malicious_text_line.png")
+    plt.savefig(f"./src/results/malicious_text_denoise_line.png")
     # plt.show()
 
 
