@@ -84,14 +84,6 @@ TODO:
 </details>
 
 
-```
-发生异常: RuntimeError
-Parent directory /home/xuyue/QXYtemp/src/embedding does not exist.
-  File "/home/xuyue/QXYtemp/get_embed.py", line 72, in <module>
-    torch.save(img_embed_list, f"{source_dir}/embedding/{img_save_filename}.pt")
-RuntimeError: Parent directory /home/xuyue/QXYtemp/src/embedding does not exist.
-```
-
 ### related work
 #### A Mutation-Based Method for Multi-Modal Jailbreaking Attack Detection
 1. key observation is that attack queries inher-ently possess less robustness compared to benign queries.
