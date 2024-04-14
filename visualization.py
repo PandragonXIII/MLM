@@ -41,7 +41,7 @@ def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     input: 
         df: cosine similarity dataframe 
             rows: text(**only one type**)
-            cols: image
+            cols: images
         ax: matplotlib axis
     output: plot
     '''
@@ -60,18 +60,19 @@ def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     ax.set_ylabel("cosine similarity")
     ax.legend()
 
-f = "E:\\research\\MLLM\\src\\analysis\\similarity_matrix.csv"
-df = pd.read_csv(f)
-# print(df.columns)
+if __name__ == "__main__":
+    f = "E:\\research\\MLLM\\src\\analysis\\similarity_matrix.csv"
+    df = pd.read_csv(f)
+    # print(df.columns)
 
-# plot malicious text vs all images in one plot
-malicious = df[df["is_malicious"]==1]
-fig,ax = plt.subplots(1,1, figsize=(20,10))
-for i in range(4):
-    single_type_text_line(malicious.iloc[:,[j for j in range(i*8,i*8+8)]+[-1]], ax)
-plt.tight_layout()
-plt.savefig(f"./src/results/malicious_text_line.png")
-# plt.show()
+    # plot malicious text vs all images in one plot
+    malicious = df[df["is_malicious"]==1]
+    fig,ax = plt.subplots(1,1, figsize=(20,10))
+    for i in range(5):
+        single_type_text_line(malicious.iloc[:,[j for j in range(i*8,i*8+8)]+[-1]], ax)
+    plt.tight_layout()
+    plt.savefig(f"./src/results/malicious_text_line.png")
+    # plt.show()
 
 
 # # group images by different constrained value(16,32,64, unconstrained)
