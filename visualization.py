@@ -99,15 +99,18 @@ if __name__ == "__main__":
     df = pd.read_csv(f)
     # print(df.columns)
     IMAGE_NUM = 5
-    DENOISE_TIMES = 20 #(0,550,50)
+    DENOISE_TIMES = 1000 #(0,550,50)
+    STEP = 50
+    CHECKPOINT_NUM = DENOISE_TIMES//STEP
+    PLOT_X_NUM = 9
 
     # plot malicious text vs all images in one plot
     data = df[df["is_malicious"]==1]
     fig,ax = plt.subplots(1,1, figsize=(20,10))
     for i in range(IMAGE_NUM):
-        single_type_text_line(data.iloc[:,[j for j in range(i*DENOISE_TIMES,(i+1)*DENOISE_TIMES)]+[-1]], ax)
+        single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
     plt.tight_layout()
-    plt.savefig(f"/data1/qxy/MLM/src/results/malicious_text_denoise500_line.png")
+    plt.savefig(f"/data1/qxy/MLM/src/results/malicious_text_denoise{PLOT_X_NUM*STEP}_line.png")
     # plt.show()
 
 
