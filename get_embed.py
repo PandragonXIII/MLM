@@ -12,7 +12,7 @@ import os, csv
 import numpy as np
 
 MODEL_PATH = "/data1/qxy/models/llava-1.5-7b-hf"
-DEVICE = "cuda:1"
+DEVICE = "cuda:0"
 
 model = AutoModelForPreTraining.from_pretrained(
     MODEL_PATH, torch_dtype=torch.float16, low_cpu_mem_usage=True)
@@ -51,8 +51,9 @@ def get_text_embedding(text: str):
     return input_embeds
 
 ###################
-source_dir = "/data1/qxy/src"
-image_dir = "/data1/qxy/src/image/denoised"
+source_dir = "/data1/qxy/MLM/src"
+image_dir = "/data1/qxy/MLM/src/image/denoised"
+cosine_filename = "similarity_matrix_validation.csv"
 text_malicious_file = "harmbench_behaviors_text_val.csv"
 text_benign_file = "first_lines_of_MMLU.csv"
 img_save_filename = "image+noise+filter_embeddings_val.pt"
@@ -148,9 +149,9 @@ img_names.append("is_malicious")
 tot = np.concatenate((malicious_result, benign_result), axis=0)
 print(tot.shape)
 # save the full similarity matrix as csv
-np.savetxt(f"{source_dir}/cos-sim/similarity_matrix.csv", tot, delimiter=",",
+np.savetxt(f"{source_dir}/analysis/{cosine_filename}", tot, delimiter=",",
             header=",".join(img_names))
-print(f"csv file saved at: {source_dir}/cos-sim/similarity_matrix.csv")
+print(f"csv file saved at: {source_dir}/analysis/{cosine_filename}")
 
 # analysis
 avg1 = np.mean(malicious_result.flatten())

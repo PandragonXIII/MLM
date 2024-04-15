@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.axes
 import matplotlib.pyplot as plt
 from matplotlib import ticker
+import seaborn as sns
 
 
 
@@ -45,8 +46,39 @@ def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
         ax: matplotlib axis
     output: plot
     '''
-    # calculate mean
-    df = df.groupby("is_malicious").mean()
+    # drop is_malicious column
+    df = df.drop(columns=["is_malicious"])
+    # use undenoised img name as legend
+    line_name = "_".join(df.columns[0].split("_")[:-2])
+    c = df.columns[:]
+    xticks = [] # use denoise times as xticks
+    for x in c:
+        xticks.append("_".join(x.split("_")[-2:]))
+    # change df column names to match other images result
+    df.columns = xticks
+    # plot line
+    # ax.plot(xticks, df = df.groupby("is_malicious").mean().iloc[0,:],label=line_name)
+    sns.lineplot(data=df.melt(var_name="denoise_times",value_name="cos_sim"), ax=ax,
+                 x="denoise_times",y="cos_sim",label=line_name, dashes=False, markers=True, errorbar=('se'))
+
+    ax.xaxis.set_tick_params(rotation=30)
+    ax.set_xlabel("denoise times")
+    ax.set_ylabel("cosine similarity")
+    ax.legend()
+    ax.set_title("malicious text vs denoised images(standard error)")
+
+
+def all_line_with_error(df:pd.DataFrame, ax:matplotlib.axes.Axes):
+    '''
+    input: 
+        df: cosine similarity dataframe 
+            rows: text(**only one type**)
+            cols: images(from different origin image)
+        ax: matplotlib axis
+    output: plot
+    '''
+    # drop is_malicious column
+    df = df.drop(columns=["is_malicious"])
     # use undenoised img name as legend
     line_name = "_".join(df.columns[0].split("_")[:-2])
     c = df.columns[:]
@@ -54,24 +86,28 @@ def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     for x in c:
         xticks.append("_".join(x.split("_")[-2:]))
     # plot line
-    ax.plot(xticks, df.iloc[0,:],label=line_name)
+    # ax.plot(xticks, df = df.groupby("is_malicious").mean().iloc[0,:],label=line_name)
+    sns.lineplot(data=df, ax=ax, dashes=False, markers=True, legend="full")
+
     ax.xaxis.set_tick_params(rotation=30)
     ax.set_xlabel("image")
     ax.set_ylabel("cosine similarity")
     ax.legend()
 
 if __name__ == "__main__":
-    f = "E:\\research\\MLLM\\src\\analysis\\similarity_matrix.csv"
+    f = "/data1/qxy/MLM/src/analysis/similarity_matrix_validation.csv"
     df = pd.read_csv(f)
     # print(df.columns)
+    IMAGE_NUM = 5
+    DENOISE_TIMES = 20 #(0,550,50)
 
     # plot malicious text vs all images in one plot
-    malicious = df[df["is_malicious"]==1]
+    data = df[df["is_malicious"]==1]
     fig,ax = plt.subplots(1,1, figsize=(20,10))
-    for i in range(5):
-        single_type_text_line(malicious.iloc[:,[j for j in range(i*8,i*8+8)]+[-1]], ax)
+    for i in range(IMAGE_NUM):
+        single_type_text_line(data.iloc[:,[j for j in range(i*DENOISE_TIMES,(i+1)*DENOISE_TIMES)]+[-1]], ax)
     plt.tight_layout()
-    plt.savefig(f"./src/results/malicious_text_denoise_line.png")
+    plt.savefig(f"/data1/qxy/MLM/src/results/malicious_text_denoise500_line.png")
     # plt.show()
 
 
