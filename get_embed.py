@@ -12,7 +12,7 @@ import os, csv
 import numpy as np
 
 MODEL_PATH = "/data1/qxy/models/llava-1.5-7b-hf"
-DEVICE = "cuda:0"
+DEVICE = "cuda:1"
 
 model = AutoModelForPreTraining.from_pretrained(
     MODEL_PATH, torch_dtype=torch.float16, low_cpu_mem_usage=True)
@@ -36,7 +36,7 @@ def get_img_embedding(image_path):
     image_features = model.multi_modal_projector(selected_image_feature)
     # calculate average to compress the 2th dimension
     image_features = torch.mean(image_features, dim=1).detach().to("cpu")
-    pixel_value, image_outputs, selected_image_feature = None,None,None
+    del pixel_value, image_outputs, selected_image_feature
     # model.to("cpu")
     torch.cuda.empty_cache()
     return image_features
@@ -46,8 +46,8 @@ def get_text_embedding(text: str):
     input_embeds = model.get_input_embeddings()(input_ids)
     # calculate average to get shape[1, 4096]
     input_embeds = torch.mean(input_embeds, dim=1).detach().to("cpu")
-    # torch.cuda.empty_cache()
-    # input_ids = None
+    del input_ids
+    torch.cuda.empty_cache()
     return input_embeds
 
 ###################
@@ -63,7 +63,9 @@ text2_save_filename = "benign_embeddings_val.pt"
 # generate embeddings for images
 img_embed_list = []
 img_names = []
-for img in os.listdir(image_dir):
+dir1 = os.listdir(image_dir)
+dir1.sort()
+for img in dir1:
     ret = get_img_embedding(f"{image_dir}/{img}")
     img_embed_list.append(ret)
     img_names.append(os.path.splitext(img)[0])
@@ -148,6 +150,7 @@ print(tot.shape)
 # save the full similarity matrix as csv
 np.savetxt(f"{source_dir}/cos-sim/similarity_matrix.csv", tot, delimiter=",",
             header=",".join(img_names))
+print(f"csv file saved at: {source_dir}/cos-sim/similarity_matrix.csv")
 
 # analysis
 avg1 = np.mean(malicious_result.flatten())
