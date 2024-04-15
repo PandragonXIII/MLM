@@ -62,9 +62,12 @@ TODO:
 
 #### MEET 4.15
 - [ ] 可视化
-  - [ ] 原始clean v.s. adv图片的山峰图，突出重叠面积用以说明难以直接区分
   - [ ] 降噪后图片的方差区间图，并增加降噪次数观察趋势
-- [ ] 测试ASR
+  - [ ] ~~原始clean v.s. adv图片的山峰图，突出重叠面积用以说明难以直接区分~~
+- [ ] threshold
+- [ ] confusion matrix
+  - [ ] validation set
+  - [ ] test set
 
 #### MEET 4.8
 - [ ] 测试clean图片经过降噪后的效果
