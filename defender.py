@@ -68,12 +68,13 @@ if __name__ == "__main__":
     clean_data = df[clean_header]
 
     results = {
-        "threshold":[],
+        "data percentage":[],
         "constraint":[],
         "accuracy":[],
         "recall":[],
         "precision":[],
-        "f1":[]
+        "f1":[],
+        "classification threshold":[]
     }
     for threshold in [0.95, 0.975, 0.99, 0.995]:
         # train the defender on clean data and keep 95%
@@ -113,22 +114,23 @@ if __name__ == "__main__":
             f1 = 2*precision*recall/(precision+recall)
             # print(f"Adversarial group: {constraint_names[j]}")
             # print(f"Accuracy: {acc}, Recall: {recall}, Precision: {precision}, F1: {f1}")
-            results["threshold"].append(threshold)
+            results["data percentage"].append(threshold)
             results["constraint"].append(constraint_names[j])
             results["accuracy"].append(acc)
             results["recall"].append(recall)
             results["precision"].append(precision)
             results["f1"].append(f1)
+            results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
     results.to_csv("./src/analysis/defender_validation_results.csv", index=False)
     print("Results saved to ./src/analysis/defender_validation_results.csv")
     # print 4 tables separately
-    print("Threshold: 0.95")
-    print(results[results["threshold"]==0.95])
-    print("Threshold: 0.975")
-    print(results[results["threshold"]==0.975])
-    print("Threshold: 0.99")
-    print(results[results["threshold"]==0.99])
-    print("Threshold: 0.995")
-    print(results[results["threshold"]==0.995])
+    print("data percentage: 0.95")
+    print(results[results["data percentage"]==0.95])
+    print("data percentage: 0.975")
+    print(results[results["data percentage"]==0.975])
+    print("data percentage: 0.99")
+    print(results[results["data percentage"]==0.99])
+    print("data percentage: 0.995")
+    print(results[results["data percentage"]==0.995])
