@@ -141,5 +141,73 @@ def test_defender_on_validation_set():
     print("data percentage: 0.995")
     print(results[results["data percentage"]==0.995])
 
+def test_effect_on_clean_image():
+    """
+    test the defender with a new clean image(effect on performance) with malicious text
+    result only include accuracy
+    """
+    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
+    df = pd.read_csv(f)
+    # get the clean image data
+    clean_header = [col for col in df.columns if "clean_resized" in col]
+    if len(clean_header)>8:
+        clean_header = clean_header[:8]
+    clean_data = df[clean_header]
+
+    results = {
+        "data percentage":[],
+        "constraint":[],
+        "accuracy":[],
+        "classification threshold":[]
+    }
+    for threshold in [0.95, 0.975, 0.99, 0.995]:
+        # train the defender on clean data and keep 95%
+        d = Defender()
+        d.train(clean_data, threshold)
+
+        # test the defender on adversarial data
+        cleantest_header = [col for col in df.columns if "clean_test" in col]
+        # get data with denoise time leq than 350
+        adv_data = []
+        for adv_header in [cleantest_header]:
+            h_list=[]
+            for h in adv_header:
+                t = int(h.split("_")[-1].rstrip("times"))
+                if t <= 350:
+                    h_list.append(h)
+                else:
+                    break
+            # get adversarial data of 16, 32, 64 constraint and unconstrained
+            adv_data.append(df[h_list])
+
+        constraint_names = [
+            "clean test"
+        ]
+        # predict whether it is adversarial
+        for j in range(len(adv_data)):
+            adv_predict = d.predict(adv_data[j])
+            adv_predict = np.array(adv_predict)
+            fp = sum(adv_predict[:40])
+            acc = (40-fp)/40
+            # print(f"Adversarial group: {constraint_names[j]}")
+            # print(f"Accuracy: {acc}, Recall: {recall}, Precision: {precision}, F1: {f1}")
+            results["data percentage"].append(threshold)
+            results["constraint"].append(constraint_names[j])
+            results["accuracy"].append(acc)
+            results["classification threshold"].append(d.threshold)
+    # save the results
+    results = pd.DataFrame(results)
+    results.to_csv("MLM/src/analysis/defender_clean_test_results.csv", index=False)
+    print("Results saved to MLM/src/analysis/defender_clean_test_results.csv")
+    # print 4 tables separately
+    print("data percentage: 0.95")
+    print(results[results["data percentage"]==0.95])
+    print("data percentage: 0.975")
+    print(results[results["data percentage"]==0.975])
+    print("data percentage: 0.99")
+    print(results[results["data percentage"]==0.99])
+    print("data percentage: 0.995")
+    print(results[results["data percentage"]==0.995])
+
 if __name__ == "__main__":
-    test_defender_on_validation_set()
+    test_effect_on_clean_image()
