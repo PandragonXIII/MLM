@@ -210,4 +210,4 @@ def test_effect_on_clean_image():
     print(results[results["data percentage"]==0.995])
 
 if __name__ == "__main__":
-    test_effect_on_clean_image()
+    test_defender_on_validation_set()
