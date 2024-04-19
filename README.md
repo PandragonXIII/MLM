@@ -29,9 +29,10 @@
     ├── embedding #embedding结果(一般储存在服务器端，用处不大)
     ├── image
     │   ├── adversarial #原始对抗样本
-    │   ├── denoised #降噪后的图片(一般储存在服务器端)
+    │   ├── denoised #降噪后的图片
     │   ├── clean.jpeg #原始图片(400*400*3)
-    │   └── clean_resized.bmp #resize后的原始图片(224*224*3)
+    │   ├── clean_resized.bmp #resize后的原始图片(224*224*3)
+    │   └── clean_test.jpg # 用于测试的clean图片(224*224*3), 选自segment anything demo
     ├── results #可视化图表
     └── text #文本数据(malicious&benign)
 ```

@@ -58,7 +58,10 @@ class Defender():
             return ret
 
 import csv
-if __name__ == "__main__":
+def test_defender_on_validation_set():
+    """
+    test the defender on validation set and save the results
+    """
     f = "./src/analysis/similarity_matrix_validation.csv"
     df = pd.read_csv(f)
     # get the clean image data
@@ -134,3 +137,6 @@ if __name__ == "__main__":
     print(results[results["data percentage"]==0.99])
     print("data percentage: 0.995")
     print(results[results["data percentage"]==0.995])
+
+if __name__ == "__main__":
+    test_defender_on_validation_set()
