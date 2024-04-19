@@ -62,10 +62,10 @@ def test_defender_on_validation_set():
     """
     test the defender on validation set and save the results
     """
-    f = "./src/analysis/similarity_matrix_validation.csv"
+    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
     df = pd.read_csv(f)
     # get the clean image data
-    clean_header = [col for col in df.columns if "clean" in col]
+    clean_header = [col for col in df.columns if "clean_resized" in col]
     if len(clean_header)>8:
         clean_header = clean_header[:8]
     clean_data = df[clean_header]
@@ -89,19 +89,22 @@ def test_defender_on_validation_set():
         adv32_header = [col for col in df.columns if "prompt_constrained_32" in col]
         adv64_header = [col for col in df.columns if "prompt_constrained_64" in col]
         advucon_header = [col for col in df.columns if "prompt_unconstrained" in col]
+        cleantest_header = [col for col in df.columns if "clean_test" in col]
         # get data with denoise time leq than 350
         adv_data = []
-        for adv_header in [adv16_header, adv32_header, adv64_header, advucon_header]:
+        for adv_header in [adv16_header, adv32_header, adv64_header, advucon_header, cleantest_header]:
             h_list=[]
             for h in adv_header:
                 t = int(h.split("_")[-1].rstrip("times"))
                 if t <= 350:
                     h_list.append(h)
+                else:
+                    break
             # get adversarial data of 16, 32, 64 constraint and unconstrained
             adv_data.append(df[h_list])
 
         constraint_names = [
-            "16","32","64","unconstrainted"
+            "16","32","64","unconstrainted","clean test"
         ]
         # predict whether it is adversarial
         for j in range(len(adv_data)):
@@ -126,8 +129,8 @@ def test_defender_on_validation_set():
             results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
-    results.to_csv("./src/analysis/defender_validation_results.csv", index=False)
-    print("Results saved to ./src/analysis/defender_validation_results.csv")
+    results.to_csv("MLM/src/analysis/defender_clean_test_results.csv", index=False)
+    print("Results saved to MLM/src/analysis/defender_clean_test_results.csv")
     # print 4 tables separately
     print("data percentage: 0.95")
     print(results[results["data percentage"]==0.95])

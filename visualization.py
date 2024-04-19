@@ -18,7 +18,6 @@ def clustered_text_errorbar(df:pd.DataFrame, ax:matplotlib.axes.Axes):
             rows: text
             cols: image+"is_malicious"
         ax: matplotlib axis
-    output: plot
     '''
     # compress malicious(first 40 rows) and benign(last 40 rows) text to one row each
     df = df.groupby("is_malicious").mean()
@@ -95,10 +94,10 @@ def all_line_with_error(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     ax.legend()
 
 if __name__ == "__main__":
-    f = "/data1/qxy/MLM/src/analysis/similarity_matrix_validation.csv"
+    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
     df = pd.read_csv(f)
     # print(df.columns)
-    IMAGE_NUM = 5
+    IMAGE_NUM = 6
     DENOISE_TIMES = 1000 #(0,550,50)
     STEP = 50
     CHECKPOINT_NUM = DENOISE_TIMES//STEP
@@ -110,7 +109,7 @@ if __name__ == "__main__":
     for i in range(IMAGE_NUM):
         single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
     plt.tight_layout()
-    plt.savefig(f"/data1/qxy/MLM/src/results/malicious_text_denoise{PLOT_X_NUM*STEP}_line.png")
+    plt.savefig(f"MLM/src/results/malicious_text_denoise{PLOT_X_NUM*STEP}_line.png")
     # plt.show()
 
 

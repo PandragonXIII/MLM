@@ -11,7 +11,7 @@ from PIL import Image
 import os, csv
 import numpy as np
 
-MODEL_PATH = "/data1/qxy/models/llava-1.5-7b-hf"
+MODEL_PATH = "/home/xuyue/Model/llava-1.5-7b-hf"
 DEVICE = "cuda:0"
 
 model = AutoModelForPreTraining.from_pretrained(
@@ -51,12 +51,12 @@ def get_text_embedding(text: str):
     return input_embeds
 
 ###################
-source_dir = "/data1/qxy/MLM/src"
-image_dir = "/data1/qxy/MLM/src/image/denoised"
-cosine_filename = "similarity_matrix_validation.csv"
+source_dir = "MLM/src"
+image_dir = "MLM/src/image/denoised"
+cosine_filename = "similarity_matrix_clean_test.csv"
 text_malicious_file = "harmbench_behaviors_text_val.csv"
 text_benign_file = "first_lines_of_MMLU.csv"
-img_save_filename = "image+noise+filter_embeddings_val.pt"
+img_save_filename = "img_embedding_temp.pt"
 text1_save_filename = "harmbench_embeddings_val.pt"
 text2_save_filename = "benign_embeddings_val.pt"
 ###################
