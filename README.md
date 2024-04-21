@@ -35,6 +35,8 @@
     │   └── clean_test.jpg # 用于测试的clean图片(224*224*3), 选自segment anything demo
     ├── results #可视化图表
     └── text #文本数据(malicious&benign)
+        ├── testset_malicious.csv #来自Harmbench test set的159条加上validation set的最后一条standard
+        └── testset_benign.csv #MMLU data set, evenly extract the first several lines.
 ```
 
 

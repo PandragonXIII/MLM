@@ -36,13 +36,14 @@ def clustered_text_errorbar(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     # ax2.set_ylabel("relative difference")
     return
 
-def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
+def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes, errorbar=None):
     '''
     input: 
         df: cosine similarity dataframe 
             rows: text(**only one type**)
             cols: images
         ax: matplotlib axis
+        errorbar: may use ('se') or None or other
     output: plot
     '''
     # drop is_malicious column
@@ -58,7 +59,7 @@ def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     # plot line
     # ax.plot(xticks, df = df.groupby("is_malicious").mean().iloc[0,:],label=line_name)
     sns.lineplot(data=df.melt(var_name="denoise_times",value_name="cos_sim"), ax=ax,
-                 x="denoise_times",y="cos_sim",label=line_name, dashes=False, markers=True, errorbar=('se'))
+                 x="denoise_times",y="cos_sim",label=line_name, dashes=False, markers=True, errorbar=errorbar)
 
     ax.xaxis.set_tick_params(rotation=30)
     ax.set_xlabel("denoise times")
@@ -94,14 +95,14 @@ def all_line_with_error(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     ax.legend()
 
 if __name__ == "__main__":
-    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
+    f = "MLM/src/analysis/similarity_matrix_test.csv"
     df = pd.read_csv(f)
     # print(df.columns)
     IMAGE_NUM = 6
-    DENOISE_TIMES = 1000 #(0,550,50)
+    MAX_DENOISE_TIMES = 350 #(0,550,50)
     STEP = 50
-    CHECKPOINT_NUM = DENOISE_TIMES//STEP
-    PLOT_X_NUM = 9
+    CHECKPOINT_NUM = MAX_DENOISE_TIMES//STEP +1
+    PLOT_X_NUM = 8
 
     # plot malicious text vs all images in one plot
     data = df[df["is_malicious"]==1]
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     for i in range(IMAGE_NUM):
         single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
     plt.tight_layout()
-    plt.savefig(f"MLM/src/results/malicious_text_denoise{PLOT_X_NUM*STEP}_line.png")
+    plt.savefig(f"MLM/src/results/malicious_text_TestSetImg_line.png")
     # plt.show()
 
 

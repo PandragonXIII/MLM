@@ -53,12 +53,12 @@ def get_text_embedding(text: str):
 ###################
 source_dir = "MLM/src"
 image_dir = "MLM/src/image/denoised"
-cosine_filename = "similarity_matrix_clean_test.csv"
-text_malicious_file = "harmbench_behaviors_text_val.csv"
-text_benign_file = "first_lines_of_MMLU.csv"
+cosine_filename = "similarity_matrix_test.csv"
+text_malicious_file = "testset_malicious.csv"
+text_benign_file = "testset_benign.csv"
 img_save_filename = "img_embedding_temp.pt"
-text1_save_filename = "harmbench_embeddings_val.pt"
-text2_save_filename = "benign_embeddings_val.pt"
+text1_save_filename = "harmbench_embeddings_test.pt"
+text2_save_filename = "benign_embeddings_test.pt"
 ###################
 
 # generate embeddings for images
@@ -67,6 +67,8 @@ img_names = []
 dir1 = os.listdir(image_dir)
 dir1.sort()
 for img in dir1:
+    if int(img.split("_")[-1].rstrip("times.bmp"))>350: # only keep the images denoised less than 350
+        continue
     ret = get_img_embedding(f"{image_dir}/{img}")
     img_embed_list.append(ret)
     img_names.append(os.path.splitext(img)[0])
