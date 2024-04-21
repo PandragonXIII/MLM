@@ -51,49 +51,6 @@ def array_to_img(path:str):
         plt.imsave(f"E:\\research\\MLLM\\src\\image\\denoised\\{name}_{i}.bmp", samples[i])
     return
 
-def cos_sim_distribution(path:str):
-    '''input: cosine similarity csv file 
-            rows: text
-            cols: image
-        output: None
-        save the visualization of the cosine similarity distribution
-    '''
-    # read the csv file
-    df = pd.read_csv(path)
-    df.drop(["text"],inplace=True, axis=1)
-    print(f"shape: {df.shape}")
-
-    pic_types = df.columns
-
-    # plot the distribution, x-axis: cossim, y-axis: frequency
-    nplot = df.shape[1]
-    # Draw Plot
-    fig, axes = joypy.joyplot(df,
-                            colormap=plt.cm.get_cmap("Spectral", nplot),
-                            figsize=(10, 6))
-    # plt.show()
-    plt.savefig(".\\src\\results\\cos_sim_of_mix_text.png")
-
-    # create a new dataframe with columns: adversarial, benign, pic_type
-    # and the value is the cosine similarity, with the corresponding type
-    df2 = pd.DataFrame(columns=["adversarial", "benign", "pic_type"])
-    for i in range(df.shape[1]):
-        adversarial = df.iloc[:40,i]
-        benign = df.iloc[40:,i].reset_index(drop=True)
-        # get a 40 row , 2 col dataframe
-        temp = pd.DataFrame({"adversarial":adversarial, "benign":benign, "pic_type":[pic_types[i]]*40})
-        df2 = pd.concat([df2, temp])
-    # Draw Plot
-    plt.figure(figsize=(16,10), dpi= 80)
-    fig, axes = joypy.joyplot(df2,
-                            by="pic_type",
-                            column=['adversarial', 'benign'],
-                            colormap=plt.cm.get_cmap("Spectral", nplot),
-                            figsize=(10, 6))
-    
-    # plt.show()
-    plt.savefig(".\\src\\results\\cos_sim_of_sep_text.png")
-    return
 
 def add_gaussian_noise(fpath:str, savepath:str, var=0.01, times=1):
     '''add gaussian noise to the image, 
