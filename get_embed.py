@@ -59,6 +59,7 @@ text_benign_file = "testset_benign.csv"
 img_save_filename = "img_embedding_temp.pt"
 text1_save_filename = "harmbench_embeddings_test.pt"
 text2_save_filename = "benign_embeddings_test.pt"
+CONSTRAINT_LIMIT = 350
 ###################
 
 # generate embeddings for images
@@ -67,7 +68,7 @@ img_names = []
 dir1 = os.listdir(image_dir)
 dir1.sort()
 for img in dir1:
-    if int(img.split("_")[-1].rstrip("times.bmp"))>350: # only keep the images denoised less than 350
+    if int(img.split("_")[-1].rstrip("times.bmp"))>CONSTRAINT_LIMIT: # only keep the images denoised less than 350
         continue
     ret = get_img_embedding(f"{image_dir}/{img}")
     img_embed_list.append(ret)
