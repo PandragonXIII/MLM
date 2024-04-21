@@ -25,7 +25,8 @@
 ├── analysis.py #计算cos-sim并可视化(已弃用)
 ├── visualize.py #可视化(需要.csv文件)
 └── src
-    ├── analysis #各类方法得到的cosine similarity结果
+    ├── intermediate-data #各类方法得到的cosine similarity结果
+    ├── analysis #测试detector的统计数据
     ├── embedding #embedding结果(一般储存在服务器端，用处不大)
     ├── image
     │   ├── adversarial #原始对抗样本

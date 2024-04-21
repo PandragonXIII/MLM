@@ -151,9 +151,9 @@ img_names.append("is_malicious")
 tot = np.concatenate((malicious_result, benign_result), axis=0)
 print(tot.shape)
 # save the full similarity matrix as csv
-np.savetxt(f"{source_dir}/analysis/{cosine_filename}", tot, delimiter=",",
+np.savetxt(f"{source_dir}/intermediate-data/{cosine_filename}", tot, delimiter=",",
             header=",".join(img_names))
-print(f"csv file saved at: {source_dir}/analysis/{cosine_filename}")
+print(f"csv file saved at: {source_dir}/intermediate-data/{cosine_filename}")
 
 # analysis
 avg1 = np.mean(malicious_result.flatten())

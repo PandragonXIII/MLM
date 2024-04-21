@@ -94,7 +94,7 @@ def save_csv():
     
     # save the full result in csv
     result = pd.DataFrame(result_dict)
-    result.to_csv(f"{source_dir}/analysis/{img_save_filename.split('.')[0]}_cosine-similarity.csv", index=False)
+    result.to_csv(f"{source_dir}/intermediate-data/{img_save_filename.split('.')[0]}_cosine-similarity.csv", index=False)
 
 save_csv()
 

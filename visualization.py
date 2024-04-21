@@ -1,5 +1,5 @@
 """
-read cosine similarity data from `src/analysis/*.csv` and visualize it
+read cosine similarity data from `src/intermediate-data/*.csv` and visualize it
 """
 
 import os
@@ -95,7 +95,7 @@ def all_line_with_error(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     ax.legend()
 
 if __name__ == "__main__":
-    f = "MLM/src/analysis/similarity_matrix_test.csv"
+    f = "MLM/src/intermediate-data/similarity_matrix_test.csv"
     df = pd.read_csv(f)
     # print(df.columns)
     IMAGE_NUM = 6

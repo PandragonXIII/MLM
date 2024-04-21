@@ -62,7 +62,7 @@ def test_defender_on_validation_set():
     """
     test the defender on validation set and save the results
     """
-    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
+    f = "MLM/src/intermediate-data/similarity_matrix_clean_test.csv"
     df = pd.read_csv(f)
     # get the clean image data
     clean_header = [col for col in df.columns if "clean_resized" in col]
@@ -129,8 +129,9 @@ def test_defender_on_validation_set():
             results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
-    results.to_csv("MLM/src/analysis/defender_clean_test_results.csv", index=False)
-    print("Results saved to MLM/src/analysis/defender_clean_test_results.csv")
+    p = "MLM/src/analysis/defender_clean_test_results.csv"
+    results.to_csv(p, index=False)
+    print(f"Results saved to {p}")
     # print 4 tables separately
     print("data percentage: 0.95")
     print(results[results["data percentage"]==0.95])
@@ -146,7 +147,7 @@ def test_effect_on_clean_image():
     test the defender with a new clean image(effect on performance) with malicious text
     result only include accuracy
     """
-    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
+    f = "MLM/src/intermediate-data/similarity_matrix_clean_test.csv"
     df = pd.read_csv(f)
     # get the clean image data
     clean_header = [col for col in df.columns if "clean_resized" in col]
@@ -197,8 +198,9 @@ def test_effect_on_clean_image():
             results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
-    results.to_csv("MLM/src/analysis/defender_clean_test_results.csv", index=False)
-    print("Results saved to MLM/src/analysis/defender_clean_test_results.csv")
+    p = "MLM/src/analysis/defender_clean_test_results.csv"
+    results.to_csv(p, index=False)
+    print(f"Results saved to {p}")
     # print 4 tables separately
     print("data percentage: 0.95")
     print(results[results["data percentage"]==0.95])
@@ -215,7 +217,7 @@ def test_clean_vs_adversarial_on_malicious():
     to determin its performance (with malicious text input)
     true positive: adv, true negative: clean image
     """
-    f = "MLM/src/analysis/similarity_matrix_clean_test.csv"
+    f = "MLM/src/intermediate-data/similarity_matrix_clean_test.csv"
     df = pd.read_csv(f)
     df = df[df["is_malicious"]==1] # only test on malicious text
     # get the clean image data
@@ -282,8 +284,9 @@ def test_clean_vs_adversarial_on_malicious():
         results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
-    results.to_csv("MLM/src/analysis/defender_clean_test_results.csv", index=False)
-    print("Results saved to MLM/src/analysis/defender_clean_test_results.csv")
+    p="MLM/src/analysis/defender_clean_test_results.csv"
+    results.to_csv(p, index=False)
+    print(f"Results saved to {p}")
     # print 4 tables separately
     print("data percentage: 0.95")
     print(results[results["data percentage"]==0.95])
@@ -299,7 +302,7 @@ def test_defender_on_test_set():
     test the defender on test set and save the results
     """
     # get data from validation to train the model
-    f = "MLM/src/analysis/similarity_matrix_validation.csv"
+    f = "MLM/src/intermediate-data/similarity_matrix_validation.csv"
     train_df = pd.read_csv(f)
     # get the clean image data
     clean_header = [col for col in train_df.columns if "clean_resized" in col]
@@ -308,7 +311,7 @@ def test_defender_on_test_set():
     clean_data = train_df[clean_header]
 
     # read test data
-    f2 = "MLM/src/analysis/similarity_matrix_test.csv"
+    f2 = "MLM/src/intermediate-data/similarity_matrix_test.csv"
     df = pd.read_csv(f2)
 
     results = {
@@ -370,8 +373,9 @@ def test_defender_on_test_set():
             results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
-    results.to_csv("MLM/src/analysis/defender_TestSet_results.csv", index=False)
-    print("Results saved to MLM/src/analysis/defender_TestSet_results.csv")
+    p="MLM/src/analysis/defender_TestSet_results.csv"
+    results.to_csv(p, index=False)
+    print(f"Results saved to {p}")
     # print 4 tables separately
     print("data percentage: 0.95")
     print(results[results["data percentage"]==0.95])
@@ -389,7 +393,7 @@ def test_defender_on_malicious_test_set():
     true positive: adv image, true negative: clean image
     """
     # get data from validation to train the model
-    f = "MLM/src/analysis/similarity_matrix_validation.csv"
+    f = "MLM/src/intermediate-data/similarity_matrix_validation.csv"
     df = pd.read_csv(f)
     df = df[df["is_malicious"]==1] # only test on malicious text
     # get the clean image data
@@ -399,7 +403,7 @@ def test_defender_on_malicious_test_set():
     clean_data = df[clean_header]
 
     # read test data
-    f2 = "MLM/src/analysis/similarity_matrix_test.csv"
+    f2 = "MLM/src/intermediate-data/similarity_matrix_test.csv"
     df = pd.read_csv(f2)
 
     results = {
@@ -461,8 +465,9 @@ def test_defender_on_malicious_test_set():
         results["classification threshold"].append(d.threshold)
     # save the results
     results = pd.DataFrame(results)
-    results.to_csv("MLM/src/analysis/defender_TestSet_results.csv", index=False)
-    print("Results saved to MLM/src/analysis/defender_TestSet_results.csv")
+    p="MLM/src/analysis/defender_TestSet_results.csv"
+    results.to_csv(p, index=False)
+    print(f"Results saved to {p}")
     # print 4 tables separately
     print("data percentage: 0.95")
     print(results[results["data percentage"]==0.95])
