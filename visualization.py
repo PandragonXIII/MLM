@@ -8,6 +8,8 @@ import matplotlib.axes
 import matplotlib.pyplot as plt
 from matplotlib import ticker
 import seaborn as sns
+import numpy as np
+import joypy.joyplot
 
 
 
@@ -94,24 +96,53 @@ def all_line_with_error(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     ax.set_ylabel("cosine similarity")
     ax.legend()
 
-if __name__ == "__main__":
-    f = "MLM/src/intermediate-data/similarity_matrix_test.csv"
+def train_data_decline_line():
+    """
+    plot the decline value of cosine similarity between
+     origin clean image vs malicious text(40) """
+    f = "./src/intermediate-data/similarity_matrix_validation.csv"
     df = pd.read_csv(f)
-    # print(df.columns)
-    IMAGE_NUM = 6
-    MAX_DENOISE_TIMES = 350 #(0,550,50)
-    STEP = 50
-    CHECKPOINT_NUM = MAX_DENOISE_TIMES//STEP +1
-    PLOT_X_NUM = 8
+    df = df[df["is_malicious"]==1]
+    clean_heads = [col for col in df.columns if "clean_resized" in col]
+    clean_heads = clean_heads[:8]
+    raw_data = df[clean_heads]
+    ret=[]
+    for r in range(raw_data.shape[0]):
+                row = raw_data.iloc[r]
+                ret.extend(np.array(row[1:]) - row[0])
+    ret = pd.DataFrame(ret, columns=["Δ cosine similarity"])
 
-    # plot malicious text vs all images in one plot
-    data = df[df["is_malicious"]==1]
-    fig,ax = plt.subplots(1,1, figsize=(20,10))
-    for i in range(IMAGE_NUM):
-        single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
+    # plot with joyplot
+    fig, axes = joypy.joyplot(ret, figsize=(10, 6))
+
+    # draw a line on 90% percentile
+    for ax in axes:
+        ax.axvline(ret.quantile(0.99).values, color='r', linestyle='--')
+
     plt.tight_layout()
-    plt.savefig(f"MLM/src/results/malicious_text_TestSetImg_line.png")
-    # plt.show()
+    plt.savefig("./src/results/train_data_decline_distribution.png")
+    return
+
+
+if __name__ == "__main__":
+    train_data_decline_line()
+    # f = "MLM/src/intermediate-data/similarity_matrix_test.csv"
+    # df = pd.read_csv(f)
+    # # print(df.columns)
+    # IMAGE_NUM = 6
+    # MAX_DENOISE_TIMES = 350 #(0,550,50)
+    # STEP = 50
+    # CHECKPOINT_NUM = MAX_DENOISE_TIMES//STEP +1
+    # PLOT_X_NUM = 8
+
+    # # plot malicious text vs all images in one plot
+    # data = df[df["is_malicious"]==1]
+    # fig,ax = plt.subplots(1,1, figsize=(20,10))
+    # for i in range(IMAGE_NUM):
+    #     single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
+    # plt.tight_layout()
+    # plt.savefig(f"MLM/src/results/malicious_text_TestSetImg_line.png")
+    # # plt.show()
 
 
 # # group images by different constrained value(16,32,64, unconstrained)
