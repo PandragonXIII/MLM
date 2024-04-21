@@ -10,6 +10,7 @@ from matplotlib import ticker
 import seaborn as sns
 import numpy as np
 import joypy.joyplot
+import matplotlib.cm as cm
 
 
 
@@ -129,50 +130,32 @@ def cos_sim_distribution(path:str):
             cols: image
         output: None
         save the visualization(joyplot-mountain) of the cosine similarity distribution
-        grouping by image type
+        grouping by image type, on 250 iterations of denoise
         only consider malicious text
     '''
     # read the csv file
     df = pd.read_csv(path)
     df = df[df["is_malicious"]==1]
-    df = df.melt(id_vars=["is_malicious"], var_name="pic_type", value_name="cos_sim")
-    print(f"shape: {df.shape}")
-
-    pic_types = df.columns
+    col_names = [col for col in df.columns if "250" in col]
+    data = df[col_names]
+    # data = data.melt(var_name="pic_type", value_name="cos_sim")
+    print(f"shape: {data.shape}")
+    print(data.head())
 
     # plot the distribution, x-axis: cossim, y-axis: frequency
-    nplot = df.shape[1]
+    nplot = data.shape[1]
     # Draw Plot
-    fig, axes = joypy.joyplot(df,
-                            colormap=plt.cm.get_cmap("Spectral", nplot),
-                            figsize=(10, 6))
+    data["is_malicious"] = 1 # add a common column to group by(draw in one axis)
+    # set alpha=0.6 to show the overlapping
+    fig, axes = joypy.joyplot(data, by="is_malicious", column=col_names, 
+                              alpha=0.4, color=['#791E94','#58C9B9','#519D9E','#D1B6E1','#E8DDB5','#E2A9A1'])
     # plt.show()
-    plt.savefig(".\\src\\results\\cos_sim_of_mix_text.png")
-
-    # create a new dataframe with columns: adversarial, benign, pic_type
-    # and the value is the cosine similarity, with the corresponding type
-    df2 = pd.DataFrame(columns=["adversarial", "benign", "pic_type"])
-    for i in range(df.shape[1]):
-        adversarial = df.iloc[:40,i]
-        benign = df.iloc[40:,i].reset_index(drop=True)
-        # get a 40 row , 2 col dataframe
-        temp = pd.DataFrame({"adversarial":adversarial, "benign":benign, "pic_type":[pic_types[i]]*40})
-        df2 = pd.concat([df2, temp])
-    # Draw Plot
-    plt.figure(figsize=(16,10), dpi= 80)
-    fig, axes = joypy.joyplot(df2,
-                            by="pic_type",
-                            column=['adversarial', 'benign'],
-                            colormap=plt.cm.get_cmap("Spectral", nplot),
-                            figsize=(10, 6))
-    
-    # plt.show()
-    plt.savefig(".\\src\\results\\cos_sim_of_sep_text.png")
+    plt.savefig("./src/results/denoise250_cossim_distribution.png")
     return
 
 if __name__ == "__main__":
-    # cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv")
-    train_data_decline_line()
+    cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv")
+    # train_data_decline_line()
 
     # f = "MLM/src/intermediate-data/similarity_matrix_test.csv"
     # df = pd.read_csv(f)
