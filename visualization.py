@@ -136,19 +136,23 @@ def cos_sim_distribution(path:str):
     # read the csv file
     df = pd.read_csv(path)
     df = df[df["is_malicious"]==1]
-    col_names = [col for col in df.columns if "250" in col]
+    col_names = [col for col in df.columns if "250" in col and "clean_test" not in col]
     data = df[col_names]
+    # rename columns and throw the postfix "denoised_250times"
+    data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
     # data = data.melt(var_name="pic_type", value_name="cos_sim")
     print(f"shape: {data.shape}")
     print(data.head())
 
     # plot the distribution, x-axis: cossim, y-axis: frequency
-    nplot = data.shape[1]
     # Draw Plot
     data["is_malicious"] = 1 # add a common column to group by(draw in one axis)
     # set alpha=0.6 to show the overlapping
-    fig, axes = joypy.joyplot(data, by="is_malicious", column=col_names, 
-                              alpha=0.4, color=['#791E94','#58C9B9','#519D9E','#D1B6E1','#E8DDB5','#E2A9A1'])
+    colors = ["#1399B2","#BD0026","#FD8D3C","#F1D756","#EF767B"]
+    fig, axes = joypy.joyplot(data, by="is_malicious", column=list(data.columns),
+                              alpha=0.3, color=colors, legend=True, loc="upper left"
+                              )
+    plt.tight_layout()
     # plt.show()
     plt.savefig("./src/results/denoise250_cossim_distribution.png")
     return
