@@ -553,7 +553,7 @@ def test_imgdetector(datapath:str,savepath:str,cpnum=8):
     
 
 if __name__ == "__main__":
-    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
-                     savepath="./src/analysis/imgdetector_TestSet_results.csv")
-    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
-                     savepath="./src/analysis/imgdetector_ValSet_results.csv")
+    test_imgdetector(datapath="MLM/src/intermediate-data/similarity_matrix_test.csv",
+                     savepath="MLM/src/analysis/imgdetector_TestSet_results.csv")
+    test_imgdetector(datapath="MLM/src/intermediate-data/similarity_matrix_validation.csv",
+                     savepath="MLM/src/analysis/imgdetector_ValSet_results.csv")

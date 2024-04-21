@@ -13,6 +13,18 @@ import numpy as np
 
 MODEL_PATH = "/home/xuyue/Model/llava-1.5-7b-hf"
 DEVICE = "cuda:0"
+###################
+source_dir = "MLM/src"
+image_dir = "MLM/src/image/denoised"
+text_malicious_file = "harmbench_behaviors_text_val.csv"
+text_benign_file = "first_line.csv"
+cosine_filename = "similarity_matrix_validation.csv"
+img_save_filename = "img_embedding_temp.pt"
+text1_save_filename = "harmbench_embeddings_val.pt"
+text2_save_filename = "benign_embeddings_val.pt"
+CONSTRAINT_LIMIT = 350
+TEXT_NUM = 40
+###################
 
 model = AutoModelForPreTraining.from_pretrained(
     MODEL_PATH, torch_dtype=torch.float16, low_cpu_mem_usage=True)
@@ -50,17 +62,6 @@ def get_text_embedding(text: str):
     torch.cuda.empty_cache()
     return input_embeds
 
-###################
-source_dir = "MLM/src"
-image_dir = "MLM/src/image/denoised"
-cosine_filename = "similarity_matrix_test.csv"
-text_malicious_file = "testset_malicious.csv"
-text_benign_file = "testset_benign.csv"
-img_save_filename = "img_embedding_temp.pt"
-text1_save_filename = "harmbench_embeddings_test.pt"
-text2_save_filename = "benign_embeddings_test.pt"
-CONSTRAINT_LIMIT = 350
-###################
 
 # generate embeddings for images
 img_embed_list = []
@@ -84,10 +85,10 @@ else:
     malicious_text_embed_list = []
     with open(f"{source_dir}/text/{text_malicious_file}", "r") as f:
         reader = csv.reader(f)
-        # get the first 40 rows
+        # get the first TEXT_NUM rows
         cnt=0
         for row in reader:
-            if cnt>=40:
+            if cnt>=TEXT_NUM:
                 break
             # only keep FunctionalCategory=standard rows
             if row[1]!="standard":
@@ -107,7 +108,7 @@ else:
         reader = csv.reader(f)
         cnt=0
         for row in reader:
-            if cnt>=40:
+            if cnt>=TEXT_NUM:
                 break
             cnt+=1
             text = row[0]+"\tA.{}\tB.{}\tC.{}\tD.{}".format(row[1],row[2],row[3],row[4])
