@@ -57,6 +57,10 @@ class Defender():
                 ret.append(True in (np.array(row[1:]) - row[0] < self.threshold))
             return ret
 
+    def test_image_detector(self, datapath:str,savepath:str):
+        """test the defender with given cosine similarity data, 
+        save the statics to savepath"""
+
 import csv
 def test_defender_on_validation_set():
     """
@@ -478,6 +482,8 @@ def test_defender_on_malicious_test_set():
     print("data percentage: 0.995")
     print(results[results["data percentage"]==0.995])
 
+
+    
 
 if __name__ == "__main__":
     test_defender_on_malicious_test_set()
