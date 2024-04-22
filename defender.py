@@ -535,7 +535,7 @@ def test_defender_on_malicious_test_set():
     print(results[results["data percentage"]==0.995])
 
 def test_imgdetector(datapath:str,savepath:str,cpnum=8):
-    path = datapath
+    path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
     data = pd.read_csv(path)
     train_data = data[[col for col in data.columns if "clean_resized" in col]]
     detector = Defender()
@@ -544,7 +544,7 @@ def test_imgdetector(datapath:str,savepath:str,cpnum=8):
         detector.train(train_data,ratio=i)
         print(f"Threshold: {detector.threshold}")
         # predict on test data and return results
-        confusion = detector.test_image_detector(path,checkpt_num=cpnum)
+        confusion = detector.test_image_detector(datapath,checkpt_num=cpnum)
         confusion["data percentage"] = i
         print(confusion)
         results.append(confusion)
@@ -553,7 +553,7 @@ def test_imgdetector(datapath:str,savepath:str,cpnum=8):
     
 
 if __name__ == "__main__":
-    test_imgdetector(datapath="MLM/src/intermediate-data/similarity_matrix_test.csv",
-                     savepath="MLM/src/analysis/imgdetector_TestSet_results.csv")
-    test_imgdetector(datapath="MLM/src/intermediate-data/similarity_matrix_validation.csv",
-                     savepath="MLM/src/analysis/imgdetector_ValSet_results.csv")
+    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
+                     savepath="./src/analysis/imgdetector_TestSet_results.csv")
+    # test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
+    #                  savepath="./src/analysis/imgdetector_ValSet_results.csv")

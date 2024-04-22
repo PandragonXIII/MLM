@@ -42,35 +42,25 @@
 
 
 
-### Step1
-2024.3.25
-check the cosine similarity of embeddings between adversarial images and malicious prompts/adversarial images and benign prompts.( Intuition check)
-> Questions:
-> Harmbench 的text+VISUAL ADVERSARIAL EXAMPLES? **yes, plus benign text**
-> 是生成的新图片还是现有的图片？**existing**
-> 
-
-TODO:
-* [x] adversarial images and clean images
-* [x] encoder of LLaVa
-  * [x] text
-  * [x] img
-* [x] algorithm to calculate cosine similarity
-* [x] automamtic runnig
-* [x] data analysis
-  * [x] 16扰动
-  * [x] other
 
 <details>
 <summary>更新日志</summary>
 
+#### MEET 4.22
+- [ ] test set 
+- [ ] $\delta$ cossim 山峰图
+- [ ] 集成到VLM
+  - [ ] 时间测试
+- [ ] 其他模型
+- [ ] 看denoiser的随机性在哪里
+
 #### MEET 4.15
-- [ ] 可视化
-  - [ ] 降噪后图片的方差区间图，并增加降噪次数观察趋势
+- [x] 可视化
+  - [x] 降噪后图片的方差区间图，并增加降噪次数观察趋势
   - [ ] ~~原始clean v.s. adv图片的山峰图，突出重叠面积用以说明难以直接区分~~
-- [ ] threshold
-- [ ] confusion matrix
-  - [ ] validation set
+- [x] threshold
+- [x] confusion matrix
+  - [x] validation set
   - [ ] test set
 
 #### MEET 4.8
