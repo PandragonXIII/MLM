@@ -157,8 +157,52 @@ def cos_sim_distribution(path:str):
     plt.savefig("./src/results/denoise250_cossim_distribution.png")
     return
 
+def delta_cos_sim_distribution(path:str, it=250):
+    '''input: cosine similarity csv file 
+            rows: text
+            cols: image
+        output: None
+        visualize (joyplot-mountain) the **difference** of cosine similarity distribution
+        grouping by image type, on it(default=250) iterations of denoise
+        only consider malicious text
+    '''
+    # read the csv file
+    df = pd.read_csv(path)
+    df = df[df["is_malicious"]==1]
+    df.rename(columns={"# clean_resized_denoised_000times":"clean_resized_denoised_000times"},inplace=True)
+    col_names =        [col for col in df.columns if f"{it}" in col and "clean_test" not in col]
+    origin_col_names = [col for col in df.columns if "000" in col and "clean_test" not in col]
+    # denoised250 cosine similarity
+    data = df[col_names]
+    data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
+    # origin cosine similarity
+    origin_data = df[origin_col_names]
+    origin_data.columns = ["_".join(col.split("_")[:-2]) for col in origin_col_names]
+    # calcualte delta value
+    data = data-origin_data
+
+    # rename columns and throw the postfix "denoised_250times"
+    data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
+    # data = data.melt(var_name="pic_type", value_name="cos_sim")
+    
+
+    # plot the distribution, x-axis: cossim, y-axis: frequency
+    # Draw Plot
+    data["is_malicious"] = 1 # add a common column to group by(draw in one axis)
+    # set alpha=0.6 to show the overlapping
+    colors = ["#1399B2","#BD0026","#FD8D3C","#F1D756","#EF767B"]
+    fig, axes = joypy.joyplot(data, by="is_malicious",
+                              alpha=0.3, color=colors, legend=True, loc="upper left"
+                              )
+    plt.title(f"delta value of cosine similarity after {it} iters denoise")
+    plt.tight_layout()
+    # plt.show()
+    plt.savefig(f"MLM/src/results/denoise{it}_delta_cossim_distribution.png")
+    return
+
 if __name__ == "__main__":
-    cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv")
+    delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=300)
+    delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=350)
     # train_data_decline_line()
 
     # f = "MLM/src/intermediate-data/similarity_matrix_test.csv"

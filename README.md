@@ -47,10 +47,11 @@
 <summary>更新日志</summary>
 
 #### MEET 4.22
-- [ ] test set 
-- [ ] $\delta$ cossim 山峰图
-- [ ] 集成到VLM
+- [x] test set 
+- [x] $\delta$ cossim 山峰图
+- [ ] 集成
   - [ ] 时间测试
+    - [ ] 优化denoise流程？变为迭代生成
 - [ ] 其他模型
 - [ ] 看denoiser的随机性在哪里
 
