@@ -22,7 +22,7 @@ cosine_filename = "similarity_matrix_validation.csv"
 img_save_filename = "img_embedding_temp.pt"
 text1_save_filename = "harmbench_embeddings_val.pt"
 text2_save_filename = "benign_embeddings_val.pt"
-CONSTRAINT_LIMIT = 350
+CONSTRAINT_LIMIT = 400
 TEXT_NUM = 40
 ###################
 

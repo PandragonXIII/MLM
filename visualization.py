@@ -170,8 +170,9 @@ def delta_cos_sim_distribution(path:str, it=250):
     df = pd.read_csv(path)
     df = df[df["is_malicious"]==1]
     df.rename(columns={"# clean_resized_denoised_000times":"clean_resized_denoised_000times"},inplace=True)
-    col_names =        [col for col in df.columns if f"{it}" in col and "clean_test" not in col]
-    origin_col_names = [col for col in df.columns if "000" in col and "clean_test" not in col]
+    # use the new unconstrained adv image
+    col_names =        [col for col in df.columns if f"{it}" in col and "clean_test" not in col and "_inf_" not in col]
+    origin_col_names = [col for col in df.columns if "000" in col and "clean_test" not in col and "_inf_" not in col]
     # denoised250 cosine similarity
     data = df[col_names]
     data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
@@ -188,11 +189,11 @@ def delta_cos_sim_distribution(path:str, it=250):
 
     # plot the distribution, x-axis: cossim, y-axis: frequency
     # Draw Plot
-    data["is_malicious"] = 1 # add a common column to group by(draw in one axis)
+    data["var"] = "Δ cosine similarity" # add a common column to group by(draw in one axis)
     # set alpha=0.6 to show the overlapping
     colors = ["#1399B2","#BD0026","#FD8D3C","#F1D756","#EF767B"]
-    fig, axes = joypy.joyplot(data, by="is_malicious",
-                              alpha=0.3, color=colors, legend=True, loc="upper left"
+    fig, axes = joypy.joyplot(data, by="var",
+                              alpha=0.6, color=colors, legend=True, loc="upper left"
                               )
     plt.title(f"delta value of cosine similarity after {it} iters denoise")
     plt.tight_layout()
@@ -201,6 +202,7 @@ def delta_cos_sim_distribution(path:str, it=250):
     return
 
 if __name__ == "__main__":
+    delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=250)
     delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=300)
     delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=350)
     # train_data_decline_line()
