@@ -202,8 +202,6 @@ def delta_cos_sim_distribution(path:str, it=250):
     return
 
 if __name__ == "__main__":
-    delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=250)
-    delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=300)
     delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=350)
     # train_data_decline_line()
 
