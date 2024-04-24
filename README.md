@@ -20,6 +20,8 @@
 ```shell
 .
 ├── README.md
+├── main.py #集成全流程的主程序
+├── model_tools.py # main.py功能函数的具体实现
 ├── utils.py #image-array转换，图像处理(e.g. 噪声)等
 ├── get_embed.py #得到embedding并计算cosine similarity(在服务器上)
 ├── analysis.py #计算cos-sim并可视化(已弃用)
@@ -38,28 +40,21 @@
 ```
 
 
-
-### Step1
-2024.3.25
-check the cosine similarity of embeddings between adversarial images and malicious prompts/adversarial images and benign prompts.( Intuition check)
-> Questions:
-> Harmbench 的text+VISUAL ADVERSARIAL EXAMPLES? **yes, plus benign text**
-> 是生成的新图片还是现有的图片？**existing**
-> 
-
-TODO:
-* [x] adversarial images and clean images
-* [x] encoder of LLaVa
-  * [x] text
-  * [x] img
-* [x] algorithm to calculate cosine similarity
-* [x] automamtic runnig
-* [x] data analysis
-  * [x] 16扰动
-  * [x] other
-
 <details>
 <summary>更新日志</summary>
+
+#### MEET 4.22
+- [x] test set 
+- [x] $\delta$ cossim 山峰图
+- [ ] 集成
+  - [ ] denoise
+  - [ ] cosine similarity
+  - [ ] detect
+  - [ ] other
+  - [ ] 时间测试
+    - [ ] 优化denoise流程？变为迭代生成
+- [ ] 其他模型
+- [ ] 看denoiser的随机性在哪里
 
 #### MEET 4.15
 - [ ] 可视化
