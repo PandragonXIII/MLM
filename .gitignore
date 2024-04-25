@@ -1,3 +1,4 @@
 src/text/MMLU
 src/text/Harmbench
 .vscode
+__pycache__

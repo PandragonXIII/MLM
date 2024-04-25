@@ -21,8 +21,11 @@ class Args:
     image_dir = "/data1/qxy/MLM/src/image/denoised"
     text_file = "harmbench_behaviors_text_val.csv"
     denoise_checkpoint_num = 8 # (0,350,50)
+    # dir for output images
+    output_dir = "./output"
     # dir for internal variables
     temp_dir = "./temp"
+    out_text_file = f"{temp_dir}/text.csv"
 
 def get_similarity_list(args:Args, save_internal=False):
     """get the similarity matrix of text and corresponding denoised images
@@ -94,7 +97,7 @@ def get_similarity_list(args:Args, save_internal=False):
     if save_internal:
         torch.save(img_embed_list, f"{args.temp_dir}/embedding/image_embeddings.pt")
         torch.save(text_embed_list, f"{args.temp_dir}/embedding/text_embeddings.pt")
-        with open(f"{args.temp_dir}/cosine_similarity.csv", "w") as f:
+        with open(f"{args.temp_dir}/cosine_similarity.csv", "x") as f:
             writer = csv.writer(f)
             writer.writerow(img_names)
             writer.writerows(cossims)

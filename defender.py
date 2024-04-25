@@ -56,8 +56,27 @@ class Defender():
                 row = cossims.iloc[r]
                 ret.append(True in (np.array(row[1:]) - row[0] < self.threshold))
             return ret
+        
+    def get_lowest_idx(self, cossims):
+        """
+        given a series of cosine similarity , return whether it is adversarial
+        for adversarial data, return the index of lowest cosine similarity
 
-import csv
+        :cossims: a nD array of cosine similarity (1*n)
+            cols: denoise times n
+            row: 1 text
+        return: a nD array of int (1*1)
+            0 is clean, positive int is the index of lowest cosine similarity
+        """
+        # reshape the data
+        cossims = np.array(cossims).reshape(1,-1)
+        delta = cossims - cossims[0,0]
+        if np.min(delta)<self.threshold:
+            return np.argmin(delta)
+        else:
+            return 0
+
+
 def test_defender_on_validation_set():
     """
     test the defender on validation set and save the results

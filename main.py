@@ -13,28 +13,61 @@ output:
 """
 
 import argparse,os
+import pandas as pd
 
 from model_tools import *
+from defender import Defender
+import sys
+sys.path.insert(1,r"/data1/qxy/diffusion_denoised_smoothing/imagenet")
+import denoise
+
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='detect adversarial images and pass harmless images to LLMs')
     parser.add_argument('--text', type=str, required=True, help='path to the text input file')
     parser.add_argument('--img', type=str, required=True, help='path to the image input folder or file')
+    parser.add_argument('--threshold', type=float, default=-0.0025, help='threshold for adversarial detection')
     args = parser.parse_args()
 
-    # denoise the image
-
-    # compute cosine similarity
     a = Args()
-    a.image_dir = ""
-    a.text_file = ""
+    # deal with directory
+    if not os.path.exists(a.temp_dir):
+        os.makedirs(a.temp_dir)
+    else:
+        os.system(f"rm -rf {a.temp_dir}/*")
+    a.image_dir = a.temp_dir+"/denoised_img"
+    os.mkdir(a.image_dir)
+    #
+    if not os.path.exists(a.output_dir):
+        os.makedirs(a.output_dir)
+    else:
+        os.system(f"rm -rf {a.output_dir}/*")
+
+    # denoise the image
+    denoise
+    # compute cosine similarity
+    a.text_file = args.text
     a.denoise_checkpoint_num = 8
     a.MODEL_PATH = "/data1/qxy/models/llava-1.5-7b-hf"
     sim_matrix = get_similarity_list(a, save_internal=False)
-    # check with detector
+    # for each row, check with detector
+    d = Defender(threshold=args.threshold)
+    adv_idx = []
+    for i in range(sim_matrix.shape[0]):
+        adv_idx.append(d.get_lowest_idx(sim_matrix[i]))
 
-    # save the result to csv
+    # save the result to csv as new column
+    df = pd.read_csv(args.text,header=None)
+    df["input_adv_img"] = adv_idx
+    df.to_csv(a.out_text_file,header=False,index=False)
 
     # save the image to output folder
-
+    denoised = os.listdir()
+    denoised.sort()
+    for i in range(sim_matrix.shape[0]):
+        idx = i*a.denoise_checkpoint_num+adv_idx[i]
+        os.system(
+            f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/{denoised[idx]}")
+    print(f"filtered images are saved to {a.output_dir}")
+    print("Done")
     pass
