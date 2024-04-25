@@ -74,27 +74,30 @@ def get_similarity_matrix(save_tensors=False):
         return input_embeds
 
 
-    # generate embeddings for images
-    img_embed_list = []
-    img_names = []
-    dir1 = os.listdir(image_dir)
-    dir1.sort()
-    for img in dir1:
-        ret = get_img_embedding(f"{image_dir}/{img}")
-        img_embed_list.append(ret)
-        img_names.append(os.path.splitext(img)[0])
-    # img_embed_list.append(get_img_embedding(f"{source_dir}/image/prompt_constrained_16.bmp"))
-    
+# generate embeddings for images
+img_embed_list = []
+img_names = []
+dir1 = os.listdir(image_dir)
+dir1.sort()
+for img in dir1:
+    ret = get_img_embedding(f"{image_dir}/{img}")
+    img_embed_list.append(ret)
+    img_names.append(os.path.splitext(img)[0])
+# img_embed_list.append(get_img_embedding(f"{source_dir}/image/prompt_constrained_16.bmp"))
+# save embeddings
+torch.save(img_embed_list, f"{source_dir}/embedding/{img_save_filename}")
 
-
-    # generate embeddings for malicious text
+if os.path.exists(f"{source_dir}/embedding/{text1_save_filename}"):
+    malicious_text_embed_list = torch.load(f"{source_dir}/embedding/{text1_save_filename}")
+else:
+    # generate embeddings for text
     malicious_text_embed_list = []
     with open(f"{source_dir}/text/{text_malicious_file}", "r") as f:
         reader = csv.reader(f)
-        # get the first 40 rows
+        # get the first TEXT_NUM rows
         cnt=0
         for row in reader:
-            if cnt>=40:
+            if cnt>=TEXT_NUM:
                 break
             # only keep FunctionalCategory=standard rows
             if row[1]!="standard":
@@ -110,7 +113,7 @@ def get_similarity_matrix(save_tensors=False):
         reader = csv.reader(f)
         cnt=0
         for row in reader:
-            if cnt>=40:
+            if cnt>=TEXT_NUM:
                 break
             cnt+=1
             text = row[0]+"\tA.{}\tB.{}\tC.{}\tD.{}".format(row[1],row[2],row[3],row[4])
@@ -148,12 +151,12 @@ def get_similarity_matrix(save_tensors=False):
 
     img_names.append("is_malicious")
 
-    tot = np.concatenate((malicious_result, benign_result), axis=0)
-    print(tot.shape)
-    # save the full similarity matrix as csv
-    np.savetxt(f"{source_dir}/analysis/{cosine_filename}", tot, delimiter=",",
-                header=",".join(img_names))
-    print(f"csv file saved at: {source_dir}/analysis/{cosine_filename}")
+tot = np.concatenate((malicious_result, benign_result), axis=0)
+print(tot.shape)
+# save the full similarity matrix as csv
+np.savetxt(f"{source_dir}/analysis/{cosine_filename}", tot, delimiter=",",
+            header=",".join(img_names))
+print(f"csv file saved at: {source_dir}/analysis/{cosine_filename}")
 
     # analysis
     avg1 = np.mean(malicious_result.flatten())

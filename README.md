@@ -27,7 +27,8 @@
 ├── analysis.py #计算cos-sim并可视化(已弃用)
 ├── visualize.py #可视化(需要.csv文件)
 └── src
-    ├── analysis #各类方法得到的cosine similarity结果
+    ├── intermediate-data #各类方法得到的cosine similarity结果
+    ├── analysis #测试detector的统计数据
     ├── embedding #embedding结果(一般储存在服务器端，用处不大)
     ├── image
     │   ├── adversarial #原始对抗样本
@@ -37,7 +38,11 @@
     │   └── clean_test.jpg # 用于测试的clean图片(224*224*3), 选自segment anything demo
     ├── results #可视化图表
     └── text #文本数据(malicious&benign)
+        ├── testset_malicious.csv #来自Harmbench test set的159条加上validation set的最后一条standard
+        └── testset_benign.csv #MMLU data set, evenly extract the first several lines.
 ```
+
+
 
 
 <details>
@@ -56,13 +61,22 @@
 - [ ] 其他模型
 - [ ] 看denoiser的随机性在哪里
 
+#### MEET 4.22
+- [x] test set 
+- [x] $\delta$ cossim 山峰图
+- [ ] 集成
+  - [ ] 时间测试
+    - [ ] 优化denoise流程？变为迭代生成
+- [ ] 其他模型
+- [ ] 看denoiser的随机性在哪里
+
 #### MEET 4.15
-- [ ] 可视化
-  - [ ] 降噪后图片的方差区间图，并增加降噪次数观察趋势
+- [x] 可视化
+  - [x] 降噪后图片的方差区间图，并增加降噪次数观察趋势
   - [ ] ~~原始clean v.s. adv图片的山峰图，突出重叠面积用以说明难以直接区分~~
-- [ ] threshold
-- [ ] confusion matrix
-  - [ ] validation set
+- [x] threshold
+- [x] confusion matrix
+  - [x] validation set
   - [ ] test set
 
 #### MEET 4.8

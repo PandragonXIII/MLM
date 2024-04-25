@@ -1,5 +1,5 @@
 """
-read cosine similarity data from `src/analysis/*.csv` and visualize it
+read cosine similarity data from `src/intermediate-data/*.csv` and visualize it
 """
 
 import os
@@ -8,6 +8,9 @@ import matplotlib.axes
 import matplotlib.pyplot as plt
 from matplotlib import ticker
 import seaborn as sns
+import numpy as np
+import joypy.joyplot
+import matplotlib.cm as cm
 
 
 
@@ -18,7 +21,6 @@ def clustered_text_errorbar(df:pd.DataFrame, ax:matplotlib.axes.Axes):
             rows: text
             cols: image+"is_malicious"
         ax: matplotlib axis
-    output: plot
     '''
     # compress malicious(first 40 rows) and benign(last 40 rows) text to one row each
     df = df.groupby("is_malicious").mean()
@@ -37,13 +39,14 @@ def clustered_text_errorbar(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     # ax2.set_ylabel("relative difference")
     return
 
-def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
+def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes, errorbar=None):
     '''
     input: 
         df: cosine similarity dataframe 
             rows: text(**only one type**)
             cols: images
         ax: matplotlib axis
+        errorbar: may use ('se') or None or other
     output: plot
     '''
     # drop is_malicious column
@@ -59,7 +62,7 @@ def single_type_text_line(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     # plot line
     # ax.plot(xticks, df = df.groupby("is_malicious").mean().iloc[0,:],label=line_name)
     sns.lineplot(data=df.melt(var_name="denoise_times",value_name="cos_sim"), ax=ax,
-                 x="denoise_times",y="cos_sim",label=line_name, dashes=False, markers=True, errorbar=('se'))
+                 x="denoise_times",y="cos_sim",label=line_name, dashes=False, markers=True, errorbar=errorbar)
 
     ax.xaxis.set_tick_params(rotation=30)
     ax.set_xlabel("denoise times")
@@ -94,24 +97,131 @@ def all_line_with_error(df:pd.DataFrame, ax:matplotlib.axes.Axes):
     ax.set_ylabel("cosine similarity")
     ax.legend()
 
-if __name__ == "__main__":
-    f = "/data1/qxy/MLM/src/analysis/similarity_matrix_validation.csv"
+def train_data_decline_line():
+    """
+    plot the decline value of cosine similarity between
+     origin clean image vs malicious text(40) """
+    f = "./src/intermediate-data/similarity_matrix_validation.csv"
     df = pd.read_csv(f)
-    # print(df.columns)
-    IMAGE_NUM = 5
-    DENOISE_TIMES = 1000 #(0,550,50)
-    STEP = 50
-    CHECKPOINT_NUM = DENOISE_TIMES//STEP
-    PLOT_X_NUM = 9
+    df = df[df["is_malicious"]==1]
+    clean_heads = [col for col in df.columns if "clean_resized" in col]
+    clean_heads = clean_heads[:8]
+    raw_data = df[clean_heads]
+    ret=[]
+    for r in range(raw_data.shape[0]):
+                row = raw_data.iloc[r]
+                ret.extend(np.array(row[1:]) - row[0])
+    ret = pd.DataFrame(ret, columns=["Δ cosine similarity"])
 
-    # plot malicious text vs all images in one plot
-    data = df[df["is_malicious"]==1]
-    fig,ax = plt.subplots(1,1, figsize=(20,10))
-    for i in range(IMAGE_NUM):
-        single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
+    # plot with joyplot
+    fig, axes = joypy.joyplot(ret, figsize=(10, 6), 
+                              color="#CFDAEC", linecolor="#BFBBBA", overlap=2)
+
+    # draw a line on 90% percentile
+    for ax in axes:
+        ax.axvline(ret.quantile(0.99).values, color="#BFBBBA", linestyle='--')
+
+    plt.savefig("./src/results/train_data_decline_distribution.png")
+    return
+
+def cos_sim_distribution(path:str):
+    '''input: cosine similarity csv file 
+            rows: text
+            cols: image
+        output: None
+        save the visualization(joyplot-mountain) of the cosine similarity distribution
+        grouping by image type, on 250 iterations of denoise
+        only consider malicious text
+    '''
+    # read the csv file
+    df = pd.read_csv(path)
+    df = df[df["is_malicious"]==1]
+    col_names = [col for col in df.columns if "250" in col and "clean_test" not in col]
+    data = df[col_names]
+    # rename columns and throw the postfix "denoised_250times"
+    data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
+    # data = data.melt(var_name="pic_type", value_name="cos_sim")
+    print(f"shape: {data.shape}")
+    print(data.head())
+
+    # plot the distribution, x-axis: cossim, y-axis: frequency
+    # Draw Plot
+    data["is_malicious"] = 1 # add a common column to group by(draw in one axis)
+    # set alpha=0.6 to show the overlapping
+    colors = ["#1399B2","#BD0026","#FD8D3C","#F1D756","#EF767B"]
+    fig, axes = joypy.joyplot(data, by="is_malicious", column=list(data.columns),
+                              alpha=0.3, color=colors, legend=True, loc="upper left"
+                              )
     plt.tight_layout()
-    plt.savefig(f"/data1/qxy/MLM/src/results/malicious_text_denoise{PLOT_X_NUM*STEP}_line.png")
     # plt.show()
+    plt.savefig("./src/results/denoise250_cossim_distribution.png")
+    return
+
+def delta_cos_sim_distribution(path:str, it=250):
+    '''input: cosine similarity csv file 
+            rows: text
+            cols: image
+        output: None
+        visualize (joyplot-mountain) the **difference** of cosine similarity distribution
+        grouping by image type, on it(default=250) iterations of denoise
+        only consider malicious text
+    '''
+    # read the csv file
+    df = pd.read_csv(path)
+    df = df[df["is_malicious"]==1]
+    df.rename(columns={"# clean_resized_denoised_000times":"clean_resized_denoised_000times"},inplace=True)
+    # use the new unconstrained adv image
+    col_names =        [col for col in df.columns if f"{it}" in col and "clean_test" not in col and "_inf_" not in col]
+    origin_col_names = [col for col in df.columns if "000" in col and "clean_test" not in col and "_inf_" not in col]
+    # denoised250 cosine similarity
+    data = df[col_names]
+    data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
+    # origin cosine similarity
+    origin_data = df[origin_col_names]
+    origin_data.columns = ["_".join(col.split("_")[:-2]) for col in origin_col_names]
+    # calcualte delta value
+    data = data-origin_data
+
+    # rename columns and throw the postfix "denoised_250times"
+    data.columns = ["_".join(col.split("_")[:-2]) for col in col_names]
+    # data = data.melt(var_name="pic_type", value_name="cos_sim")
+    
+
+    # plot the distribution, x-axis: cossim, y-axis: frequency
+    # Draw Plot
+    data["var"] = "Δ cosine similarity" # add a common column to group by(draw in one axis)
+    # set alpha=0.6 to show the overlapping
+    colors = ["#1399B2","#BD0026","#FD8D3C","#F1D756","#EF767B"]
+    fig, axes = joypy.joyplot(data, by="var",
+                              alpha=0.6, color=colors, legend=True, loc="upper left"
+                              )
+    plt.title(f"delta value of cosine similarity after {it} iters denoise")
+    plt.tight_layout()
+    # plt.show()
+    plt.savefig(f"MLM/src/results/denoise{it}_delta_cossim_distribution.png")
+    return
+
+if __name__ == "__main__":
+    delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=350)
+    # train_data_decline_line()
+
+    # f = "MLM/src/intermediate-data/similarity_matrix_test.csv"
+    # df = pd.read_csv(f)
+    # # print(df.columns)
+    # IMAGE_NUM = 6
+    # MAX_DENOISE_TIMES = 350 #(0,550,50)
+    # STEP = 50
+    # CHECKPOINT_NUM = MAX_DENOISE_TIMES//STEP +1
+    # PLOT_X_NUM = 8
+
+    # # plot malicious text vs all images in one plot
+    # data = df[df["is_malicious"]==1]
+    # fig,ax = plt.subplots(1,1, figsize=(20,10))
+    # for i in range(IMAGE_NUM):
+    #     single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
+    # plt.tight_layout()
+    # plt.savefig(f"MLM/src/results/malicious_text_TestSetImg_line.png")
+    # # plt.show()
 
 
 # # group images by different constrained value(16,32,64, unconstrained)
