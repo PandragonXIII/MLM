@@ -26,7 +26,7 @@ def compute_cosine(a_vec , b_vec):
 def get_similarity_matrix(save_tensors=False):
     """get the similarity matrix with each text and image embeddings combination
         is used while developing"""
-    MODEL_PATH = "/data1/qxy/models/llava-1.5-7b-hf"
+    model_path = "/data1/qxy/models/llava-1.5-7b-hf"
     DEVICE = "cuda:0"
     source_dir = "/data1/qxy/MLM/src"
     image_dir = "/data1/qxy/MLM/src/image/denoised"
@@ -38,13 +38,13 @@ def get_similarity_matrix(save_tensors=False):
     text2_save_filename = "benign_embeddings_val.pt"
     ########################
     model = AutoModelForPreTraining.from_pretrained(
-        MODEL_PATH, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+        model_path, torch_dtype=torch.float16, low_cpu_mem_usage=True)
     model.to(DEVICE)# this runs out of memory
 
-    # processor = AutoProcessor.from_pretrained(MODEL_PATH, cache_dir="./cache")
+    # processor = AutoProcessor.from_pretrained(model_path, cache_dir="./cache")
     # TODO maybe we can remove these later
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-    imgprocessor = AutoImageProcessor.from_pretrained(MODEL_PATH)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    imgprocessor = AutoImageProcessor.from_pretrained(model_path)
 
 
 

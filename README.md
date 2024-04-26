@@ -25,7 +25,10 @@
 ├── utils.py #image-array转换，图像处理(e.g. 噪声)等
 ├── get_embed.py #得到embedding并计算cosine similarity(在服务器上)
 ├── analysis.py #计算cos-sim并可视化(已弃用)
-├── visualize.py #可视化(需要.csv文件)
+├── visualization.py #可视化(需要.csv文件)
+├── denoiser # diffusion_denoised_smoothing模块
+├── block_input # 暂定为模块测试输入数据位置
+├── output # 暂定为模块测试输出数据位置
 └── src
     ├── intermediate-data #各类方法得到的cosine similarity结果
     ├── analysis #测试detector的统计数据
@@ -43,6 +46,15 @@
 ```
 
 
+## 模块使用方法
+1. 数据准备：
+  - 将query以csv格式储存，每个一行
+  - 将对应的images存放在单独的文件夹下
+2. 在/MLM目录下调用`main.py`
+```shell
+  python main.py --text path/of/.csv --img path/of/img_dir --threshold optional
+```
+3. 结果会输出到/output目录，denoise_000表示判定为无害图片，其他则取cossim下降最大的图片
 
 
 <details>
@@ -51,20 +63,11 @@
 #### MEET 4.22
 - [x] test set 
 - [x] $\delta$ cossim 山峰图
-- [ ] 集成
-  - [ ] denoise
-  - [ ] cosine similarity
-  - [ ] detect
-  - [ ] other
-  - [ ] 时间测试
-    - [ ] 优化denoise流程？变为迭代生成
-- [ ] 其他模型
-- [ ] 看denoiser的随机性在哪里
-
-#### MEET 4.22
-- [x] test set 
-- [x] $\delta$ cossim 山峰图
-- [ ] 集成
+- [x] 集成
+  - [x] denoise
+  - [x] cosine similarity
+  - [x] detect
+  - [x] other
   - [ ] 时间测试
     - [ ] 优化denoise流程？变为迭代生成
 - [ ] 其他模型

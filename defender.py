@@ -498,6 +498,7 @@ def test_defender_on_malicious_test_set():
     print(results[results["data percentage"]==0.995])
 
 def test_imgdetector(datapath:str,savepath:str,cpnum=8):
+    raise NotImplementedError
     path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
     data = pd.read_csv(path)
     train_data = data[[col for col in data.columns if "clean_resized" in col]]

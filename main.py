@@ -18,9 +18,9 @@ import pandas as pd
 from model_tools import *
 from defender import Defender
 import sys
-sys.path.insert(1,r"/data1/qxy/diffusion_denoised_smoothing/imagenet")
-import denoise
+import denoiser.imagenet.denoise
 
+DELETE_TEMP_FILE = True
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description='detect adversarial images and pass harmless images to LLMs')
@@ -44,12 +44,16 @@ if __name__=="__main__":
         os.system(f"rm -rf {a.output_dir}/*")
 
     # denoise the image
-    denoise
+    print("processing images... ",end="")
+    generate_denoised_img(args.img,a.image_dir,8)
+    print("Done")
     # compute cosine similarity
     a.text_file = args.text
     a.denoise_checkpoint_num = 8
-    a.MODEL_PATH = "/data1/qxy/models/llava-1.5-7b-hf"
-    sim_matrix = get_similarity_list(a, save_internal=False)
+    a.model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
+    print("computing cossim... ",end="")
+    sim_matrix = get_similarity_list(a, save_internal=True)
+    print("Done")
     # for each row, check with detector
     d = Defender(threshold=args.threshold)
     adv_idx = []
@@ -62,7 +66,7 @@ if __name__=="__main__":
     df.to_csv(a.out_text_file,header=False,index=False)
 
     # save the image to output folder
-    denoised = os.listdir()
+    denoised = os.listdir(a.image_dir)
     denoised.sort()
     for i in range(sim_matrix.shape[0]):
         idx = i*a.denoise_checkpoint_num+adv_idx[i]
@@ -70,4 +74,6 @@ if __name__=="__main__":
             f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/{denoised[idx]}")
     print(f"filtered images are saved to {a.output_dir}")
     print("Done")
+    if DELETE_TEMP_FILE:
+        os.system(f"rm -rf {a.temp_dir}")
     pass
