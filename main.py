@@ -19,10 +19,12 @@ from model_tools import *
 from defender import Defender
 import sys
 import denoiser.imagenet.denoise
+import time
 
 DELETE_TEMP_FILE = True
 
 if __name__=="__main__":
+    t0 = time.time()
     parser = argparse.ArgumentParser(description='detect adversarial images and pass harmless images to LLMs')
     parser.add_argument('--text', type=str, required=True, help='path to the text input file')
     parser.add_argument('--img', type=str, required=True, help='path to the image input folder or file')
@@ -72,8 +74,9 @@ if __name__=="__main__":
         idx = i*a.denoise_checkpoint_num+adv_idx[i]
         os.system(
             f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/{denoised[idx]}")
+    t_finish = time.time()
     print(f"filtered images are saved to {a.output_dir}")
-    print("Done")
+    print(f"Task with {sim_matrix.shape[0]} inputs finished in {t_finish-t0:.2f}s")
     if DELETE_TEMP_FILE:
         os.system(f"rm -rf {a.temp_dir}")
     pass
