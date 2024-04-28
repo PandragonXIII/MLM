@@ -48,7 +48,7 @@ class Defender():
         return: a nD array of boolean (m*1)
             True means adversarial
         """
-        if len(cossims.shape) == 1 or cossims.shape[1] == 1:
+        if len(cossims.shape) == 1 or cossims.shape[0] == 1:
             return True in (np.array(cossims[:,1:]) - cossims[:,0] < self.threshold)
         else:
             ret = []
@@ -75,6 +75,60 @@ class Defender():
             return np.argmin(delta)
         else:
             return 0
+    
+    def get_confusion_matrix(self, datapath:str,checkpt_num=8):
+        """test the defender with given cosine similarity data, 
+        save the statics to savepath\n
+        only consider malicious text\n
+        the result contains 4 rows: for each adversarial image, 
+        consider it as positive and clean as negative, 
+        output the results
+        checkpt_num: the maximum number of denoise times checkpoint to consider"""
+        df = pd.read_csv(datapath)
+        df = df[df["is_malicious"]==1] # only consider malicious text input
+        results = {
+            "constraint":[],
+            "accuracy":[],
+            "recall":[],
+            "precision":[],
+            "f1":[],
+            "classification threshold":[]
+        }
+        # get the Test Set clean image data for prediction
+        clean_header = [col for col in df.columns if "clean_test" in col]
+        if len(clean_header)>checkpt_num:
+            clean_header = clean_header[:checkpt_num]
+        clean_data = df[clean_header]
+        # predict with clean image
+        clean_predict = np.array(self.predict(clean_data))
+        fp = sum(clean_predict[:])
+        tn = sum(~clean_predict[:])
+        # get the adversarial image data
+        all_adv_header = [col for col in df.columns if "prompt_" in col]
+        adv_classes_names = set(["_".join(h.split("_")[:3]) for h in all_adv_header])
+        for adv_class in adv_classes_names:
+            # list the headers of adv_class constraint
+            adv_header = [col for col in df.columns if adv_class in col]
+            if len(adv_header)>checkpt_num:
+                adv_header = adv_header[:checkpt_num]
+            # get data
+            adv_data = df[adv_header]
+            # predict
+            adv_predict = np.array(self.predict(adv_data))
+            tp = sum(adv_predict[:])
+            fn = sum(~adv_predict[:])
+            acc = (tp+tn)/(tp+fn+fp+tn)
+            recall = tp/(tp+fn)
+            precision = tp/(tp+fp)
+            f1 = 2*precision*recall/(precision+recall)
+            results["constraint"].append(adv_class.split("_")[-1])
+            results["accuracy"].append(acc)
+            results["recall"].append(recall)
+            results["precision"].append(precision)
+            results["f1"].append(f1)
+            results["classification threshold"].append(self.threshold)
+        results = pd.DataFrame(results)
+        return results
 
 
 def test_defender_on_validation_set():
@@ -498,17 +552,16 @@ def test_defender_on_malicious_test_set():
     print(results[results["data percentage"]==0.995])
 
 def test_imgdetector(datapath:str,savepath:str,cpnum=8):
-    raise NotImplementedError
     path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
     data = pd.read_csv(path)
-    train_data = data[[col for col in data.columns if "clean_resized" in col]]
+    train_data = data[[col for col in data.columns if "clean_resized" in col]][:cpnum]
     detector = Defender()
     results = []
     for i in [0.95, 0.975, 0.99, 0.995]:
         detector.train(train_data,ratio=i)
-        print(f"Threshold: {detector.threshold}")
+        # print(f"Threshold: {detector.threshold}")
         # predict on test data and return results
-        confusion = detector.test_image_detector(datapath,checkpt_num=cpnum)
+        confusion = detector.get_confusion_matrix(datapath,checkpt_num=cpnum)
         confusion["data percentage"] = i
         print(confusion)
         results.append(confusion)
@@ -519,5 +572,5 @@ def test_imgdetector(datapath:str,savepath:str,cpnum=8):
 if __name__ == "__main__":
     test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
                      savepath="./src/analysis/imgdetector_TestSet_results.csv")
-    # test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
-    #                  savepath="./src/analysis/imgdetector_ValSet_results.csv")
+    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
+                     savepath="./src/analysis/imgdetector_ValSet_results.csv")

@@ -26,16 +26,17 @@ def compute_cosine(a_vec , b_vec):
 def get_similarity_matrix(save_tensors=False):
     """get the similarity matrix with each text and image embeddings combination
         is used while developing"""
-    model_path = "/data1/qxy/models/llava-1.5-7b-hf"
+    model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
     DEVICE = "cuda:0"
-    source_dir = "/data1/qxy/MLM/src"
-    image_dir = "/data1/qxy/MLM/src/image/denoised"
-    cosine_filename = "similarity_matrix_validation.csv"
-    text_malicious_file = "harmbench_behaviors_text_val.csv"
-    text_benign_file = "first_lines_of_MMLU.csv"
-    img_save_filename = "image+noise+filter_embeddings_val.pt"
-    text1_save_filename = "harmbench_embeddings_val.pt"
-    text2_save_filename = "benign_embeddings_val.pt"
+    TEXT_NUM = 160
+    source_dir = "./src"
+    image_dir = "./src/image/denoised"
+    cosine_filename = "similarity_matrix_test.csv"
+    text_malicious_file = "testset_malicious.csv"
+    text_benign_file = "testset_benign.csv"
+    img_save_filename = "new_inf_image.pt"
+    text1_save_filename = "harmbench_embeddings_test.pt"
+    text2_save_filename = "benign_embeddings_test.pt"
     ########################
     model = AutoModelForPreTraining.from_pretrained(
         model_path, torch_dtype=torch.float16, low_cpu_mem_usage=True)
@@ -74,22 +75,23 @@ def get_similarity_matrix(save_tensors=False):
         return input_embeds
 
 
-# generate embeddings for images
-img_embed_list = []
-img_names = []
-dir1 = os.listdir(image_dir)
-dir1.sort()
-for img in dir1:
-    ret = get_img_embedding(f"{image_dir}/{img}")
-    img_embed_list.append(ret)
-    img_names.append(os.path.splitext(img)[0])
-# img_embed_list.append(get_img_embedding(f"{source_dir}/image/prompt_constrained_16.bmp"))
-# save embeddings
-torch.save(img_embed_list, f"{source_dir}/embedding/{img_save_filename}")
+    # generate embeddings for images
+    img_embed_list = []
+    img_names = []
+    dir1 = os.listdir(image_dir)
+    dir1.sort()
+    for img in dir1:
+        ret = get_img_embedding(f"{image_dir}/{img}")
+        img_embed_list.append(ret)
+        img_names.append(os.path.splitext(img)[0])
+    # img_embed_list.append(get_img_embedding(f"{source_dir}/image/prompt_constrained_16.bmp"))
+    # # save embeddings
+    # torch.save(img_embed_list, f"{source_dir}/embedding/{img_save_filename}")
 
-if os.path.exists(f"{source_dir}/embedding/{text1_save_filename}"):
-    malicious_text_embed_list = torch.load(f"{source_dir}/embedding/{text1_save_filename}")
-else:
+    # if os.path.exists(f"{source_dir}/embedding/{text1_save_filename}"):
+    #     malicious_text_embed_list = torch.load(f"{source_dir}/embedding/{text1_save_filename}")
+    # else:
+    
     # generate embeddings for text
     malicious_text_embed_list = []
     with open(f"{source_dir}/text/{text_malicious_file}", "r") as f:
@@ -151,12 +153,12 @@ else:
 
     img_names.append("is_malicious")
 
-tot = np.concatenate((malicious_result, benign_result), axis=0)
-print(tot.shape)
-# save the full similarity matrix as csv
-np.savetxt(f"{source_dir}/analysis/{cosine_filename}", tot, delimiter=",",
-            header=",".join(img_names))
-print(f"csv file saved at: {source_dir}/analysis/{cosine_filename}")
+    tot = np.concatenate((malicious_result, benign_result), axis=0)
+    print(tot.shape)
+    # save the full similarity matrix as csv
+    np.savetxt(f"{source_dir}/intermediate-data/{cosine_filename}", tot, delimiter=",",
+                header=",".join(img_names))
+    print(f"csv file saved at: {source_dir}/intermediate-data/{cosine_filename}")
 
     # analysis
     avg1 = np.mean(malicious_result.flatten())
@@ -178,6 +180,6 @@ print(f"csv file saved at: {source_dir}/analysis/{cosine_filename}")
 # plt.show()
 
 if __name__=="__main__":
-    get_similarity_matrix(save_tensors=True)
+    get_similarity_matrix(save_tensors=False)
 
 
