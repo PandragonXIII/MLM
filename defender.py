@@ -30,9 +30,9 @@ class Defender():
         :ratio: the ratio of clean image cosine similarity decrease value that should be lower than threshold
         """
         # get the first col (origin image) as the base cosine similarity
-        base = data.iloc[:40,0]
+        base = data.iloc[:,0]
         # get the decrease value
-        decrease = data.iloc[:40,1:].sub(base, axis=0)
+        decrease = data.iloc[:,1:].sub(base, axis=0)
         # get the ratio of decrease value that is lower than threshold
         self.threshold = np.percentile(decrease, (1-ratio)*100)
         print(f"Threshold updated to {self.threshold}")
@@ -48,13 +48,13 @@ class Defender():
         return: a nD array of boolean (m*1)
             True means adversarial
         """
-        if len(cossims.shape) == 1 or cossims.shape[0] == 1:
-            return True in (np.array(cossims[:,1:]) - cossims[:,0] < self.threshold)
+        if len(cossims.shape) == 1:
+            return True in (np.array(cossims[1:]) - cossims[0] < self.threshold)
         else:
             ret = []
             for r in range(cossims.shape[0]):
                 row = cossims.iloc[r]
-                ret.append(True in (np.array(row[1:]) - row[0] < self.threshold))
+                ret.append(True in (np.array(row.iloc[1:]) - row.iloc[0] < self.threshold))
             return ret
         
     def get_lowest_idx(self, cossims):
@@ -108,7 +108,7 @@ class Defender():
         adv_classes_names = set(["_".join(h.split("_")[:3]) for h in all_adv_header])
         for adv_class in adv_classes_names:
             # list the headers of adv_class constraint
-            adv_header = [col for col in df.columns if adv_class in col]
+            adv_header = [col for col in df.columns if adv_class+"_" in col]
             if len(adv_header)>checkpt_num:
                 adv_header = adv_header[:checkpt_num]
             # get data
@@ -554,6 +554,7 @@ def test_defender_on_malicious_test_set():
 def test_imgdetector(datapath:str,savepath:str,cpnum=8):
     path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
     data = pd.read_csv(path)
+    data = data[data["is_malicious"]==1] # only consider malicious text
     train_data = data[[col for col in data.columns if "clean_resized" in col]][:cpnum]
     detector = Defender()
     results = []
