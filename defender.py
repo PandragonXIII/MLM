@@ -551,14 +551,14 @@ def test_defender_on_malicious_test_set():
     print("data percentage: 0.995")
     print(results[results["data percentage"]==0.995])
 
-def test_imgdetector(datapath:str,savepath:str,cpnum=8):
+def test_imgdetector(datapath:str,savepath:str,cpnum=8,data_rate=[0.95, 0.975, 0.99, 0.995]):
     path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
     data = pd.read_csv(path)
     data = data[data["is_malicious"]==1] # only consider malicious text
     train_data = data[[col for col in data.columns if "clean_resized" in col]][:cpnum]
     detector = Defender()
     results = []
-    for i in [0.95, 0.975, 0.99, 0.995]:
+    for i in data_rate:
         detector.train(train_data,ratio=i)
         # print(f"Threshold: {detector.threshold}")
         # predict on test data and return results
@@ -571,7 +571,9 @@ def test_imgdetector(datapath:str,savepath:str,cpnum=8):
     
 
 if __name__ == "__main__":
-    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
-                     savepath="./src/analysis/imgdetector_TestSet_results.csv")
     test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
-                     savepath="./src/analysis/imgdetector_ValSet_results.csv")
+                     savepath="./src/analysis/imgdetector_ValSet_results.csv",
+                     data_rate=[0.95, 0.975, 0.99, 0.995,1])
+    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
+                     savepath="./src/analysis/imgdetector_TestSet_results.csv",
+                     data_rate=[0.995,1])

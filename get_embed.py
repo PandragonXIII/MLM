@@ -155,9 +155,10 @@ def get_similarity_matrix(save_tensors=False):
 
     tot = np.concatenate((malicious_result, benign_result), axis=0)
     print(tot.shape)
+    # add column name
+    tot = np.concatenate((np.array(img_names).reshape(1,-1), tot), axis=0)
     # save the full similarity matrix as csv
-    np.savetxt(f"{source_dir}/intermediate-data/{cosine_filename}", tot, delimiter=",",
-                header=",".join(img_names))
+    np.savetxt(f"{source_dir}/intermediate-data/{cosine_filename}", tot, delimiter=",")
     print(f"csv file saved at: {source_dir}/intermediate-data/{cosine_filename}")
 
     # analysis
