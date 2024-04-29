@@ -175,24 +175,35 @@ def delta_cos_sim_distribution(path:str, it=250):
     plt.savefig(f"MLM/src/results/denoise{it}_delta_cossim_distribution.png")
     return
 
+def cossim_line_of_all_image(path:str, cpnum=8):
+    """
+    plot the line plot of cosine similarity of image after denoising.
+    given the path of the similarity matrix csv file, plot the line plot of each image type.
+    """
+    df = pd.read_csv(path)
+    df = df[df["is_malicious"]==1]
+    # delete is_malicious
+    df = df.drop(columns=["is_malicious"])
+    # get all image classes
+    img_classes = set(["_".join(col.split("_")[:-2])+"_" for col in df.columns])
+    img_classes = sorted(list(img_classes))
+    #
+    fig, ax = plt.subplots(1,1)
+    xticks = [i for i in range(0,cpnum*50,50)]
+    for img_class in img_classes:
+        cols = [col for col in df.columns if img_class in col]
+        assert len(cols) >= cpnum # check if there are enough columns
+        cols = cols[:cpnum] # and only use the first cpnum columns
+        data = df[cols]
+        ax.plot(xticks, data.mean(), label=img_class)
+    ax.legend(bbox_to_anchor=(0.05, 1.05), loc='lower left', borderaxespad=0.)
+    ax.set_xlabel("denoise times")
+    ax.set_ylabel("cosine similarity")
+    plt.tight_layout()
+    plt.savefig(f"./src/results/cossim_line.png")
+
 if __name__ == "__main__":
     # delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=350)
     # train_data_decline_line()
 
-    f = "./src/intermediate-data/similarity_matrix_validation.csv"
-    df = pd.read_csv(f)
-    # print(df.columns)
-    IMAGE_NUM = 7
-    MAX_DENOISE_TIMES = 400 #(0,550,50)
-    STEP = 50
-    CHECKPOINT_NUM = MAX_DENOISE_TIMES//STEP +1
-    PLOT_X_NUM = 8
-
-    # plot malicious text vs all images in one plot
-    data = df[df["is_malicious"]==1]
-    fig,ax = plt.subplots(1,1, figsize=(20,10))
-    for i in range(IMAGE_NUM):
-        single_type_text_line(data.iloc[:,[j for j in range(i*CHECKPOINT_NUM,i*CHECKPOINT_NUM+PLOT_X_NUM)]+[-1]], ax)
-    plt.tight_layout()
-    plt.savefig(f"./src/results/malicious_text_TestSetImg_line2.png")
-    # plt.show()
+    cossim_line_of_all_image("./src/intermediate-data/similarity_matrix_validation.csv", cpnum=8)
