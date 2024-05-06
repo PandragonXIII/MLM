@@ -60,6 +60,18 @@
 <details>
 <summary>更新日志</summary>
 
+#### MEET 5.6
+- [ ] Transfer(test result with harmbench)
+ - [ ] Llava
+ - [ ] mini GPT4
+ - [ ] BLIP
+ - [ ] 天问
+- [ ] celan text对performance的影响
+
+- [ ] baseline(jail guard)
+ - [ ] 时间
+- [ ] 非gradient base attack图片
+
 #### MEET 4.22
 - [x] test set 
 - [x] $\delta$ cossim 山峰图
