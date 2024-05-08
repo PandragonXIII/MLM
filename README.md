@@ -29,6 +29,7 @@
 ├── denoiser # diffusion_denoised_smoothing模块
 ├── block_input # 暂定为模块测试输入数据位置
 ├── output # 暂定为模块测试输出数据位置
+├── minigpt4 # MiniGPT-4仓库中的模块
 └── src
     ├── intermediate-data #各类方法得到的cosine similarity结果
     ├── analysis #测试detector的统计数据

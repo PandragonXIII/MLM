@@ -5,10 +5,19 @@ import os, csv
 import numpy as np
 import matplotlib.pyplot as plt
 import tqdm
+import time
 
 
 from denoiser.imagenet.DRM import DiffusionRobustModel
 
+# target models
+from transformers import AutoProcessor, AutoModelForPreTraining
+from transformers import InstructBlipProcessor, InstructBlipForConditionalGeneration
+
+from minigpt4.common.config import Config
+from minigpt4.common.dist_utils import get_rank
+from minigpt4.common.registry import registry
+from minigpt4.conversation.conversation import Chat,CONV_VISION_Vicuna0
 
 def compute_cosine(a_vec:np.ndarray , b_vec:np.ndarray):
     """calculate cosine similarity"""
@@ -156,3 +165,69 @@ def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0
             plt.imsave("{save_path}/{name}_denoised_{:0>3d}times.bmp".format(
                 it, save_path=save_path, name=names[i]
             ), denoise_batch[i])
+
+def get_response(model_name, texts, images):
+    """
+    get different model response with given texts and images pairs
+    :model_name: on of "llava", "minigpt4", "blip",...
+    """
+    answers = []
+    t_start=time.time()
+    # TODO use batch encode and decode
+    if model_name=="llava" or model_name=="blip":
+        if model_name=="llava":
+            processor = AutoProcessor.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf")
+            model = AutoModelForPreTraining.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf", torch_dtype=torch.float16, low_cpu_mem_usage=True) 
+        else: # blip
+            processor = InstructBlipProcessor.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b")
+            model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b", torch_dtype=torch.float16, low_cpu_mem_usage=True) 
+        model.to("cuda:0")
+        for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            input = processor(text="<image>"+texts[i], images=images[i], return_tensors="pt").to("cuda:0")
+            # autoregressively complete prompt
+            output = model.generate(**input,max_length=100)
+            outnpy=output.to("cpu").numpy()
+            answers.append(processor.decode(outnpy[0], skip_special_tokens=True))
+        del model
+        torch.cuda.empty_cache()
+    elif model_name.lower()=="minigpt4":
+        pass
+    else:
+        raise Exception("unrecognised model_name, please choose from llava,blip,minigpt4")
+    t_gen = time.time()-t_start
+    print(f"generation part takes {t_gen:.2f}s")
+    return answers
+
+
+# helper functions for miniGPT-4
+def upload_img(chat,img):
+    CONV_VISION = CONV_VISION_Vicuna0
+    chat_state = CONV_VISION.copy()
+    img_list = []
+    chat.upload_img(img, chat_state, img_list)
+    chat.encode_img(img_list)
+    return chat_state, img_list
+
+
+def ask(chat,user_message, chat_state):
+    chat.ask(user_message, chat_state)
+    return chat_state
+
+
+def answer(chat,chat_state, img_list, num_beams=1, temperature=1.0):
+    llm_message  = chat.answer(conv=chat_state,
+                              img_list=img_list,
+                              num_beams=num_beams,
+                              temperature=temperature,
+                              max_new_tokens=300,
+                              max_length=2000)[0]
+
+    return llm_message, chat_state, img_list
+
+
+def query_minigpt(question,img,chat):
+    with torch.no_grad():
+        chat_state, img_list = upload_img(chat,img)
+        chat_state = ask(chat,question, chat_state)
+        llm_message, chat_state, img_list = answer(chat,chat_state, img_list)
+    return llm_message

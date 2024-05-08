@@ -5,3 +5,4 @@ __pycache__
 denoiser/imagenet/256x256_diffusion_uncond.pt
 denoiser/vit-patch16-224/pytorch_model.bin
 block_input/img/*
+models/MiniGPT4/*

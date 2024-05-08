@@ -84,38 +84,25 @@ if __name__=="__main__":
         os.system(f"rm -rf {a.temp_dir}")
     pass
 
-    # generate response
-    from transformers import AutoProcessor, AutoModelForPreTraining
-    processor = AutoProcessor.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf")
-    model = AutoModelForPreTraining.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf", torch_dtype=torch.float16, low_cpu_mem_usage=True) 
-    model.to("cuda:0")
-
     # read the prompts from csv to a list
     df = pd.read_csv(a.text_file,header=None)
     texts = df[0].tolist()
     behaviours = df[5].tolist() # for harmbench eval
 
-    # generate response
-    outputs = []
-    for i in tqdm.tqdm(range(len(texts))):
-        input = processor("<image>"+texts[i], images[i], return_tensors="pt").to("cuda:0")
-        # autoregressively complete prompt
-        output = model.generate(**input, max_new_tokens=100)
-        outputs.append(output.to("cpu").numpy())
-    del model
-    torch.cuda.empty_cache()
+    # generate response TODO accept different model types
+    responses = get_response("llava", texts, images)
+
     # save QA pairs to json
     import json
     res = {}
     for i in range(len(texts)):
-        response = processor.decode(outputs[i][0], skip_special_tokens=True)
-        res[behaviours[i]] = [{"test_case":[images[i].filename,texts[i]],"generation":response}]
+        res[behaviours[i]] = [{"test_case":[images[i].filename,texts[i]],"generation":responses[i]}]
     with open(a.output_dir+"/response.json","w") as f:
         json.dump(res,f)
     
     t_generate = time.time()
     print(f"Full generation completed in {t_generate-t0:.2f}s")
-
+    print("evaluating...")
     # evaluate
     # this can be done separately to avoid Out of Memory Error
     result_path = os.path.abspath(a.output_dir)
