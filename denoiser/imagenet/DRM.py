@@ -72,10 +72,10 @@ class DiffusionRobustModel(nn.Module):
         self.classifier = classifier
         os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"
         os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
-        device_ids = [0,1]
-        self.model = torch.nn.DataParallel(self.model, device_ids =device_ids).cuda()
-        self.diffusion  = torch.nn.DataParallel(self.diffusion, device_ids =device_ids).cuda()
-        self.classifier = torch.nn.DataParallel(self.classifier, device_ids =device_ids).cuda()
+        device_ids = [0]
+        # self.model = torch.nn.DataParallel(self.model, device_ids =device_ids).cuda()
+        # self.diffusion  = torch.nn.DataParallel(self.diffusion, device_ids =device_ids).cuda()
+        # self.classifier = torch.nn.DataParallel(self.classifier, device_ids =device_ids).cuda()
 
     def forward(self, x, t):
         x_in = x * 2 -1
@@ -95,7 +95,7 @@ class DiffusionRobustModel(nn.Module):
         noise = torch.randn_like(x_start)
         
         #:param t: the number of diffusion steps (minus 1). Here, 0 means one step.
-        x_t_start = self.diffusion.module.q_sample(x_start=x_start, t=t_batch, noise=noise)
+        x_t_start = self.diffusion.q_sample(x_start=x_start, t=t_batch, noise=noise)
 
         with torch.no_grad():
             if multistep:
@@ -103,14 +103,14 @@ class DiffusionRobustModel(nn.Module):
                 for i in range(t)[::-1]:
                     print(i)
                     t_batch = torch.tensor([i] * len(x_start)).cuda()
-                    out = self.diffusion.module.p_sample(
+                    out = self.diffusion.p_sample(
                         self.model,
                         out,
                         t_batch,
                         clip_denoised=True
                     )['sample']
             else:
-                out = self.diffusion.module.p_sample(
+                out = self.diffusion.p_sample(
                     self.model,
                     x_t_start,
                     t_batch,

@@ -20,6 +20,7 @@ from defender import Defender
 import sys
 import denoiser.imagenet.denoise
 import time
+import json
 
 DELETE_TEMP_FILE = True
 
@@ -34,6 +35,7 @@ if __name__=="__main__":
     args = parser.parse_args()
 
     a = Args()
+    a.pair_mode=args.pair_mode
     # deal with directory
     if not os.path.exists(a.temp_dir):
         os.makedirs(a.temp_dir)
@@ -50,6 +52,12 @@ if __name__=="__main__":
 
     # denoise the image
     print("processing images... ",end="")
+    # count the number of images in args.img
+    image_num = 0
+    if os.path.isdir(args.img):
+        image_num = len(os.listdir(args.img))
+    else:
+        image_num = 1
     generate_denoised_img(args.img,a.image_dir,8)
     print("Done")
     # compute cosine similarity
@@ -66,19 +74,22 @@ if __name__=="__main__":
         adv_idx.append(d.get_lowest_idx(sim_matrix[i]))
 
     # save the result to csv as new column
-    df = pd.read_csv(args.text,header=None)
-    df["input_adv_img"] = adv_idx
-    df.to_csv(a.out_text_file,header=False,index=False)
+    # this don't work for conbine mode
+    # df = pd.read_csv(args.text,header=None)
+    # df["input_adv_img"] = adv_idx
+    # df.to_csv(a.out_text_file,header=False,index=False)
 
     images = []
     # save the image to output folder
     denoised = os.listdir(a.image_dir)
     denoised.sort()
     for i in range(sim_matrix.shape[0]):
-        idx = i*a.denoise_checkpoint_num+adv_idx[i]
+        # find specific image and denoise time
+        idx = i%image_num*a.denoise_checkpoint_num+adv_idx[i] 
         images.append(Image.open(f"{a.image_dir}/{denoised[idx]}")) # store the image for later generation of response
-        os.system(
-            f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/img/{denoised[idx]}")
+        # save to disk
+        # os.system(
+        #     f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/img/{denoised[idx]}")
     t_finish = time.time()
     print(f"filtered images are saved to {a.output_dir}/img")
     print(f"processed {sim_matrix.shape[0]} inputs in {t_finish-t0:.2f}s")
@@ -91,14 +102,24 @@ if __name__=="__main__":
     texts = df[0].tolist()
     behaviours = df[5].tolist() # for harmbench eval
 
+    # duplicate the texts and behaviours if pair_mode is combine
+    if args.pair_mode=="combine":
+        new_texts = []
+        new_behaviours = []
+        for i in range(len(texts)):
+            new_texts.extend([texts[i]]*image_num)
+            new_behaviours.extend([behaviours[i]]*image_num)
+        texts = new_texts
+        behaviours = new_behaviours
     # generate responses
     responses = get_response(args.model, texts, images)
 
     # save QA pairs to json
-    import json
     res = {}
+    for behav in set(behaviours): # init each behaviour class
+        res[behav]=[]
     for i in range(len(texts)):
-        res[behaviours[i]] = [{"test_case":[images[i].filename,texts[i]],"generation":responses[i]}]
+        res[behaviours[i]].append({"test_case":[images[i].filename,texts[i]],"generation":responses[i]})
     with open(a.output_dir+"/response.json","w") as f:
         json.dump(res,f)
     

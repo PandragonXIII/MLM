@@ -30,9 +30,10 @@ def compute_cosine(a_vec:np.ndarray , b_vec:np.ndarray):
 class Args:
     model_path = "/data1/qxy/models/llava-1.5-7b-hf"
     DEVICE = "cuda:0"
-    image_dir = "/data1/qxy/MLM/src/image/denoised"
+    image_dir = "/data1/qxy/MLM/temp/denoised_img"
     text_file = "harmbench_behaviors_text_val.csv"
     denoise_checkpoint_num = 8 # (0,350,50)
+    pair_mode = "combine"
     # dir for output images
     output_dir = "./output"
     # dir for internal variables
@@ -114,12 +115,22 @@ def get_similarity_list(args:Args, save_internal=False):
 
     # compute cosine similarity between text and n denoised images
     # and form a table of size (len(text_embed_list), args.denoise_checkpoint_num)
-    cossims = np.zeros((len(text_embed_list), args.denoise_checkpoint_num))
-    for i in range(len(text_embed_list)):
-        for j in range(args.denoise_checkpoint_num):
-            text_embed = text_embed_list[i]
-            img_embed = img_embed_list[i*args.denoise_checkpoint_num+j]
-            cossims[i, j] = compute_cosine(img_embed, text_embed)
+    image_num = len(img_embed_list)//args.denoise_checkpoint_num
+    if args.pair_mode=="combine":
+        cossims = np.zeros((len(text_embed_list)*len(img_embed_list), args.denoise_checkpoint_num))
+        for i in range(len(text_embed_list)):
+            for j in range(image_num):
+                for k in range(args.denoise_checkpoint_num):
+                    text_embed = text_embed_list[i]
+                    img_embed = img_embed_list[j*args.denoise_checkpoint_num+k]
+                    cossims[i*image_num+j, k] = compute_cosine(img_embed, text_embed)
+    else: # injection
+        cossims = np.zeros((len(text_embed_list), args.denoise_checkpoint_num))
+        for i in range(len(text_embed_list)):
+            for j in range(args.denoise_checkpoint_num):
+                text_embed = text_embed_list[i]
+                img_embed = img_embed_list[i*args.denoise_checkpoint_num+j]
+                cossims[i, j] = compute_cosine(img_embed, text_embed)
 
 
     # save embeddings and cosine similarity matrix
