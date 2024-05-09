@@ -38,6 +38,24 @@ class Args:
     # dir for internal variables
     temp_dir = "./temp"
     out_text_file = f"{temp_dir}/text.csv"
+    # args for minigpt4
+    cfg_path = "./minigpt4/minigpt4_eval.yaml"
+    gpu_id = 0
+    batch_size=1
+    image_num=100
+    input_res=224
+    alpha=1.0
+    epsilon=8
+    steps=8
+    output="temp"
+    image_path="temp"
+    tgt_text_path="temp.txt"
+    question_path="temp.txt"
+    start_idx=0
+    num_query=10
+    sigma=8
+    # --options args, with nargs="+", for override
+    options=None
 
 def get_similarity_list(args:Args, save_internal=False):
     """get the similarity matrix of text and corresponding denoised images
@@ -166,7 +184,7 @@ def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0
                 it, save_path=save_path, name=names[i]
             ), denoise_batch[i])
 
-def get_response(model_name, texts, images):
+def get_response(model_name, texts, images, a=Args()):
     """
     get different model response with given texts and images pairs
     :model_name: on of "llava", "minigpt4", "blip",...
@@ -185,13 +203,33 @@ def get_response(model_name, texts, images):
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             input = processor(text="<image>"+texts[i], images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
-            output = model.generate(**input,max_length=100)
+            output = model.generate(**input,max_length=300)
             outnpy=output.to("cpu").numpy()
             answers.append(processor.decode(outnpy[0], skip_special_tokens=True))
         del model
         torch.cuda.empty_cache()
     elif model_name.lower()=="minigpt4":
-        pass
+        print(f"Loading MiniGPT-4 models...",end="")
+        # load models for i2t
+        cfg = Config(a)
+        model_config = cfg.model_cfg
+        model_config.device_8bit = a.gpu_id
+        model_cls = registry.get_model_class(model_config.arch)  # model_config.arch: minigpt-4
+        model = model_cls.from_config(model_config).to('cuda:{}'.format(a.gpu_id))
+
+        vis_processor_cfg = cfg.datasets_cfg.cc_sbu_align.vis_processor.train
+        vis_processor     = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)       
+        num_beams = 1
+        temperature = 1.0
+        chat = Chat(model, vis_processor, device='cuda:{}'.format(a.gpu_id))
+        print("Done")
+        # start querying
+        for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            answers.append(query_minigpt(
+                question="<image>"+texts[i], img=images[i],chat=chat
+            ))
+        del chat,model,vis_processor
+        torch.cuda.empty_cache()
     else:
         raise Exception("unrecognised model_name, please choose from llava,blip,minigpt4")
     t_gen = time.time()-t_start

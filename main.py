@@ -29,6 +29,8 @@ if __name__=="__main__":
     parser.add_argument('--text', type=str, required=True, help='path to the text input file')
     parser.add_argument('--img', type=str, required=True, help='path to the image input folder or file')
     parser.add_argument('--threshold', type=float, default=-0.0025, help='threshold for adversarial detection')
+    parser.add_argument('--model', type=str, default="llava", help='model to use for generation')
+    parser.add_argument('--pair_mode', type=str, default="combine", help='relation between imgs and texts, should be "combine" or "injection"')
     args = parser.parse_args()
 
     a = Args()
@@ -89,8 +91,8 @@ if __name__=="__main__":
     texts = df[0].tolist()
     behaviours = df[5].tolist() # for harmbench eval
 
-    # generate response TODO accept different model types
-    responses = get_response("llava", texts, images)
+    # generate responses
+    responses = get_response(args.model, texts, images)
 
     # save QA pairs to json
     import json
