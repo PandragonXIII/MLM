@@ -29,7 +29,7 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser(description='detect adversarial images and pass harmless images to LLMs')
     parser.add_argument('--text', type=str, required=True, help='path to the text input file')
     parser.add_argument('--img', type=str, required=True, help='path to the image input folder or file')
-    parser.add_argument('--threshold', type=float, default=-0.0025, help='threshold for adversarial detection')
+    parser.add_argument('--threshold', type=float, default=-0.0005046081542968749, help='threshold for adversarial detection')
     parser.add_argument('--model', type=str, default="llava", help='model to use for generation')
     parser.add_argument('--pair_mode', type=str, default="combine", help='relation between imgs and texts, should be "combine" or "injection"')
     args = parser.parse_args()

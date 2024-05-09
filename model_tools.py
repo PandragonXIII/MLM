@@ -208,17 +208,18 @@ def get_response(model_name, texts, images, a=Args()):
     if model_name=="llava" or model_name=="blip":
         if model_name=="llava":
             processor = AutoProcessor.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf")
-            model = AutoModelForPreTraining.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf", torch_dtype=torch.float16, low_cpu_mem_usage=True) 
+            model = AutoModelForPreTraining.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf") 
         else: # blip
             processor = InstructBlipProcessor.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b")
-            model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b", torch_dtype=torch.float16, low_cpu_mem_usage=True) 
+            model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
         model.to("cuda:0")
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
-            input = processor(text="<image>"+texts[i], images=images[i], return_tensors="pt").to("cuda:0")
+            input = processor(text=f"Human: {texts[i]} <image> Assistant: ", images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
             output = model.generate(**input,max_length=300)
             outnpy=output.to("cpu").numpy()
-            answers.append(processor.decode(outnpy[0], skip_special_tokens=True))
+            answer = processor.decode(outnpy[0], skip_special_tokens=True)
+            answers.append(answer.split('Assistant: ')[-1].strip())
         del model
         torch.cuda.empty_cache()
     elif model_name.lower()=="minigpt4":
