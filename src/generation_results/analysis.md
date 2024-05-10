@@ -3,14 +3,20 @@ llava spent 20.41s processing the inputs. But notice that it's because we reused
 And generating 1005 responses takes 2h 31min 31sec, 9091s in total, and average generation time is 9.05s
 In addition, an extra 2 min is required for answer evaluation.
 Average ASR:  0.273
+Clean ASR: 0.3383084577114428
+Adv ASR: 0.2599502487562189
 
 ## Blip
 similarly, processing the inputs takes 20.71s, which is not the case in practice.
 *notice that blip sometimes has strange outputs like 1,10,100 or 10000...*
 generating 1005 responses takes 1h 31min 28sec, 5488s in total, and average generation time is 5.46s
+Clean ASR: 0.1791044776119403
+Adv ASR: 0.22139303482587064
 Average ASR:  0.21
 
 ## miniGPT-4
 processing the inputs takes 24.43s, which is not the case in practice.
 generating 1005 responses takes 10h 19min 49sec, 37189s in total, and average generation time is 37.00s
+Clean ASR: 0.32338308457711445
+Adv ASR: 0.43532338308457713
 Average ASR:  0.4110000000000001
