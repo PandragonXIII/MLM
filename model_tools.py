@@ -194,7 +194,9 @@ def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0
             plt.imsave("{save_path}/{name}_denoised_{:0>3d}times.bmp".format(
                 it, save_path=save_path, name=names[i]
             ), denoise_batch[i])
-    del denoise_batch,model,batch
+        del denoise_batch
+        torch.cuda.empty_cache()
+    del model,batch
     torch.cuda.empty_cache()
 
 def get_response(model_name, texts, images, a=Args()):
