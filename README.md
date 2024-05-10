@@ -55,8 +55,7 @@
 ```shell
   python main.py --text path/of/.csv --img path/of/img_dir --threshold optional
   # use the following command to run in background
-  nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/malicious_text.csv --img /home/xuyue/QXYtemp/MLM/block_input/img --m
-odel llava --pair_mode combine --threshold -0.0005046081542968749 &
+  nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/malicious_text.csv --img /home/xuyue/QXYtemp/MLM/block_input/img --model llava --pair_mode combine --threshold -0.0005046081542968749 &
 ```
 3. 结果会输出到/output目录，denoise_000表示判定为无害图片，其他则取cossim下降最大的图片
 
@@ -66,9 +65,9 @@ odel llava --pair_mode combine --threshold -0.0005046081542968749 &
 
 #### MEET 5.6
 - [ ] Transfer(test result with harmbench)
- - [ ] Llava
- - [ ] mini GPT4
- - [ ] BLIP
+ - [x] Llava
+ - [x] mini GPT4
+ - [x] BLIP
  - [ ] 天问
 - [ ] celan text对performance的影响
 
