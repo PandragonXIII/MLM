@@ -167,12 +167,12 @@ def delta_cos_sim_distribution(path:str, it=250):
     # set alpha=0.6 to show the overlapping
     colors = ["#1399B2","#BD0026","#FD8D3C","#F1D756","#EF767B"]
     fig, axes = joypy.joyplot(data, by="var",
-                              alpha=0.6, color=colors, legend=True, loc="upper left"
+                              alpha=0.6, color=colors, legend=True, loc="upper left", linecolor="#01010100"
                               )
     plt.title(f"delta value of cosine similarity after {it} iters denoise")
     plt.tight_layout()
     # plt.show()
-    plt.savefig(f"MLM/src/results/denoise{it}_delta_cossim_distribution.png")
+    plt.savefig(f"./src/results/denoise{it}_delta_cossim_distribution2.png")
     return
 
 def cossim_line_of_all_image(path:str, cpnum=8):
@@ -203,7 +203,7 @@ def cossim_line_of_all_image(path:str, cpnum=8):
     plt.savefig(f"./src/results/cossim_line.png")
 
 if __name__ == "__main__":
-    # delta_cos_sim_distribution("MLM/src/intermediate-data/similarity_matrix_validation.csv",it=350)
+    delta_cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv",it=350)
     # train_data_decline_line()
 
-    cossim_line_of_all_image("./src/intermediate-data/similarity_matrix_validation.csv", cpnum=8)
+    # cossim_line_of_all_image("./src/intermediate-data/similarity_matrix_validation.csv", cpnum=8)

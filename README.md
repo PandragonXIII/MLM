@@ -69,7 +69,7 @@
  - [x] mini GPT4
  - [x] ~~BLIP~~
  - [ ] 千问
-- [ ] 100条测时间+没有detect对比
+- [x] 100条测时间+没有detect对比
 - [ ] 201条clean图片+malicious文本，没有detect的ASR
 - [ ] celan text对performance的影响
 
