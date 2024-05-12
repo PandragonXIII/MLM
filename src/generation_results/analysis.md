@@ -24,6 +24,10 @@ Clean ASR: 0.32338308457711445
 Adv ASR: 0.43532338308457713
 Average ASR:  0.4110000000000001
 
+## clean image no detect
+Average ASR:  0.335
+
+# Time complexity
 ## 100imgs+100texts
 [log](/home/xuyue/QXYtemp/MLM/src/generation_results/minigpt4_time_consumption.out)
 with minigpt-4, processing phase takes 120.34s; generation: 3695.00s. total: 3815.34s
@@ -34,4 +38,3 @@ without detection
 total 3707.58s
 107.76s faster.
 
-## clean image no detect
