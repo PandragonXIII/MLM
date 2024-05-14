@@ -127,8 +127,11 @@ if __name__=="__main__":
         for i in range(len(texts)):
             new_texts.extend([texts[i]]*image_num)
             new_behaviours.extend([behaviours[i]]*image_num)
+        text_len = len(texts)
         texts = new_texts
         behaviours = new_behaviours
+        new_imgs = images*text_len
+        images = new_imgs
     # generate responses
     responses = get_response(args.model, texts, images)
 
