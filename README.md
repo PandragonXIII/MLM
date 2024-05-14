@@ -68,7 +68,7 @@
  - [x] Llava
  - [x] mini GPT4
  - [x] ~~BLIP~~
- - [ ] 千问
+ - [x] 千问
 - [x] 100条测时间+没有detect对比
 - [x] 201条clean图片+malicious文本，没有detect的ASR
 - [ ] celan text对performance的影响

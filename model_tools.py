@@ -59,6 +59,46 @@ class Args:
     # --options args, with nargs="+", for override
     options=None
 
+def denoise(Defender, args, a:Args):
+    print("processing images... ",end="")
+    # count the number of images in args.img
+    image_num = 0
+    if os.path.isdir(args.img):
+        image_num = len(os.listdir(args.img))
+    else:
+        image_num = 1
+    generate_denoised_img(args.img,a.image_dir,8)
+    print("Done")
+    # compute cosine similarity
+    print("computing cossim... ",end="")
+    sim_matrix = get_similarity_list(a, save_internal=True)
+    print("Done")
+    # for each row, check with detector
+    d = Defender(threshold=args.threshold)
+    adv_idx = []
+    for i in range(sim_matrix.shape[0]):
+        adv_idx.append(d.get_lowest_idx(sim_matrix[i]))
+
+    # save the result to csv as new column
+    # this don't work for conbine mode
+    # df = pd.read_csv(args.text,header=None)
+    # df["input_adv_img"] = adv_idx
+    # df.to_csv(a.out_text_file,header=False,index=False)
+
+    images = []
+    # save the image to output folder
+    denoised = os.listdir(a.image_dir)
+    denoised.sort()
+    for i in range(sim_matrix.shape[0]):
+        # find specific image and denoise time
+        idx = i%image_num*a.denoise_checkpoint_num+adv_idx[i] 
+        images.append(Image.open(f"{a.image_dir}/{denoised[idx]}")) # store the image for later generation of response
+        # save to disk
+        # os.system(
+        #     f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/img/{denoised[idx]}")
+    print(f"filtered images are saved to {a.output_dir}/img")
+    return (image_num, images)
+
 def get_similarity_list(args:Args, save_internal=False):
     """get the similarity matrix of text and corresponding denoised images
         called by main.py
@@ -248,13 +288,13 @@ def get_response(model_name, texts, images, a=Args()):
         del chat,model,vis_processor
         torch.cuda.empty_cache()
     elif model_name=="qwen":
-        tokenizer = AutoTokenizer.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat")
-        model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat").eval()
+        tokenizer = AutoTokenizer.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True).eval()
         model.to(a.DEVICE)
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"Human: {texts[i]} Assistant: "}])
             # autoregressively complete prompt
-            answer, history = model.chat(tokenizer, query=input, history=None ,max_length=300)
+            answer, history = model.chat(tokenizer, query=input, history=None ,max_new_tokens=300)
             answers.append(answer)
         del model
         torch.cuda.empty_cache()

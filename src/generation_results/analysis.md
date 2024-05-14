@@ -7,8 +7,8 @@ Average ASR:  0.273
 Clean ASR: 0.3383084577114428
 Adv ASR: 0.2599502487562189
 ##### no defence
-201 malicious text, 1 clean image
-ASR: 0.3781 (76/201)
+200 malicious text, 1 clean image
+ASR: 0.38 (76/200)
 
 ## Blip
 [log](/home/xuyue/QXYtemp/MLM/src/generation_results/blip_eval_log.out)
@@ -19,8 +19,8 @@ Clean ASR: 0.1791044776119403
 Adv ASR: 0.22139303482587064
 Average ASR:  0.21
 ##### no defence
-201 malicious text, 1 clean image
-ASR: 0.1194 (24/201)
+200 malicious text, 1 clean image
+ASR: 0.115 (23/200)
 
 ## miniGPT-4
 [log](/home/xuyue/QXYtemp/MLM/src/generation_results/minigpt4_eval_log.out)
@@ -30,9 +30,14 @@ Clean ASR: 0.32338308457711445
 Adv ASR: 0.43532338308457713
 Average ASR:  0.4110000000000001
 ##### no defence
-201 malicious text, 1 clean image
-Average ASR:  0.3383 (68/201)
+200 malicious text, 1 clean image
+Average ASR:  0.335 (67/200)
 
+## Qwen
+
+##### no defence
+200 malicious text, 1 clean image
+Average ASR:  0.06 (12/200)
 
 
 # Time complexity
