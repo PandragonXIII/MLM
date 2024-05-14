@@ -13,6 +13,7 @@ from denoiser.imagenet.DRM import DiffusionRobustModel
 # target models
 from transformers import AutoProcessor, AutoModelForPreTraining
 from transformers import InstructBlipProcessor, InstructBlipForConditionalGeneration
+from transformers import AutoModelForCausalLM, AutoTokenizer # qwen
 
 from minigpt4.common.config import Config
 from minigpt4.common.dist_utils import get_rank
@@ -29,7 +30,8 @@ def compute_cosine(a_vec:np.ndarray , b_vec:np.ndarray):
 
 class Args:
     model_path = "/data1/qxy/models/llava-1.5-7b-hf"
-    DEVICE = "cuda:0"
+    gpu_id = 0
+    DEVICE = f"cuda:{gpu_id}"
     image_dir = "/data1/qxy/MLM/temp/denoised_img"
     text_file = "harmbench_behaviors_text_val.csv"
     denoise_checkpoint_num = 8 # (0,350,50)
@@ -40,8 +42,7 @@ class Args:
     temp_dir = "./temp"
     out_text_file = f"{temp_dir}/text.csv"
     # args for minigpt4
-    cfg_path = "./minigpt4/minigpt4_eval.yaml"
-    gpu_id = 0
+    cfg_path = "./minigpt4/minigpt4_eval.yaml"    
     batch_size=1
     image_num=100
     input_res=224
@@ -214,11 +215,11 @@ def get_response(model_name, texts, images, a=Args()):
         else: # blip
             processor = InstructBlipProcessor.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b")
             model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
-        model.to("cuda:0")
+        model.to(a.DEVICE)
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             input = processor(text=f"Human: {texts[i]} <image> Assistant: ", images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
-            output = model.generate(**input,max_length=300)
+            output = model.generate(**input,max_length=300) # type: ignore
             outnpy=output.to("cpu").numpy()
             answer = processor.decode(outnpy[0], skip_special_tokens=True)
             answers.append(answer.split('Assistant: ')[-1].strip())
@@ -245,6 +246,17 @@ def get_response(model_name, texts, images, a=Args()):
                 question="<image>"+texts[i], img=images[i],chat=chat
             ))
         del chat,model,vis_processor
+        torch.cuda.empty_cache()
+    elif model_name=="qwen":
+        tokenizer = AutoTokenizer.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat")
+        model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat").eval()
+        model.to(a.DEVICE)
+        for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"Human: {texts[i]} Assistant: "}])
+            # autoregressively complete prompt
+            answer, history = model.chat(tokenizer, query=input, history=None ,max_length=300)
+            answers.append(answer)
+        del model
         torch.cuda.empty_cache()
     else:
         raise Exception("unrecognised model_name, please choose from llava,blip,minigpt4")
