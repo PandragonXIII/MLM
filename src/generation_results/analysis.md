@@ -4,8 +4,8 @@ llava spent 20.41s processing the inputs. But notice that it's because we reused
 And generating 1005 responses takes 2h 31min 31sec, 9091s in total, and average generation time is 9.05s
 In addition, an extra 2 min is required for answer evaluation.
 Average ASR:  0.273
-Clean ASR: 0.3383084577114428
-Adv ASR: 0.2599502487562189
+Clean ASR: 0.34 (68/200)
+Adv ASR: 0.25625 (205/800)
 ##### no defence
 200 malicious text, 1 clean image
 ASR: 0.38 (76/200)
@@ -15,8 +15,8 @@ ASR: 0.38 (76/200)
 similarly, processing the inputs takes 20.71s, which is not the case in practice.
 *notice that blip sometimes has strange outputs like 1,10,100 or 10000...*
 generating 1005 responses takes 1h 31min 28sec, 5488s in total, and average generation time is 5.46s
-Clean ASR: 0.1791044776119403
-Adv ASR: 0.22139303482587064
+Clean ASR: 0.175 (35/200)
+Adv ASR: 0.21875 (175/800)
 Average ASR:  0.21
 ##### no defence
 200 malicious text, 1 clean image
@@ -26,12 +26,12 @@ ASR: 0.115 (23/200)
 [log](/home/xuyue/QXYtemp/MLM/src/generation_results/minigpt4_eval_log.out)
 processing the inputs takes 24.43s, which is not the case in practice.
 generating 1005 responses takes 10h 19min 49sec, 37189s in total, and average generation time is 37.00s
-Clean ASR: 0.32338308457711445
-Adv ASR: 0.43532338308457713
-Average ASR:  0.4110000000000001
+Clean ASR: 0.32 (64/200)
+Adv ASR: 0.43375 (347/800)
+Average ASR:  0.411 
 ##### no defence
-200 malicious text, 1 clean image
-Average ASR:  0.335 (67/200)
+200 malicious text, 1 clean image, Average ASR:  0.335 (67/200);
+200 malicious text, 4 adv image, Average ASR: 0.50875 (407/800)
 
 ## Qwen
 
