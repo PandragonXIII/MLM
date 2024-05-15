@@ -93,9 +93,7 @@ if __name__=="__main__":
             # save to disk
             # os.system(
             #     f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/img/{denoised[idx]}")
-        print(f"filtered images are saved to {a.output_dir}/img")
-        if DELETE_TEMP_FILE:
-            os.system(f"rm -rf {a.temp_dir}")
+        # print(f"filtered images are saved to {a.output_dir}/img")
         pass
     else: # generate answers directly without denoise and classify
         if os.path.isdir(args.img):
@@ -143,6 +141,9 @@ if __name__=="__main__":
         res[behaviours[i]].append({"test_case":[images[i].filename,texts[i]],"generation":responses[i]}) # type: ignore
     with open(a.output_dir+"/response.json","w") as f:
         json.dump(res,f)
+
+    if DELETE_TEMP_FILE:
+            os.system(f"rm -rf {a.temp_dir}")
     
     t_generate = time.time()
     print(f"Full generation completed in {t_generate-t0:.2f}s")

@@ -289,7 +289,7 @@ def get_response(model_name, texts, images, a=Args()):
         torch.cuda.empty_cache()
     elif model_name=="qwen":
         tokenizer = AutoTokenizer.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True)
-        model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True).eval()
+        model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True,fp32=True).eval()
         model.to(a.DEVICE)
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"Human: {texts[i]} Assistant: "}])

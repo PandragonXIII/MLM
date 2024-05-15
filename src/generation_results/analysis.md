@@ -1,3 +1,4 @@
+test threshold: -0.0005046081542968749
 ## Llava
 [log](/home/xuyue/QXYtemp/MLM/src/generation_results/llava_eval_log.out)
 llava spent 20.41s processing the inputs. But notice that it's because we reused same 5 images for all 201 text inputs. Therefore the practical time cost could be about 200 times larger.
@@ -28,16 +29,18 @@ processing the inputs takes 24.43s, which is not the case in practice.
 generating 1005 responses takes 10h 19min 49sec, 37189s in total, and average generation time is 37.00s
 Clean ASR: 0.32 (64/200)
 Adv ASR: 0.43375 (347/800)
-Average ASR:  0.411 
+Average ASR: 0.411 
 ##### no defence
 200 malicious text, 1 clean image, Average ASR:  0.335 (67/200);
 200 malicious text, 4 adv image, Average ASR: 0.50875 (407/800)
 
 ## Qwen
-
+with defence
+200 malicious text, 1 clean image, Average ASR: 0.04 
+200 malicious text, 4 adv image, Average ASR: 0.055 
 ##### no defence
-200 malicious text, 1 clean image
-Average ASR:  0.06 (12/200)
+200 malicious text, 1 clean image, Average ASR: 0.06 (12/200)
+200 malicious text, 4 adv image, Average ASR: 0.07125 (57/800)
 
 
 # Time complexity
@@ -50,4 +53,9 @@ with minigpt-4, processing phase takes 120.34s; generation: 3695.00s. total: 381
 without detection
 total 3707.58s
 107.76s faster.
+
+## Qwen
+100 malicious text, 100 clean image
+without defence: 10min 2sec: 602s; 6.02s/query
+with defence: 783.59s; 7.84s/query
 
