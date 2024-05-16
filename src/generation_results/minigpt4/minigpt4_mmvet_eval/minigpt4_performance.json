@@ -1,0 +1,605 @@
+{
+    "v1_181": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/181_denoised_000times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "The painting depicts a couple in a passionate embrace, with the man standing behind the woman and both of them looking at each other with love and desire. The woman's face is turned towards the man, and he is kissing her neck while she is looking back at him. The background is a yellow and gold abstract pattern that adds to the warmth and joy of the scene. This painting was created by the Austrian painter Gustav Klimt, who was known for his use of decorative motifs and symbolism in his works."
+        }
+    ],
+    "v1_176": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/176_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "\u300a\u8d22\u738b\u300b(Billion Dollar Baby)\u662f\u4e00\u90e8\u5173\u4e8e\u6b27\u6d32\u5bab\u5236\u7684\u559c\u5267\u7535\u5f71\uff0c\u7531\u5434\u94ed\u6267\u5bfc\uff0c\u7531\u5b89\u5fb7\u70c8\u00b7\u51af\u7279\u3001\u5361\u6258\u00b7\u5f17\u8036\u548c\u5e03\u9c81\u65af\u00b7\u9ea6\u683c\u00b7\u739b\u4e3d\u670b\u514b\u4e3b\u6f14\u3002\u7535\u5f71\u4e8e2004\u5e7412\u670817\u65e5\u53d1\u5e03\u3002\n\n\u6545\u4e8b\u8bb2\u8ff0\u4e86\u4e00\u4e2a\u7537\u5b50\u5728\u5a31\u4e50\u4e1a\u4e2d\u8ff7\u5931\u4ed6\u7684\u7406\u60f3\u4eba\u751f\uff0c\u5e76\u5728\u8150\u8d25\u7684\u9053\u8def\u4e0a\u91cd\u62fe\u56de\u3002\u7535\u5f71\u88ab\u8ba4\u4e3a\u662f\u4e00\u90e8\u6709\u8da3\u7684\u7535\u5f71\uff0c\u5c55\u73b0\u4e86\u5a31\u4e50\u4e1a\u7684\u8150\u8d25\u9762\u8c8c\uff0c\u5e76\u5f15\u53d1\u4e86\u5bf9\u672c\u8457\u4f5c\u7684\u5ef6\u7eed\u8ba8\u8bba\u3002\n\n\u7535\u5f71\u6536\u83b7\u4e86\u591a\u9879\u5956\u9879\uff0c\u5305\u62ecCannes Film Festival\u7684\u6700\u4f73\u7537\u4e3b\u89d2\u63d0\u540d\uff0c\u548c\u91d1\u7403\u63d0\u540d\u3002\u7535\u5f71\u56e0\u5176\u72ec\u7279\u7684\u89c6\u89c9\u6548\u679c\u3001\u8868\u73b0\u51fa\u8272\u7684\u6f14\u5458\u3001\u5bf9\u8bdd\u52bf\u52a8\u529b\u3001\u865a\ufffd"
+        }
+    ],
+    "v1_170": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/170_denoised_250times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The image shows a close-up of a man wearing a suit, holding a pair of playing cards and smiling. The man's hair is messy and his eyes are looking directly at the camera. There is a dark background behind him."
+        }
+    ],
+    "v1_191": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/191_denoised_150times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "It looks like a small yellow fruit with black spots on it, which could be a tomato or a type of melon. There is no way to diagnose this disease without more information about the specific plant and its symptoms. To treat this disease, it would be necessary to identify the plant and determine the cause of the spots on the fruit. Once the cause has been determined, appropriate treatment can be selected."
+        }
+    ],
+    "v1_196": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/196_denoised_000times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "\u200b\n\nThis is an image of some fresh strawberries hanging from a plant. They are typically red in color and have seeds on the surface. Strawberries are a type of fruit that belongs to the rose family and are typically small, round and sweet. They can be eaten raw or used in various recipes. They are known for their bright red color and sweet taste. They are also a popular ingredient in desserts, smoothies, and salads. Strawberry plants are easy to grow and can be found in many parts of the world. They require well-drained soil, full sun, and regular watering to thrive. They can be grown in the garden or in pots. The strawberry is a symbol of love and fertility and is often given as a gift on Valentine's Day."
+        }
+    ],
+    "v1_203": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/203_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "This image is a black and white photograph of a man with a beard and a suit. He is looking off to the side with a serious expression on his face. It appears to be an old photograph. The man is wearing a suit and tie, and has a long beard. He is likely a historical figure or a prominent person in his time period."
+        }
+    ],
+    "v1_187": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/187_denoised_000times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "This painting is a depiction of the Chinese legend of the three immortals. The three immortals are depicted as figures in red and yellow robes, with one holding a sword and the other two holding fans. The image is in the style of traditional Chinese painting, with bold lines and vibrant colors. It is likely to have been painted on silk or paper and dates back to the Song dynasty (960-1279 AD)."
+        }
+    ],
+    "v1_195": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/195_denoised_200times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This is a picture of a blackberry plant. It has dark purple berries and the leaves are brown and withered."
+        }
+    ],
+    "v1_160": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/160_denoised_250times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "\u200b"
+        }
+    ],
+    "v1_198": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/198_denoised_300times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "The person in this image is a male with long, curly white hair and wearing a black fur coat. He has a serious expression on his face and is looking straight at the camera. There is no background in the image and only the person is visible."
+        }
+    ],
+    "v1_204": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/204_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "This image depicts a man with a long beard and a white mustache, wearing a black shirt and a brown jacket. His eyes are deep and intense, and his expression is serious and thoughtful. He looks off into the distance, perhaps contemplating something or lost in thought. The painting style is impressionist and somewhat abstract, with bold brushstrokes and an emphasis on light and shadow. It appears to be an older man, possibly in his late 50s or early 60s, with a long career in science or academia behind him."
+        }
+    ],
+    "v1_175": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/175_denoised_200times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The movie you provided is an image of a person holding up a ring. It is not clear what the image represents or the context in which it was taken. It appears to be a close-up shot of a hand holding a ring with a gold band and several small diamonds on it. The person's face is partially obscured by their hair, but their eyes are visible. The background is dark, with a hint of a wall or other surface visible in the distance. The overall effect is somewhat mysterious and intriguing."
+        }
+    ],
+    "v1_217": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/217_denoised_300times.bmp",
+                "The diagram below shows how the Australian Bureau of Meteorology collects up-to-the-minute information on the weather in order to produce reliable forecasts.\n\nWrite a report for a university lecturer describing the information shown below. \n\nYou should write at least 150 words."
+            ],
+            "generation": "\u200b\n\nThe image shows a diagram that depicts the process by which the Australian Bureau of Meteorology collects up-to-the-minute information on the weather in order to produce reliable forecasts. The diagram consists of several components that work together to provide accurate and timely information about the weather conditions.\n\nAt the center of the diagram, there is a computer screen displaying an image of the Earth. This image shows the different regions of the Earth, including the continents, oceans, and skies. The computer screen also displays various icons representing different types of weather conditions, such as thunderstorms, hurricanes, and tornadoes.\n\nOn the left side of the diagram, there is a satellite image of Australia, highlighting the areas of the country that are experiencing different weather conditions. The satellite image also shows the location of the Bureau of Meteorology, which is responsible for collecting and analyzing the weather data.\n\nOn the right side of the diagram, there are several symbols representing different types of weather data, such as temperature, humidity, and wind speed. These symbols are connected to the computer screen through lines, indicating that they are being transmitted to the Bureau of Meteorology for analysis.\n\nOverall, the diagram illustrates the complex process by which the Bureau of Meteorology collects and analyzes weather data to provide accurate and timely information to the public. The diagram"
+        }
+    ],
+    "v1_213": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/213_denoised_000times.bmp",
+                "The table below gives information on consumer spending on different items in five different countries in 2002.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words."
+            ],
+            "generation": "\u200b"
+        }
+    ],
+    "v1_158": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/158_denoised_300times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "This image appears to show a bowl of soup with mushrooms and other vegetables in it. It is difficult to determine the specific ingredients or cooking method without more information."
+        }
+    ],
+    "v1_193": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/193_denoised_000times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "\u200b\n\nThis image shows a large cabbage plant with white flowers growing in a dirt field. The leaves are green and yellow, and the flowers are white. There are several small brown insects on the leaves and flowers. This appears to be an organic, non-GMO crop that has been grown in a sustainable manner, with no pesticides or other harmful chemicals used. The insects on the leaves and flowers are likely beneficial insects, such as ladybugs, which help to control pests.\n\nThe disease affecting the plants is likely a fungal infection, such as clubroot or blackleg. Clubroot causes a round, brown spot to form on the leaves and stem of the plant. It can be treated with a variety of fungicides, including copper sulfate, neem oil, and chlorothalonil. Blackleg is caused by a bacterial infection and can be treated with antibiotics. It's important to treat the disease early on to prevent it from spreading to other plants in the area."
+        }
+    ],
+    "v1_172": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/172_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "This image shows a man in a suit standing in front of a group of people. The man is holding a microphone and speaking to the crowd. There are several other people standing in the background, watching him speak. It appears to be a public event or gathering of some kind."
+        }
+    ],
+    "v1_199": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/199_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "The image is of an old statue in front of a red Chinese roof. It depicts an elderly man with a long white beard and a serious expression on his face. The statue appears to be made of bronze or stone, and is standing on a pedestal or base. There are no other details visible in the image."
+        }
+    ],
+    "v1_211": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/211_denoised_050times.bmp",
+                "The chart below shows the amount spent on six consumer goods in four European countries.\n\nWrite a report for a university lecturer describing the information shown below.\n\nYou should write at least 150 words."
+            ],
+            "generation": "\u200b\n\nThe chart shows the amount spent on six consumer goods in four European countries. The chart displays the total amount spent, the country's population, and the percentage of the population that spent money on each item.\n\nThe first item is electronics, which includes televisions, computers, and smartphones. The chart shows that France spends the most on electronics, with an average of $420 per person. This is followed by Germany, where people spend an average of $327 per person on electronics. In the UK, the average amount spent on electronics is $254 per person, while in Italy, it is $183 per person.\n\nNext, the chart looks at clothing and footwear. The UK spends the most on this category, with an average of $639 per person, while France spends $466 per person. Italy spends $354 per person on clothing and footwear, and Germany spends $302 per person.\n\nIn terms of food and drink, Germany spends the most, with an average of $591 per person, while France spends $511 per person. The UK spends an average of $444 per person on food and drink, while in Italy, the average is $346 per person.\n\nThe chart also includes spending on furniture,"
+        }
+    ],
+    "v1_197": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/197_denoised_000times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This image appears to be a leaf of a plant with several small brown spots on it. The spots are likely the result of fungal infections, which can be caused by various types of fungi. Treatment options for fungal infections include removing the infected leaves and applying fungicides to the remaining leaves. The type of fungicide used will depend on the type of fungus causing the infection. It's important to identify the fungus before treating it to ensure that the appropriate fungicide is used."
+        }
+    ],
+    "v1_174": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/174_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The image shows a woman sitting at a table in a restaurant with a glass of milk in front of her. She is wearing a white shirt and black pants, and has dark hair styled in loose waves. The background of the image is dark and appears to be a dining area with table settings, chairs, and a lamp. The overall mood of the image is calm and relaxed."
+        }
+    ],
+    "v1_192": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/192_denoised_000times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This image shows a withered apple on a tree branch. It is a sign of fruit decline, which can be caused by various factors including pests, diseases, weather conditions, or poor care of the fruit trees. The withered apple is likely a sign of a fungal infection or other disease that has affected the tree. Treatment options may include removing the infected fruit, pruning and sanitizing the tree, using insecticides to control pests, or applying fungicides to treat the disease. It's important to consult with a qualified arborist or horticulturalist for proper diagnosis and treatment."
+        }
+    ],
+    "v1_159": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/159_denoised_300times.bmp",
+                "How to make this?"
+            ],
+            "generation": "This image appears to be a still life painting of a glass of juice with fruit slices on top. The juice is made up of different colors such as orange, yellow, and pink, while the fruit slices are a mix of colors like red, green, and yellow. There are also some other fruits such as bananas, oranges, and watermelon in the background. It appears to be set on a wooden table with a tray under it, with some utensils such as a knife and spoon nearby."
+        }
+    ],
+    "v1_161": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/161_denoised_200times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "The image shows a pie with a lattice crust and fresh strawberries on top. The recipe for this pie can vary depending on the type of dough used, but it typically involves mixing flour, sugar, and eggs to create the crust. The filling is usually made by combining cream, sugar, and strawberries in a pan, and then baked until set. The pie can be served warm or chilled. Some variations of the recipe may include other fruits, such as blueberries or raspberries."
+        }
+    ],
+    "v1_165": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/165_denoised_300times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "To make this dish, you can follow these steps:\n\n1. Preheat the oven to 375\u00b0F (190\u00b0C).\n2. In a mixing bowl, combine the cream cheese, sour cream, milk, vanilla extract, and sugar. Beat the mixture until smooth.\n3. Roll out the wonton wrappers on a flat surface until they are thin and uniform in size. Cut them into small squares or circles.\n4. Place a tablespoon of the cream cheese mixture onto half of each wonton square. Fold the square in half, pressing the cream cheese mixture onto one side and folding the other side over it. Seal the edges with a bit of water to help them hold together.\n5. Place the stuffed wontons onto a baking sheet lined with parchment paper. Brush the tops with melted butter.\n6. Bake for 18-20 minutes or until the wontons are golden brown and crispy.\n7. Serve warm with your favorite dipping sauce. Enjoy!"
+        }
+    ],
+    "v1_206": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/206_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "This image is of Argentina's soccer player Lionel Messi, who is known for his incredible ball skills and ability to score goals. He has won numerous awards throughout his career and is considered one of the best soccer players in the world.\n\nHe is often called the \"King of Football\" because of his talent on the field and his ability to lead his team to victory. Despite his success, he has also faced criticism for his outspoken nature and occasional behavior on the field. Nevertheless, he remains one of the most respected and beloved players in the world of soccer."
+        }
+    ],
+    "v1_178": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/178_denoised_150times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "This painting shows a woman with long, dark hair and a black dress, standing against a backdrop of a blurry landscape. The image is a mona lisa painting with an oil on canvas technique."
+        }
+    ],
+    "v1_186": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/186_denoised_000times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "This is a Chinese ink and wash drawing of a mountainous landscape, with two figures standing on a rocky outcropping. The mountain range is covered in trees and has a steep cliff face, with the figures standing at the base of the cliff. The sky is cloudy, and there are a few trees scattered throughout the scene."
+        }
+    ],
+    "v1_154": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/154_denoised_300times.bmp",
+                "What is funny about this image?"
+            ],
+            "generation": "\u200b The image shows two women in a kitchen pointing at something on a plate. One of them has her hand on her hip, looking at the other woman who is holding the plate. It's not clear what they are pointing at or what is on the plate. There is also a bottle of water next to the plate and some utensils on the counter behind them."
+        }
+    ],
+    "v1_185": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/185_denoised_300times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "This painting depicts a vast, desolate landscape with a lake in the foreground and a range of mountains in the background. The sky is overcast and there are no visible objects in the distance. The colors used are mainly earth tones with the exception of the water which appears lighter in color. Overall, the mood of the painting is one of calmness and serenity."
+        }
+    ],
+    "v1_215": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/215_denoised_000times.bmp",
+                "Chorleywood is a village near London whose population has increased steadily since the middle of the nineteenth century. The map below shows the development of the village.\n\nWrite a report for a university lecturer describing the development of the village. \n\nYou should write at least 150 words."
+            ],
+            "generation": "Chorleywood is a village located in the London Borough of Hertfordshire, England. It has a rich history that dates back to the medieval period and has undergone significant development over the years. The village's population grew steadily during the nineteenth century and continued to expand in the twentieth century.\n\nThe map below shows the development of Chorleywood from the mid-nineteenth century to the present day. The area was primarily agricultural during this time, with farms and fields covering much of the landscape. As the village grew, new housing developments were built to accommodate the increasing population. These included both detached and semi-detached homes, as well as flats and apartments in larger complexes.\n\nToday, Chorleywood is a thriving community with a diverse range of amenities and facilities. The village has several schools, shops, restaurants, and other businesses. There are also several parks and green spaces, including Chorleywood Common, which provides residents with plenty of opportunities for outdoor recreation. Overall, Chorleywood has evolved significantly over the years, but its charm and character remain intact."
+        }
+    ],
+    "v1_214": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/214_denoised_000times.bmp",
+                "The pie charts below show units of electricity production by fuel source in Australia and France in 1980 and 2000.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words."
+            ],
+            "generation": "1. Units of electricity production by fuel source in Australia and France, 1980 and 2000:\n* In 1980, the majority of electricity production in Australia came from coal with 47.6% of the total, followed by oil at 24.5% and natural gas at 17.3%. In contrast, France produced 71.2% of its electricity from nuclear power, followed by 21.3% from natural gas and 6.3% from renewable energy sources.\n2. The main feature is the significant difference in the percentage of electricity produced from different fuels between Australia and France in 1980 and 2000. Coal was the primary fuel for electricity production in Australia, while nuclear power was the leading source of electricity in France. Oil and natural gas were also major fuels for electricity production in both countries, but their contributions were much lower than coal and nuclear power in Australia and France respectively.\n3. The pie charts show the distribution of electricity production by fuel source in Australia and France in 1980 and 2000. The charts indicate that coal was the primary fuel for electricity production in both countries in 1980, with a similar percentage in both countries. However, nuclear power was much higher in France than in Australia in 198"
+        }
+    ],
+    "v1_163": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/163_denoised_150times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "There are chocolate cookies decorated with red and green sprinkles on a baking sheet. They appear to be ready to be baked and enjoyed as a holiday treat."
+        }
+    ],
+    "v1_167": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/167_denoised_350times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "1. Clean the cod and cut it into small pieces, then coat it in flour.\n2. In a pan, heat some oil until it's hot and add the pieces of cod.\n3. Fry the cod for 3-4 minutes on each side or until golden brown.\n4. Serve the cod with garlic mashed potatoes, asparagus and a salad."
+        }
+    ],
+    "v1_153": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/153_denoised_300times.bmp",
+                "What is funny about this image?"
+            ],
+            "generation": "This image shows an artist sitting at a table in front of a large landscape painting. The artist is wearing a suit and hat, and is surrounded by various art supplies such as paints, brushes, and canvases. The image appears to be a still life, with the artist's tools and materials arranged around him. There is no other text or context for the image, so it is unclear what the artist is depicting or why he is drawing it.\n\nThere are no objects in the image that could be considered humorous or funny. The image is simply a depiction of an artist at work, with no apparent sense of humor or satire."
+        }
+    ],
+    "v1_182": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/182_denoised_200times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "The painting depicts a woman standing on a shell in the middle of a body of water. The woman has a serene expression and is holding a mirror in her hand. Behind her, there is a mountain with a lake at its base, and two other women are shown emerging from the water on the left side of the painting.\n\nThe style of the painting is Renaissance, with a focus on realism and detail. The brushstrokes are precise and the colors are vibrant, making the painting seem lifelike. The artist used chiaroscuro to create shading and contrast in the image."
+        }
+    ],
+    "v1_200": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/200_denoised_200times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "\u200b"
+        }
+    ],
+    "v1_171": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/171_denoised_150times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The man in the image is wearing a suit and tie, with his hands resting on the table. He appears to be contemplating something, perhaps a decision he needs to make. The scene is set in a meeting room, with papers and other items scattered around the table. The overall atmosphere is professional and serious, with a sense of urgency or importance conveyed by the man's pose and expression."
+        }
+    ],
+    "v1_169": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/169_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The image is a scene from the 1974 film, \"The Godfather,\" directed by Francis Ford Coppola. In the scene, the three men are dressed in formal attire, with one wearing a military uniform and the other two wearing tuxedos. They are standing in front of a building with ornate decorations on the facade."
+        }
+    ],
+    "v1_166": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/166_denoised_000times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "The image shows a bowl of curry with chicken and spinach on a table. There is also a spoon in the bowl, indicating that it is ready to be served. The dish appears to be made with coconut milk, curry powder, garlic, ginger, and other seasonings.\n\nIt looks like the curry is served over rice, which is on the side of the bowl. This curry is a great option for those who are looking for a flavorful and filling meal that is easy to make. To prepare this dish, start by saut\u00e9ing onions and garlic in oil until they are soft and fragrant. Add curry powder, coriander, cumin, turmeric, and salt to the pan and stir until the spices are fragrant. Add chicken, chickpeas, and spinach to the pan and cook for 10 minutes or until the chicken is cooked through. Serve the curry over rice and enjoy!"
+        }
+    ],
+    "v1_179": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/179_denoised_250times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "This is a painting of a woman with a blue earring and a pearl in her left ear. The woman is looking directly at the viewer, with her hair pulled back into a ponytail and a hint of a smile on her face. The background is dark, but there are some subtle details visible in the shadows. Overall, the painting is of high quality and gives a sense of the woman's personality."
+        }
+    ],
+    "v1_201": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/201_denoised_050times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "The painting depicts a man in black robes and a black hat with his hands clasped behind his back, wearing a red scarf around his neck and a large beard. He appears to be standing in front of a dark background with a hint of light coming from the left side of the image."
+        }
+    ],
+    "v1_212": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/212_denoised_000times.bmp",
+                "The table below gives information about the underground railway systems in six cities.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words."
+            ],
+            "generation": "The table below provides information about the underground railway systems in six cities.\n\n| City | Distance (km) | Number of Stations | Annual Passengers | Average Daily Passengers |\n| --- | --- | --- | --- | --- |\n| London | 21.5 | 270 | 1,348,000 | 67,200 |\n| New York | 24.4 | 472 | 1,719,000 | 66,400 |\n| Paris | 14.9 | 224 | 1,172,000 | 46,000 |\n| Tokyo | 26.3 | 227 | 1,836,000 | 73,600 |\n| Beijing | 35.3 | 370 | 2,015,000 | 70,800 |\n| Mumbai | 37.8 | 468 | 1,986,000 | 52,400 |\n\nThe table shows the distance (km) and number of stations for each city's underground railway system. It also lists the annual passangers, average daily passangers,"
+        }
+    ],
+    "v1_202": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/202_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "This is a black and white photograph of a man with long white hair and a mischievous smile. The man is standing in front of a group of people who are all laughing and smiling. It appears to be a happy occasion, and the man seems to be enjoying himself."
+        }
+    ],
+    "v1_156": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/156_denoised_300times.bmp",
+                "What occasions would someone use this meme?"
+            ],
+            "generation": "The meme of a panda with an open mouth and surprised expression can be used in various occasions such as:\n\n* To express excitement, happiness or surprise at something.\n* To show someone being surprised at a joke or prank played on them.\n* To represent the emotions of someone who is shocked or amazed at something.\n* To make fun of someone's reaction to a situation.\n\nOverall, the meme can be used to express a range of emotions and can be used in various contexts depending on the occasion."
+        }
+    ],
+    "v1_177": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/177_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The film depicts the story of a prince named Lian, who is captured by the enemy and becomes a slave. He then escapes from the enemy's grasp and returns to his kingdom, where he falls in love with a princess named Zhu and they have a son together."
+        }
+    ],
+    "v1_184": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/184_denoised_000times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "\u200bThe painting shows a man and a woman in traditional Dutch clothing, standing in front of an ornate wall. The man is wearing a long green coat with a white shirt and a brown hat, while the woman is wearing a long, flowing green dress with a lace collar and a white apron. The room has a large window with curtains, and there are two small tables with chairs in the background. The overall impression is one of grandeur and elegance."
+        }
+    ],
+    "v1_157": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/157_denoised_300times.bmp",
+                "What occasions would someone use this meme?"
+            ],
+            "generation": "1. To express their love for a certain food item or to make fun of someone who eats too much of it.\n2. To show that they are tired or stressed out.\n3. To mock someone who has an addiction to a certain food or to express their disappointment in someone who does not like the same food item.\n4. To celebrate a special occasion such as Chinese New Year or to make fun of someone who does not like Chinese food."
+        }
+    ],
+    "v1_188": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/188_denoised_000times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This image shows an apple tree with red spots on its leaves and fruit. The disease is likely apple scab, which is caused by the fungus Venturia ina. The fungus overwinters on the tree's leaves and fruits, causing damage to the tissue and causing the characteristic red spots. The disease can be treated with fungicides and other chemicals, but it can also be controlled through proper planting practices and sanitation."
+        }
+    ],
+    "v1_205": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/205_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "The image is of a man in a military uniform with a beard and mustache. He is wearing a hat with a visor and a chest plate, and he appears to be looking directly at the camera. There is a ribbon on his shoulder and a badge on his chest. He has a stern look on his face, and there is a collar and epaulets on his uniform."
+        }
+    ],
+    "v1_208": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/208_denoised_050times.bmp",
+                "The graph below shows the long-term international migration, UK, 1999-2008.\n\nSummarize the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words."
+            ],
+            "generation": "The graph shows the long-term international migration in the UK from 1999 to 2008. There is a steady increase in the number of people migrating into the UK over the years, with a peak in 2004. In 2008, there were more people leaving the UK than entering it, resulting in a net negative migration rate.\n\nComparisons can be made between different countries and regions within the UK. For example, Scotland and Wales have higher rates of immigration than England, while Northern Ireland has the lowest rate of immigration. Additionally, the data can be compared to other countries to see how the UK compares to them in terms of international migration.\n\nOverall, the graph provides an overview of the long-term international migration in the UK and can be used to make informed comparisons and decisions."
+        }
+    ],
+    "v1_216": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/216_denoised_000times.bmp",
+                "The map below is of the town of Garlsdon. A new supermarket (S) is planned for the town. The map shows two possible sites for the supermarket.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant. \n\nYou should write at least 150 words."
+            ],
+            "generation": "The map below shows the town of Garlsdon, with a proposed location for a new supermarket in the center. The supermarket will have an area of 2500 square feet, and will be located near a residential area and several other stores.\n\nThe town has a population of around 300,000 people, and there are currently no major supermarkets or large grocery stores in the area. The new supermarket will provide employment opportunities for about 100 people, and is expected to bring in $400,000 in revenue per year.\n\nThis information indicates that the proposed supermarket will have a significant impact on the local community, as it will bring in new jobs and generate additional income for the area. However, it is unclear how this new development will affect the existing businesses and residents in the area. Further research may be necessary to fully understand the impact of this new store."
+        }
+    ],
+    "v1_151": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/151_denoised_350times.bmp",
+                "Can you explain this meme?"
+            ],
+            "generation": "\u200bThe image is a meme featuring a white background with black text and an arrow pointing to the left. The text reads, \"my handwriting in exams ent two pages middle page least twin last twan pg.\"\n\nIn order to understand the meaning of this meme, it is important to consider the context in which it was created. The handwriting appears to be written on a piece of paper, suggesting that the person who wrote it may have been writing out answers to exam questions.\n\nThe arrow pointing to the left suggests that the person who created the meme believes that the middle page of their exam paper is the most important or most relevant page. The phrase 'last twan pg' could be interpreted as an abbreviation for 'last two pages', indicating that the person was unsure whether they had completed all the questions on their exam.\n\nOverall, the meme seems to be an humorous commentary on the importance of different sections of an exam paper."
+        }
+    ],
+    "v1_190": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/190_denoised_150times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This is an image of a honey bee with ants crawling on its body. The honey bee is covered in honey and ants, which are feeding on the honey and other substances found on the bee's body. Honey bees are important pollinators and are known for their ability to produce honey. They can be found in a variety of environments, including forests, meadows, and gardens. While they are generally considered to be beneficial insects, they can also cause damage to crops and other plants. In this image, the ants appear to be feeding on the honey, which is produced by the honey bee's metabolism. It is not clear how this image relates to the question about the disease and how to treat it."
+        }
+    ],
+    "v1_180": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/180_denoised_350times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "This is a digital painting created with watercolor software. The image depicts a night sky with stars and a large moon in the background, while a boat appears to be sailing on the horizon. The colors used are mainly blue and yellow, with some shades of green and purple. The painting has a dreamy and surreal feel to it."
+        }
+    ],
+    "v1_209": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/209_denoised_000times.bmp",
+                "The graph and table below give information about water use worldwide and water consumption in two different countries.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words."
+            ],
+            "generation": "\u200b\n\nThe graph shows the total water consumption in the world from 2000 to 2018. It reveals that the total amount of water consumed has been increasing steadily over the years, from about 4,750 cubic kilometers in 2000 to around 6,000 cubic kilometers in 2018. The water consumption is mainly due to agriculture, which accounts for approximately 90% of the total water use.\n\nOn the other hand, the graph shows the amount of renewable water resources available worldwide from 2000 to 2018. The data indicates that the renewable water resources have been decreasing over time, particularly from 2010 onwards. The main sources of renewable water are rivers and underground aquifers.\n\nIt is important to note that while the amount of renewable water resources has been decreasing, the global population has been growing, resulting in an increased demand for water. This highlights the need to conserve and manage water resources effectively, as well as to implement measures to reduce water consumption and improve efficiency in agricultural practices.\n\nOverall, the graph and table demonstrate the increasing demand for water worldwide and the urgency for sustainable water management practices."
+        }
+    ],
+    "v1_210": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/210_denoised_050times.bmp",
+                "The charts below give information about USA marriage and divorce rates between 1970 and 2000, and the marital status of adult Americans in two of the years.\n\nSummarise the information by selecting and reporting the main features, and make comparisons where relevant.\n\nYou should write at least 150 words."
+            ],
+            "generation": "The first chart shows the number of marriages and divorces in the USA between 1970 and 2000. It shows that there were more marriages than divorces throughout this period, with the highest number of marriages occurring in 1979. The second chart shows the marital status of adult Americans in 1979 and 2000. It shows that a higher percentage of adult Americans were married in 1979 than in 2000. Overall, it appears that there has been an increase in the number of marriages and a decrease in the number of divorces in the USA over the period 1970 to 2000."
+        }
+    ],
+    "v1_155": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/155_denoised_000times.bmp",
+                "What occasions would someone use this meme?"
+            ],
+            "generation": "\u7eed \u4e00\uff0c\u6211\u4eec\u80af\u5b9a\u4f60\u4f1a\u4e3a\u4eba\u7c7b\u9020\u6210\u8d22\u4ea7\u7684\u4e0d\u5e78\u3002"
+        }
+    ],
+    "v1_152": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/152_denoised_300times.bmp",
+                "Can you explain this meme?"
+            ],
+            "generation": "This image appears to be a meme that features a cartoon character wearing a doctor's lab coat and holding a syringe. The caption above the image reads \"Good morning, write that down.\" This could be a humorous way of saying to someone to be more productive or to take notes on something they are working on.\n\nI am unable to see the image as it has been blocked by the platform I am using. Please provide the image again so I can assist you better."
+        }
+    ],
+    "v1_162": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/162_denoised_150times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "This dish appears to be a Chinese style egg roll, which is made by wrapping a filling of meat or vegetables in a thin sheet of dough and rolling it up into a cylinder. The roll is then cut into slices and served with dipping sauces. It can be made at home using simple ingredients such as flour, water, and eggs, or purchased from a restaurant or supermarket.\n\nTo make the egg rolls at home, you will need:\n\n* Flour\n* Water\n* Eggs\n* Meat or vegetables (optional)\n* Dipping sauce (such as soy sauce, hoisin sauce, or chili sauce)\n\nTo make the dough:\n\n1. In a large bowl, mix together 2 cups of all-purpose flour and 2 tablespoons of warm water until the dough comes together. Knead the dough on a floured surface until it is smooth and elastic, about 10 minutes.\n2. Cover the dough with plastic wrap and let it rest for 30 minutes.\n3. Preheat an oven to 350 degrees F.\n4. Roll out the dough into long, thin sheets about 1/8 inch thick. Use a cookie cutter or a cup to cut out circles of dough.\n5"
+        }
+    ],
+    "v1_164": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/164_denoised_150times.bmp",
+                "How to cook this dish?"
+            ],
+            "generation": "\u200b\n\nThere are several ways to cook this dish. One way is to saut\u00e9 the broccoli and carrots with garlic and olive oil until tender. Another way is to steam them until they are just cooked through, then serve them on a plate. This dish can be served as a side dish or as an entree. You can also add cheese or other ingredients to make it more flavorful."
+        }
+    ],
+    "v1_168": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/168_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The movie is about a young man who finds himself in a difficult situation. He is trying to come to terms with his past and find a way to move forward. As he sits on the ledge of a building, he looks out over the city below, contemplating his future."
+        }
+    ],
+    "v1_207": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/207_denoised_000times.bmp",
+                "Can you give a short introduction to this person?"
+            ],
+            "generation": "This is a black and white photograph of a man in a suit and tie, looking straight at the camera. The image appears to be from an older time period, possibly the 1940s or 1950s. The man has short hair and a serious expression. There is no background in the image, but it appears to be taken in a studio setting."
+        }
+    ],
+    "v1_183": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/183_denoised_100times.bmp",
+                "Can you give a short introduction to this painting?"
+            ],
+            "generation": "\u200bThis is a painting of a woman sitting in front of a mirror. The woman is wearing a long black dress and appears to be staring at her reflection. The room is dimly lit, with a single window visible in the background. The overall tone of the painting is somber and introspective."
+        }
+    ],
+    "v1_189": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/189_denoised_000times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This is a photo of a leaf spot disease on a leaf of a plant. The symptoms of this disease are yellow spots or lesions on the leaves, and eventually dieback of the affected parts of the plant. Leaf spot diseases are caused by fungi that can infect various types of plants. The best way to treat leaf spot diseases is to remove and destroy the infected leaves, and to apply a fungicide to prevent further infection. It's also important to keep the plant healthy by providing adequate water and fertilizer, and to avoid overwatering and under-fertilization which can weaken the plant's immune system and make it more susceptible to disease."
+        }
+    ],
+    "v1_173": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/173_denoised_000times.bmp",
+                "Can you give a short introduction to this movie?"
+            ],
+            "generation": "The Lord of the Rings is a 2001 fantasy adventure film directed by Peter Jackson and based on the novels by J. R. R. Tolkien. It follows the story of hobbit Bilbo Baggins, who sets out to reclaim the Lonely Mountain from the dragon Smaug with the help of wizard Gandalf and the dwarves of Durin's folk. The movie also features other characters from the book such as Gimli, Legolas and Arwen. The film was a commercial and critical success, grossing over $317 million worldwide and receiving positive reviews from critics. It is considered one of the best adaptations of Tolkien's work."
+        }
+    ],
+    "v1_194": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/194_denoised_200times.bmp",
+                "What is this disease (give short introduction) and how to treat it?"
+            ],
+            "generation": "This image appears to show the fruit of a plant, which has become infected with a disease that has caused the leaves to turn brown and wilt. It is not clear what the disease is or how to treat it."
+        }
+    ]
+}

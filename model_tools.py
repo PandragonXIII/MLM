@@ -9,6 +9,7 @@ import time
 
 
 from denoiser.imagenet.DRM import DiffusionRobustModel
+from defender import Defender
 
 # target models
 from transformers import AutoProcessor, AutoModelForPreTraining
@@ -59,7 +60,12 @@ class Args:
     # --options args, with nargs="+", for override
     options=None
 
-def denoise(Defender, args, a:Args):
+def defence(args, a:Args):
+    """
+    denoise, calculate cossim and choose the safe images
+    return (image_num, images)
+    """
+    # denoise the image
     print("processing images... ",end="")
     # count the number of images in args.img
     image_num = 0
@@ -96,7 +102,7 @@ def denoise(Defender, args, a:Args):
         # save to disk
         # os.system(
         #     f"cp {a.image_dir}/{denoised[idx]} {a.output_dir}/img/{denoised[idx]}")
-    print(f"filtered images are saved to {a.output_dir}/img")
+    # print(f"filtered images are saved to {a.output_dir}/img")
     return (image_num, images)
 
 def get_similarity_list(args:Args, save_internal=False):

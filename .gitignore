@@ -7,3 +7,5 @@ denoiser/vit-patch16-224/pytorch_model.bin
 block_input/img/*
 models/MiniGPT4/*
 SimSun.ttf
+block_input/*
+temp

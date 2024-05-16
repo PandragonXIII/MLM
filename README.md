@@ -63,6 +63,10 @@
 <details>
 <summary>更新日志</summary>
 
+#### 5.16 UPD
+- [ ] use MM-Vet to eval model performance
+  - [ ] process the images into 224*224
+
 #### MEET 5.6
 - [ ] Transfer(test result with harmbench)
  - [x] Llava

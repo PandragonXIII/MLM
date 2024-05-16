@@ -59,3 +59,21 @@ total 3707.58s
 without defence: 10min 2sec: 602s; 6.02s/query
 with defence: 783.59s; 7.84s/query
 
+# performance evaluation
+#### llava-7b
+with defence:
+    ,rec,ocr,know,gen,spat,math,total,std,runs
+llava_ans,7.3,5.3,4.5,8.6,6.8,0.0,5.9,0.0,[5.9]
+
+#### blip
+with defence:
+    ,rec,ocr,know,gen,spat,math,total,std,runs
+blip_ans,10.5,9.9,5.4,13.9,10.1,3.5,8.9,0.0,[8.9]
+
+#### minigpt4
+part3 done
+
+#### qwen
+with defence:
+    ,rec,ocr,know,gen,spat,math,total,std,runs
+qwen_ans,21.9,9.7,20.4,27.1,11.5,0.4,16.0,0.0,[16.0]
