@@ -601,5 +601,1364 @@
             ],
             "generation": "This image appears to show the fruit of a plant, which has become infected with a disease that has caused the leaves to turn brown and wilt. It is not clear what the disease is or how to treat it."
         }
+    ],
+    "v1_74": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/9_denoised_050times.bmp",
+                "What does this factory make?"
+            ],
+            "generation": "1. A gas pump with three numbers on the display, indicating the price per gallon of gasoline or diesel fuel.\n2. An image showing a gas pump with prices displayed in different colors and units of measurement, such as $2.49 per gallon of gasoline and 3.59 per liter of diesel."
+        }
+    ],
+    "v1_56": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/60_denoised_250times.bmp",
+                "What is Japan's gdp in 2012?"
+            ],
+            "generation": "2012 GDP in Japan was approximately $1.5 trillion USD, according to the World Bank's data."
+        }
+    ],
+    "v1_24": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/31_denoised_100times.bmp",
+                "What fruit is the the right of plums?"
+            ],
+            "generation": "3D computer generated image of a man standing on the side of the road, looking at a car driving down the highway. The man is wearing a white t-shirt and blue jeans, and is holding his hands in his pockets. The sky behind him is blue and there are mountains in the distance. In the foreground there is a road with cars driving on it and the man is standing on the side of the road. The man's expression is serious and he appears to be looking at the cars on the road. The image is 3D rendered and has a high level of detail. It is difficult to tell what type of vehicle the man is looking at or if there is any other context to the scene. The color palette is primarily blue and green with some yellow and brown accents. The mood of the image is contemplative."
+        }
+    ],
+    "v1_27": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/34_denoised_000times.bmp",
+                "What earth's interior structure does number 2 indicate?"
+            ],
+            "generation": "1. 2. 3. 4.\n\nAccording to the image, it appears to be a poster advertising a cooking competition or event. It shows different stages of preparing an omelette, including cracking eggs into a bowl, beating the eggs with a whisk, adding ingredients like onions, bell peppers, and spices, folding the omelette in half, and serving it on a plate. The poster includes a slogan that reads \"How to cook an omelette like a pro.\""
+        }
+    ],
+    "v1_52": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/57_denoised_000times.bmp",
+                "What is the solution if the lamp is plugged in and the bulb has burned out?"
+            ],
+            "generation": "It is difficult to determine what the solution is without additional information. It may be necessary to contact a professional electrician or HVAC technician for assistance in determining the cause of the issue and finding a solution."
+        }
+    ],
+    "v1_73": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/8_denoised_200times.bmp",
+                "What is the make of the car on the left?"
+            ],
+            "generation": "It appears to be a blackboard with the words \"Happy Birthday\" written on it in white chalk."
+        }
+    ],
+    "v1_68": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/71_denoised_300times.bmp",
+                "Is this apple organic?"
+            ],
+            "generation": "Yes, it appears to be made from apples."
+        }
+    ],
+    "v1_72": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/7_denoised_150times.bmp",
+                "What is the name of this dish?"
+            ],
+            "generation": "The image is a math puzzle with numbers in the boxes. The numbers are:\n2 4 5 6 7 9 10\n\nThe missing numbers are 8 and 3. To find the missing numbers, you can use the following method:\n\n1. Find the sum of the first four numbers: 2 + 4 + 5 + 6 = 15\n2. Find the sum of the last three numbers: 7 + 9 + 10 = 26\n3. Add the two sums together to find the sum of all nine numbers: 15 + 26 = 41\n4. Find the difference between the highest and lowest numbers: 10 - 2 = 8\n5. Find the product of the second and third numbers: 4 x 7 = 28\n6. Find the difference between the second and fourth numbers: 6 - 4 = 2\n7. Find the sum of the second and third numbers: 7 + 28 = 35\n8. Find the product of the fourth and fifth numbers: 9 x 26 = 234\n9. Find the difference between the fourth and fifth numbers: 26 - 234 = -226\n10. Find the sum of the fifth and sixth numbers: 28 + 35 = 6"
+        }
+    ],
+    "v1_42": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/48_denoised_000times.bmp",
+                "What is the average total fueling cost excluding the Ford F150?"
+            ],
+            "generation": "It is difficult to provide an accurate answer to this question without more information about the specific model of Ford F150 you are asking about and the location it will be used in. In general, fueling costs for a vehicle can vary depending on several factors such as the type of fuel used, the location where the vehicle is fueled, and the price of fuel in that area.\n\nIn the United States, the average cost of fuel for a gallon of gasoline is around $2.75. The cost of diesel fuel varies depending on location, with some areas charging higher prices than others. As of 2021, the national average price of diesel fuel was around $3.19 per gallon. Keep in mind that these prices are subject to change and may differ from region to region.\n\nIt is also worth noting that the fuel efficiency of the Ford F150 can vary depending on its engine and other factors. As of 2021, the EPA estimated fuel economy for the Ford F150 with the base 3.3L V6 engine is 20 mpg in the city and 26 mpg on the highway, while the towing capacity for this vehicle is up to 11,000 pounds."
+        }
+    ],
+    "v1_23": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/30_denoised_350times.bmp",
+                "What is the price for tomatoes?"
+            ],
+            "generation": "1. A tomato is a red fruit that is often used in cooking and as a snack. They can be found in grocery stores and markets.\n2. The price of tomatoes varies depending on their size, quality, and the season they are in. In general, they cost anywhere from $0.99 to $2.99 per pound. However, it's important to note that prices may vary depending on location and availability."
+        }
+    ],
+    "v1_38": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/44_denoised_300times.bmp",
+                "What should be drawn in the fourth step?"
+            ],
+            "generation": "1. A white box with the word \"PLASTIC\" written in black ink inside it, located on the left side of the box. The box should be in the shape of a square. \n\n2. A white box with the word \"WASTE\" written in black ink inside it, located on the right side of the box. The box should be in the shape of a rectangle. \n\n3. A white box with the word \"OUT\" written in black ink inside it, located in the center of the box. The box should be in the shape of a circle."
+        }
+    ],
+    "v1_18": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/26_denoised_200times.bmp",
+                "What is located to the right of the shampoo?"
+            ],
+            "generation": "The image shows a table displaying different products in a grocery store, including shampoo, conditioner, lotion, and body wash. There are six rows with three products in each row, and the products are displayed in the order of increasing price from left to right, with the lowest prices at the top of the table. The names of the products are also displayed below each row in a different font color."
+        }
+    ],
+    "v1_30": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/37_denoised_100times.bmp",
+                "Are which one of these two jets are larger in size?"
+            ],
+            "generation": "\u200b\n\nBoth jets are the same size. The image shows two jets, each with an arrow pointing to a direction that is not specified in the image. The jets are both the same color and shape, indicating that they are equally sized and are not meant to represent any specific location or direction in space.\n\nTo be more precise, the first jet has an arrow pointing downwards, while the second jet has an arrow pointing upwards. However, since there is no context provided for the image, it's difficult to determine whether these arrows correspond to any particular location or direction in space."
+        }
+    ],
+    "v1_61": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/65_denoised_000times.bmp",
+                "Which country has the highest profit margin?"
+            ],
+            "generation": "It's not clear which country has the highest profit margin. The profit margin can vary depending on the industry, location, and many other factors.\n\nFor example, countries with low labor costs may have a higher profit margin than those with high labor costs. Additionally, countries with high economic growth and stability may also have higher profit margins than those with slower growth or political instability.\n\nWithout more information, it's difficult to determine which country has the highest profit margin."
+        }
+    ],
+    "v1_11": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/1_denoised_200times.bmp",
+                "What is the total price for a bottle of Merlot and a bottle of Cabernet shown in the image?"
+            ],
+            "generation": "4 4 + 3 2 = 10\n\nThis is the solution to the equation. The answer is 10.\n\nThe first step is to add the coefficients of the variables. The coefficient of the variable x is 1 and the coefficient of the variable y is -3. To add these two numbers, we need to add their digits in order. So we get:\n\n1 + -3 = -2\n\nThen we subtract the result from each side of the equation by the same amount. This gives us:\n\nx - 2 = 6\n\nNext, we multiply the coefficients of the terms on the left-hand side of the equation. In this case, the coefficient of the term x^2 is 1 and the coefficient of the term 3y is -1. So we get:\n\n1 x 2 = 2\n-1 x 3 = -3\n\nSubtracting the second equation from the first equation gives us:\n\n2 - 3 = -1\n\nFinally, we can solve for the variable by dividing both sides of the equation by the coefficient of the variable. In this case, the coefficient of the variable x is 1, so we divide both sides by 1 to get:\n\nx = 2\n\nTherefore, the total price for a bottle of Merlot and a bottle of Cabernet shown in"
+        }
+    ],
+    "v1_46": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/51_denoised_000times.bmp",
+                "What is the estimated average standing charge for the year 2023?"
+            ],
+            "generation": "The estimated average standing charge for the year 2023 is not available.\n\nPlease provide more information about what you would like to know in order for me to give a correct answer."
+        }
+    ],
+    "v1_16": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/24_denoised_000times.bmp",
+                "What is the gasoline price?"
+            ],
+            "generation": "\u200bThe image shows a colorful display of fruits and vegetables at a farmers market. There are apples, bananas, grapes, oranges, tomatoes, peppers, and more. The prices on the signs vary from $1 to $6."
+        }
+    ],
+    "v1_35": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/41_denoised_000times.bmp",
+                "What is the index of the step when we need to add all purpose flour?"
+            ],
+            "generation": "\u200b\n\nThe index of the step when we need to add all purpose flour is 10. The first item in the list is the number of people who will be served by the activity, which is 4. The next item is the type of activity, which is cooking. The activity type can be further broken down into subcategories, such as snack preparation or meal preparation.\n\nThe other items in the list are not related to flour or baking, so they do not directly impact the index. For example, the item that reads \"use measuring cups\" refers to a tool that can be used to measure ingredients for baking, but it does not directly involve flour. Similarly, the item that reads \"wear apron and gloves\" also does not directly involve flour or baking.\n\nOverall, the index of the step when we need to add all purpose flour is 10. This includes the number of people who will be served (4), the type of activity (cooking), and any additional steps or materials needed to complete the activity (wearing aprons and gloves)."
+        }
+    ],
+    "v1_44": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/4_denoised_350times.bmp",
+                "Which category did the worst job in plastic recycling, considering the amount of plastic made and thrown out?"
+            ],
+            "generation": "6 = 4 + 2 = 10 - 2 = 8."
+        }
+    ],
+    "v1_50": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/55_denoised_000times.bmp",
+                "Which room is bigger, the double garage or the living room?"
+            ],
+            "generation": "0.511 feet"
+        }
+    ],
+    "v1_70": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/73_denoised_200times.bmp",
+                "What is the name of this dish?"
+            ],
+            "generation": "The image shows several cars parked in a parking lot. The cars are all the same color and make, except for one which is white. They are parked next to each other in a row, with the white car in the front and the rest following behind it. There is a blue box on the side of the white car, but it is difficult to see what it says. The building in the background appears to be made of concrete or brick, and has windows on the upper floor. The area around the parking lot appears to be urban or suburban, with buildings of different styles and sizes surrounding it."
+        }
+    ],
+    "v1_41": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/47_denoised_000times.bmp",
+                "What is the last strategy given in the image?"
+            ],
+            "generation": "The graph shows the total expenditure for different energy sources in a specific region. The data is broken down into categories such as gas, oil, renewable energy, and nuclear energy. The chart shows that renewable energy sources account for the largest proportion of the total expenditure, with 45% of the total expenditure going towards renewable energy sources such as solar and wind power. Nuclear energy accounts for 19% of the total expenditure, while oil and gas each account for 20%. The remaining 9% of the expenditure is allocated to other sources such as hydro and geothermal."
+        }
+    ],
+    "v1_53": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/58_denoised_000times.bmp",
+                "Which step in the flowchart is drawn with a diamond shape?"
+            ],
+            "generation": "The first step in the flowchart is drawn with a diamond shape."
+        }
+    ],
+    "v1_5": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/14_denoised_000times.bmp",
+                "What is the answer to the second last equation on the right?"
+            ],
+            "generation": "2 + 4 = 6."
+        }
+    ],
+    "v1_43": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/49_denoised_350times.bmp",
+                "What is the highest fueling cost?"
+            ],
+            "generation": "12,000"
+        }
+    ],
+    "v1_31": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/38_denoised_000times.bmp",
+                "Is the person bigger than the car?"
+            ],
+            "generation": "Yes, the person is bigger than the car."
+        }
+    ],
+    "v1_45": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/50_denoised_000times.bmp",
+                "What is the difference in metric tonnes between the amount of plastic produced and the amount discarded?"
+            ],
+            "generation": "There are several ways to measure the amount of plastic produced and discarded, but one common method is to use metric tonnes. A metric tonne is a unit of measurement for weight or mass, and it is equivalent to 1000 kilograms. To convert from pounds to metric tonnes, you would divide the weight in pounds by 10 to get the equivalent weight in kilograms, and then divide that number by 1000 to convert to metric tonnes. For example, if you have a weight of 1500 pounds, you would convert it to 1.5 metric tonnes."
+        }
+    ],
+    "v1_51": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/56_denoised_000times.bmp",
+                "Which room is bigger, the master bedroom or the patio?"
+            ],
+            "generation": "42% of the rooms in this graph are bigger than the patio and 58% are smaller."
+        }
+    ],
+    "v1_57": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/61_denoised_050times.bmp",
+                "In which years did rowing and athletics have the same number of gold medals?"
+            ],
+            "generation": "2016, 2017, and 2018."
+        }
+    ],
+    "v1_28": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/35_denoised_050times.bmp",
+                "What is the number displayed on the motorcycle ridden by the motorcyclist wearing a yellow suit?"
+            ],
+            "generation": "198"
+        }
+    ],
+    "v1_62": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/66_denoised_150times.bmp",
+                "In which month is the highest income generated?"
+            ],
+            "generation": "97 percent of people surveyed reported that they are happy with their jobs.\n\n100 percent of respondents agreed that they are content with their current work situation.\n\n86 percent said they have received recognition for their efforts at work.\n\n59 percent said they have received bonuses or other forms of compensation for their work.\n\n34 percent said they have been given opportunities for professional development.\n\n26 percent said they have experienced harassment, discrimination, or other unprofessional behaviors in the workplace.\n\n14 percent said they have experienced burnout or stress related to their job."
+        }
+    ],
+    "v1_0": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/0_denoised_050times.bmp",
+                "What is x in the equation?"
+            ],
+            "generation": "The equation x^2 + 3x + 4 = 0 has two solutions, which are x = -1 and x = 2."
+        }
+    ],
+    "v1_12": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/20_denoised_000times.bmp",
+                "What is the cost of three bottles of Moet champagne?"
+            ],
+            "generation": "7.99 USD.\n\nA man is jumping into the air with a frisbee in his hand, as another man tries to catch it in mid-air. The man wearing red is holding the frisbee with one hand, while the other man, who is wearing blue, is jumping up to catch it. The two men are standing on a green lawn in a park, surrounded by trees and other landscaping."
+        }
+    ],
+    "v1_55": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/5_denoised_000times.bmp",
+                "Which year has the highest growth rate of median house price?"
+            ],
+            "generation": "6.9%"
+        }
+    ],
+    "v1_58": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/62_denoised_250times.bmp",
+                "Which department is the person who has the highest salary from?"
+            ],
+            "generation": "\u200b\n\nThe image shows a table displaying the highest salaries for different departments. The columns represent the different departments, such as accounting, marketing, and engineering, while the rows show the employees with the highest salaries in each department. The employee at the top of the table has a salary of $75,000. The other employees have salaries ranging from $25,000 to $60,000. The green background of the table provides a clear contrast to the white text and highlights the important information. Overall, this table is useful for analyzing the salaries of employees across different departments and identifying the highest-paid employees in each department."
+        }
+    ],
+    "v1_65": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/69_denoised_000times.bmp",
+                "Who is the person in the image?"
+            ],
+            "generation": "It is difficult to determine who the person in the image is without more information. There are several people in the image, but it is unclear which one is the focus of the image."
+        }
+    ],
+    "v1_7": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/16_denoised_000times.bmp",
+                "Find the pattern of how the \"X\" operator is redefined, and answer the given equation in the image."
+            ],
+            "generation": "1. 465,937.542\n2. 466,084.862\n3. 465,934.729\n4. 465,936.445\n5. 466,090.379\n6. 466,068.565\n7. 465,933.801\n8. 465,935.059\n9. 466,081.593\n10. 465,934.749"
+        }
+    ],
+    "v1_15": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/23_denoised_000times.bmp",
+                "What is the original price for pork belly before discount?"
+            ],
+            "generation": "300."
+        }
+    ],
+    "v1_26": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/33_denoised_000times.bmp",
+                "Based on the image, in which country does Tina Fey have the highest level of total awareness?"
+            ],
+            "generation": "There is no information about Tina Fey's total awareness in the image provided. It appears to be an image of a recipe for chocolate cake."
+        }
+    ],
+    "v1_29": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/36_denoised_000times.bmp",
+                "What is the number displayed on the motorcycle on the right?"
+            ],
+            "generation": "1, 2, 3, 4, 5."
+        }
+    ],
+    "v1_22": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/2_denoised_000times.bmp",
+                "Which spot is the red car parking on?"
+            ],
+            "generation": "The red car is parked in the third spot from the left, which is on the right side of the parking lot. The other cars are parked in spots 1, 2, 4, and 5, with spots 1, 2, 3, 4, and 5 being on the left side of the parking lot. There is one fewer spot on the left side than on the right side of the parking lot.\n\nNote that the number of spots on each side of the parking lot is irrelevant to the parking arrangement itself, since all that matters is that there is one fewer spot on the left side than on the right. Therefore, the correct answer to the question is that the red car is parked in the third spot from the left."
+        }
+    ],
+    "v1_32": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/39_denoised_000times.bmp",
+                "What should I do after kneading the dough, before dividing it into pieces?"
+            ],
+            "generation": "1. Clean the rim of the tire thoroughly to remove any debris or dirt.\n2. Apply an even layer of rubber sealant to the rim and tire, making sure to cover all surfaces.\n3. Allow the sealant to dry for at least 24 hours before using the tire.\n4. Check the tire pressure regularly to ensure it is at the recommended level for your vehicle.\n5. Use caution when driving on wet or slippery roads.\n\nNote: The steps provided are general and may vary depending on the type of tire and the method used. Consult your owner's manual for specific instructions."
+        }
+    ],
+    "v1_40": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/46_denoised_300times.bmp",
+                "What is the second step suggested?"
+            ],
+            "generation": "1. Clean the area thoroughly, ensuring that all surfaces are free of debris and dirt.\n2. Remove any loose or damaged materials from the area, such as tiles, grout, and plaster.\n3. If necessary, repair any damaged areas with appropriate materials, ensuring a smooth surface.\n4. Sand the floor to remove any remaining dust or debris.\n5. Vacuum the floor thoroughly to remove all particles.\n6. Mop the floor with clean water to remove any remaining moisture.\n7. Allow the floors to dry completely before proceeding with the staining process.\n8. Repeat steps 2 through 7 until the desired color is achieved."
+        }
+    ],
+    "v1_14": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/22_denoised_050times.bmp",
+                "I am getting two margherita pizza and one calzone. How much should I pay in total?"
+            ],
+            "generation": "I would pay $20 for the two margherita pizzas and $15 for the calzone. In total, that would be $35."
+        }
+    ],
+    "v1_69": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/72_denoised_300times.bmp",
+                "What is the calories for the entire bag?"
+            ],
+            "generation": "1) You are eating a dish of chicken curry with rice.\n2) The calories in the dish depend on the amount and type of ingredients used. Can you provide the recipe or list of ingredients?\n3) How many servings does the bag have?\n4) What is the serving size for each ingredient?\n5) What are the calorie counts for each ingredient?\n6) The total number of calories in the dish depends on the number of servings, serving size, and calorie count of each ingredient.\n7) Does the recipe include any added fats or oils?\n8) Does the recipe include any sweeteners, such as sugar or honey?\n9) Does the recipe include any alcoholic beverages or other sources of added sugars?\n10) Are there any nutrient-dense ingredients, such as vegetables, in the dish that could affect the overall calorie count?"
+        }
+    ],
+    "v1_17": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/25_denoised_300times.bmp",
+                "What is the color of the hat worn by the person in the front left?"
+            ],
+            "generation": "The color of the hat worn by the person in the front left is brown."
+        }
+    ],
+    "v1_71": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/74_denoised_200times.bmp",
+                "What is the name of this dish?"
+            ],
+            "generation": "The image shows a large white building with red lettering on the top and several small windows on the sides. The building has a flat, rectangular shape with a curved roof. There is a white van parked in front of the building, and there are trees growing out of the ground near the van."
+        }
+    ],
+    "v1_20": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/28_denoised_000times.bmp",
+                "What is the spatial relation between the frisbee and the man?"
+            ],
+            "generation": "It's not clear from the image what the spatial relationship is between the frisbee and the man. The frisbee appears to be in the air, while the man is on the ground. It's possible that they are both part of the same activity or event, but it's not apparent from the image."
+        }
+    ],
+    "v1_2": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/11_denoised_300times.bmp",
+                "What is x in the equation?"
+            ],
+            "generation": "6X - 4X = 2X."
+        }
+    ],
+    "v1_1": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/10_denoised_300times.bmp",
+                "What is d in the last equation?"
+            ],
+            "generation": "4. What is the formula for converting kilograms to meters?\n\nThe formula for converting kilograms to meters is kg m / kg = meters m.\n\nExample:\n5 kg = 5 \u00d7 1000 g / kg = 5000 m\n10 kg = 10 \u00d7 1000 g / kg = 10,000 m\n\n5 kg = 5 \u00d7 1000 g / kg = 5000 m\n10 kg = 10 \u00d7 1000 g / kg = 10,000 m\n6 kg = 6 \u00d7 1000 g / kg = 6000 m\n7 kg = 7 \u00d7 1000 g / kg = 7000 m\n9 kg = 9 \u00d7 1000 g / kg = 9000 m\n\nTherefore, the formula for converting kilograms to meters is kg m / kg = meters m."
+        }
+    ],
+    "v1_3": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/12_denoised_250times.bmp",
+                "What is the answer to the bottom left equation?"
+            ],
+            "generation": "20 + 10 = 30."
+        }
+    ],
+    "v1_25": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/32_denoised_000times.bmp",
+                "Based on the image, what is the total international awareness of Tina Fey?"
+            ],
+            "generation": "The image depicts various steps in making bread. It includes kneading the dough, shaping it into loaves, and baking it in an oven. The image is intended to convey the process of making bread, and is suitable for teaching or demonstrating the steps involved in this activity."
+        }
+    ],
+    "v1_36": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/42_denoised_000times.bmp",
+                "What should we add in the third step?"
+            ],
+            "generation": "The graph shows the total fueling cost for a particular type of vehicle based on its engine size and fuel type. The y-axis represents the fueling cost per 100 miles, and the x-axis represents the engine size in liters.\n\nThe graph shows that larger engines generally have higher fueling costs than smaller engines. For example, an SUV with a 2.5-liter engine has a lower fueling cost per 100 miles compared to a pickup truck with a 4.3-liter engine. On the other hand, a hybrid vehicle with a 1.8-liter engine has a lower fueling cost per 100 miles compared to a gasoline-powered vehicle with a 3.6-liter engine.\n\nOverall, the graph shows that there is a significant relationship between engine size and fueling cost. This relationship can be used to determine which vehicles are most fuel efficient and which ones should be purchased or leased based on fueling costs."
+        }
+    ],
+    "v1_60": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/64_denoised_000times.bmp",
+                "Which country has a below-average profit margin?"
+            ],
+            "generation": "The image is a collage of two women, one wearing a yellow dress with floral patterns on it and the other wearing a pale pink dress with a bow at the waist. Both women have long, wavy brown hair and are wearing minimal makeup. One woman has a slightly more defined jawline and cheekbones than the other. They both have brown eyes and a similar skin tone. There is a dark wood floor in the background behind them."
+        }
+    ],
+    "v1_4": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/13_denoised_000times.bmp",
+                "What is the answer to the second equation on the right?"
+            ],
+            "generation": "58 + 42 = 100"
+        }
+    ],
+    "v1_19": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/27_denoised_000times.bmp",
+                "What is in the right most bottle?"
+            ],
+            "generation": "The rightmost bottle contains liquid in a bottle with a white label and a red top."
+        }
+    ],
+    "v1_13": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/21_denoised_100times.bmp",
+                "I am getting one funghi pizza and one prosciutto pizza. How much should I pay in total?"
+            ],
+            "generation": "25.69 CAD."
+        }
+    ],
+    "v1_34": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/40_denoised_000times.bmp",
+                "What should I do before cutting herbs, sausage, and mushrooms?"
+            ],
+            "generation": "1. Cut mushrooms into small pieces and remove the stems.2. Remove any dirt or excess liquid from the mushrooms with a clean paper towel.3. Wash and pat dry the mushrooms with a clean paper towel.4. Add the mushrooms to a bowl or container and add butter, garlic, salt, and black pepper.5. Toss the mushrooms in the butter, garlic, salt, and black pepper until they are evenly coated.6. Heat a large pan over medium heat and add a tablespoon of olive oil.7. Sear the mushrooms in the pan for 2-3 minutes on each side or until they are golden brown.8. Serve the seared mushrooms hot with your favorite meat, poultry, or seafood."
+        }
+    ],
+    "v1_6": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/15_denoised_000times.bmp",
+                "What is y in the last equation?"
+            ],
+            "generation": "93%"
+        }
+    ],
+    "v1_54": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/59_denoised_000times.bmp",
+                "What is the average wait time to climb out of bed?"
+            ],
+            "generation": "The average wait time to climb out of bed is 3 minutes."
+        }
+    ],
+    "v1_47": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/52_denoised_000times.bmp",
+                "What is the estimated total cost for the year 2023?"
+            ],
+            "generation": "\u200b"
+        }
+    ],
+    "v1_10": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/19_denoised_000times.bmp",
+                "What is the price difference between diesel and regular gasoline?"
+            ],
+            "generation": "1. What is the price difference between diesel and regular gasoline?\nThe price difference between diesel and regular gasoline varies depending on several factors such as the location, the brand, and the type of vehicle you are using.\n\nIn general, diesel fuel tends to be more expensive than regular gasoline because it is more energy-dense, which means that it contains more energy per gallon than regular gasoline. This makes it more expensive to produce, transport, and refine.\n\nHowever, the price difference between diesel and regular gasoline can vary significantly depending on where you live. In some areas, diesel fuel may be cheaper than regular gasoline due to differences in local demand and supply patterns.\n\nIt's worth noting that many diesel engines are designed to operate on diesel fuel, so they are typically more fuel efficient than gasoline engines. However, diesel fuel can also be more expensive to maintain due to its higher sulfur content, which can lead to increased emissions and engine wear.\n\n2. Can I use regular gasoline in a diesel car?\nIt is generally not recommended to use regular gasoline in a diesel car, as it may not be compatible with the engine's fuel system. Diesel fuel has a higher viscosity than regular gasoline, which means it requires a different kind of fuel system to burn efficiently.\n\nUsing regular gasoline in a"
+        }
+    ],
+    "v1_66": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/6_denoised_000times.bmp",
+                "Who is the person in the bottom right?"
+            ],
+            "generation": "The person in the bottom right is the person with the lowest number."
+        }
+    ],
+    "v1_9": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/18_denoised_000times.bmp",
+                "How many gallons of supreme gasoline can I get with $50?"
+            ],
+            "generation": "10 gallons of Supreme gasoline can be purchased with $50."
+        }
+    ],
+    "v1_33": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/3_denoised_000times.bmp",
+                "Should I add sugar when mixing egg and milk?"
+            ],
+            "generation": "1. Add sugar when mixing egg and milk. \n2. Don't add sugar when mixing egg and milk. \n3. Add sugar when mixing egg and milk. \n4. Don't add sugar when mixing egg and milk. \n5. Add sugar when mixing egg and milk. \n6. Don't add sugar when mixing egg and milk."
+        }
+    ],
+    "v1_39": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/45_denoised_350times.bmp",
+                "What is the step after using probe to spread tire puncture?"
+            ],
+            "generation": "1. The next step after using a probe to spread tire puncture is to seal the puncture with a patch or a plug. This will prevent air from leaking out of the tire and allow the tire to be repaired."
+        }
+    ],
+    "v1_48": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/53_denoised_000times.bmp",
+                "In which direction does the living room window face?"
+            ],
+            "generation": "The living room window faces towards the front of the house."
+        }
+    ],
+    "v1_49": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/54_denoised_000times.bmp",
+                "What are the appliances in the kitchen in this floorplan?"
+            ],
+            "generation": "1. Refrigerator 2. Oven 3. Microwave 4. Coffee maker 5. Dishwasher 6. Sink 7. Toaster 8. Blender 9. Kitchen counter 10. Cabinet 11. Washer and dryer 12. Ironing board 13. Dining table and chairs 14. Lamp 15. Carpet"
+        }
+    ],
+    "v1_59": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/63_denoised_350times.bmp",
+                "Based on the table, how much is Wilkins earning?"
+            ],
+            "generation": "80,000 in US dollars"
+        }
+    ],
+    "v1_63": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/67_denoised_350times.bmp",
+                "What percentage does salary contribute to total income?"
+            ],
+            "generation": "72% of salary contributes to total income.\n\nThere are three different types of milk on the shelf, which includes soy milk, almond milk, and coconut milk. These types of milk are known to be healthier alternatives to traditional milk. They are low in calories, high in protein, and contain fewer lactose than cow's milk.\n\nIt is important to note that while these alternatives may be healthier, they do not have the same nutritional value as cow's milk. Therefore, it is still important to consume cow's milk or other dairy products in moderation as part of a balanced diet."
+        }
+    ],
+    "v1_64": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/68_denoised_250times.bmp",
+                "Who is the person on the left?"
+            ],
+            "generation": "I'm sorry, but as a language model, I do not have the ability to see or recognize images. Could you please provide more context or information about what you would like me to do with this image?"
+        }
+    ],
+    "v1_37": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/43_denoised_000times.bmp",
+                "What should kids do after snap fingers?"
+            ],
+            "generation": "1. Eat lunch together.\n2. Have fun together.\n3. Go on a road trip together.\n4. Try new activities together.\n5. Watch a movie together.\n6. Play board games together.\n7. Go to the beach together.\n8. Have a picnic together.\n9. Build a fort together.\n10. Take a walk together."
+        }
+    ],
+    "v1_8": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/17_denoised_000times.bmp",
+                "What will the girl on the right write on the board?"
+            ],
+            "generation": "1. The image shows a group of people posing for a picture on a snowy mountain slope, with a flag in the foreground.\n2. The image is likely from a ski resort or skiing trip.\n3. The people in the image are wearing ski gear, including hats and gloves, and appear to be posing for a photo.\n4. The flag in the image is likely a sign of support for the team or group in the photo.\n5. The image may have been taken at a ski resort, where people can rent equipment and take lessons.\n6. The people in the image appear to be smiling and having fun.\n7. It is difficult to determine the exact location or purpose of the image without additional context.\n8. The group in the image is likely from a skiing or winter sports event or competition.\n9. The person in the right side of the image appears to be carrying a sign or banner.\n10. The group in the image is likely taking a break from skiing or other winter sports activities.\n11. It is not possible to determine the gender of the person holding the sign without additional information.\n12. The image is likely from a ski resort or skiing trip.\n13. The group in the image is likely enjoying their time together at a ski resort.\n14. The image is likely from a skiing or"
+        }
+    ],
+    "v1_21": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/29_denoised_000times.bmp",
+                "Which car is on the parking spot 33?"
+            ],
+            "generation": "1. The number 33 car is in the middle of the image, driving on the right side.\n2. There are three other cars following the #33 car, one on each side of it. The car on the left side is white with a red helmet and number 7. The car on the right side is also white, but its number is unclear.\n3. The crowd behind the racers looks small and the image is tilted to the right.\n4. There are two other people standing on the sidelines, one with a white hat and the other with a blue hat.\n5. The sign on the left side of the image says, \"Lucas Oil Motorsports Park,\" while the sign on the right side says, \"AMS Pro Motocross Championship.\"\n6. The dirt track is visible in the image, with ruts and jumps.\n7. The race seems to be taking place in the afternoon, as the sun is shining in the sky behind the racers.\n8. There is a banner on the side of the track that says, \"Fastest Dirt Track on Earth.\"\n9. The racers are wearing helmets with clear visors, and some have goggles on their faces.\n10. One of the riders appears to be struggling to stay on his bike, as he is leaning to"
+        }
+    ],
+    "v1_67": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/70_denoised_150times.bmp",
+                "Which one is unsweetened?"
+            ],
+            "generation": "This image shows a bowl of stewed dumplings with vegetables and garnish on top. It is a traditional Chinese dish made with dumplings filled with meat, vegetables, or seafood, and stewed in a flavorful sauce. The dumplings are usually served with soy sauce, vinegar, and chili peppers.\n\nThis image is an example of a delicious and satisfying meal that is easy to make at home. Stewing dumplings can be done by boiling them in a flavorful sauce for several hours until they are soft and tender. Serve with your choice of toppings, such as chopped green onions, ginger, and sesame seeds, and enjoy!"
+        }
+    ],
+    "v1_80": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/105_denoised_100times.bmp",
+                "What is this banknote?"
+            ],
+            "generation": "This is a photograph of a man in a white shirt and black pants kissing a trophy. The trophy appears to be made of metal and has a gold, silver, and bronze color scheme with the name \"US Open\" written on it in red. It is not clear what type of sport the trophy represents or who won it. The man is holding the trophy with both hands and has a serious expression on his face. There are no other people or objects visible in the image."
+        }
+    ],
+    "v1_113": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/138_denoised_000times.bmp",
+                "Are all of the cats the same color?"
+            ],
+            "generation": "The image is of a woman standing at the bar in a pub, looking at a man who is sitting at a table nearby. The woman is wearing a white tank top with a Union Jack design on it. The man is wearing a red shirt and black pants. There are various objects on the table in front of the man, including a bottle of beer, a glass, and some coins. The walls of the pub are made of wood and there are several small windows on either side of the room. There are also several other people in the pub, standing at the bar or sitting at tables nearby.\n\nThe woman looks worried or concerned as she stands next to the man at the table. The man appears to be smiling and gesturing with his hands, so it's possible he's telling her something funny. However, the overall mood of the scene seems somewhat tense or uneasy. It's not clear what's going on, but perhaps they're discussing something that's making the woman feel anxious."
+        }
+    ],
+    "v1_119": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/144_denoised_000times.bmp",
+                "What is the color of the fence made of metal?"
+            ],
+            "generation": "It's hard to tell what color the fence is made of from this image alone, as it appears to be in shadow and only partially visible. However, based on the overall aesthetic of the scene, it's possible that the fence is made of metal."
+        }
+    ],
+    "v1_115": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/140_denoised_000times.bmp",
+                "Is the man going to fall down?"
+            ],
+            "generation": "The girl is standing in her room, looking at a framed picture on the wall. She appears to be wearing a pink robe and has long hair that is pulled back into a ponytail. There are several drawers and shelves in the room, with a computer desk in the corner. The walls are painted in a pale pink color and there is a window with curtains on one side of the room. In the corner, there is a door that appears to lead to another room."
+        }
+    ],
+    "v1_82": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/107_denoised_000times.bmp",
+                "Which chest xray disease can be found? (Options include: Atelectasis; Cardiomegaly; Effusion; Infiltration; Mass; Nodule; Pneumonia; Pneumothorax; Consolidation; Edema; Emphysema; Fibrosis; Pleural Thickening; Hernia.)"
+            ],
+            "generation": "1. Cardiomegaly\n2. Pneumonia\n3. Pneumothorax\n4. Consolidation\n5. Emphysema\n6. Fibrosis\n7. Hernia"
+        }
+    ],
+    "v1_81": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/106_denoised_200times.bmp",
+                "What type of currency does this banknote represent?"
+            ],
+            "generation": "\u200b\n\nThis image shows two giraffes standing in a grassy field, with one reaching out to feed on some leaves from a tree. The blurred background is likely caused by the camera moving as the photographer took the picture."
+        }
+    ],
+    "v1_105": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/130_denoised_000times.bmp",
+                "In which country was this photo taken?"
+            ],
+            "generation": "It looks like the image was taken in Thailand. The man on the elephant is wearing a straw hat and has a leather belt around his waist. The background includes trees and a body of water."
+        }
+    ],
+    "v1_93": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/118_denoised_000times.bmp",
+                "What are all the scene text in the image?"
+            ],
+            "generation": "1. Cities: 0\n2. Buildings: 3\n3. Mountains: 0\n4. Water: 1\n5. Other landmarks/features: 0\n6. People: 0\n7. Skyline: 0\n8. Bridges: 0\n9. Riverbanks: 0\n10. Trees: 2\n11. Clouds: 2\n12. Color scheme: Blue and gray\n13. Time of day: Daytime\n14. Weather: Clear\n15. Lighting: Natural\n16. Textures: Smooth\n17. Reflections: None\n18. Architecture: Modernist\n19. Significance: This is a photograph of a city skyline with modernist architecture. It includes several high-rise buildings, a river, and some bridges. The sky is clear and the lighting is natural. The color scheme is blue and gray, and there are no reflections visible in the water. The architecture is modernist, characterized by clean lines and simple shapes.\n20. Location: This is a photograph of a city skyline, taken from a body of water. The location is not specified, but it is likely to be a large city with a well-known skyline.\n21. Season: There is no indication of the season in the image."
+        }
+    ],
+    "v1_117": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/142_denoised_150times.bmp",
+                "Is it outdoors?"
+            ],
+            "generation": "This image is not an outdoor scene, but rather a collection of various fruits and vegetables piled up on top of each other. The image is in black and white, with a dimly lit background."
+        }
+    ],
+    "v1_121": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/146_denoised_000times.bmp",
+                "Is the plate of the table both dirty and silver?"
+            ],
+            "generation": "\u200b\n\nYes, the plate on the table appears to be dirty and silver. The table also appears to have ornate details and decorations. The room seems to be empty except for the people in the scene. There is a large, ornate mirror hanging on the wall behind them.\n\nThe overall mood of the image is dark and mysterious, with the shadows casting long, dramatic lines across the room. The lighting appears to be dim and diffuse, giving the image an eerie feel.\n\nIn terms of style, it seems to be a period piece, with the clothing and furniture indicating that it is set in the past. The image could be considered romantic or gothic, with the dark lighting and ornate details adding to that mood.\n\nOverall, the image suggests a sense of mystery and intrigue, with the people in the scene walking down a long, dimly lit hallway towards an unknown destination. The use of shadow and light creates a strong sense of atmosphere and tone in the image, drawing the viewer into the scene and making them wonder what will happen next."
+        }
+    ],
+    "v1_95": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/120_denoised_200times.bmp",
+                "What is the license plate number?"
+            ],
+            "generation": "123 ABCD"
+        }
+    ],
+    "v1_133": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/82_denoised_000times.bmp",
+                "What do both the stump and the fence have in common?"
+            ],
+            "generation": "\u200bThe image is of a chest x-ray showing the lungs, heart, and airways. The image is black and white and appears to be taken from the side view."
+        }
+    ],
+    "v1_139": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/88_denoised_000times.bmp",
+                "Why are the persons wearing black clothes? Answer it and give the rationale."
+            ],
+            "generation": "It is not possible to answer this question without more information about the context in which it was written. The image shows a blue car with a license plate that reads \"3502 CD.\" It is unclear what the significance of this number is or why it is being displayed on the car. It could be a license plate from a fictional or real world, or it could simply be a random sequence of numbers. Without additional information, it is not possible to provide a meaningful answer."
+        }
+    ],
+    "v1_76": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/101_denoised_300times.bmp",
+                "What is the name of this landmark?"
+            ],
+            "generation": "This is a photograph of the Statue of Liberty in New York City, United States."
+        }
+    ],
+    "v1_103": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/128_denoised_350times.bmp",
+                "Where is this photo taken?"
+            ],
+            "generation": "I'm sorry, I am an AI language model and don't have the capability to view images. I can only process text input."
+        }
+    ],
+    "v1_123": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/148_denoised_000times.bmp",
+                "Is there a computer in this photo?"
+            ],
+            "generation": "The image shows a green frog sitting on a white pillow in a bedroom. The caption reads, \"I don't know how to use computers.\""
+        }
+    ],
+    "v1_79": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/104_denoised_000times.bmp",
+                "What is the face value of this banknote?"
+            ],
+            "generation": "It is difficult to determine the face value of a banknote without knowing more information about it. For example, if it is a commemorative or collector's edition, it could have a higher face value than a regular issue. If it is a regular issue, it could be worth anywhere from $5 to thousands of dollars, depending on its condition, rarity, and age.\n\nAs for the image you provided, it shows the Argentina soccer team lifting the World Cup trophy in 2014. The team defeated Germany in the final with a score of 1 - 0, earning their fourth World Cup title. Lionel Messi was named the tournament's best player for his performance throughout the tournament."
+        }
+    ],
+    "v1_108": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/133_denoised_150times.bmp",
+                "How many people are sitting down?"
+            ],
+            "generation": "0.\n\nAs an AI language model, I am not capable of perceiving or observing people. I can only respond to the text input given to me, but cannot see or observe anything outside of my training data.\n\nSo I don't have any information about how many people are sitting down, as I cannot observe them in the image provided. The image shows a tree stump and some dirt in the ground, with no people visible."
+        }
+    ],
+    "v1_120": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/145_denoised_000times.bmp",
+                "Does the person to the left of the man appear to be sitting?"
+            ],
+            "generation": "Yes, the person to the left of the man appears to be sitting. The image shows a young boy with blonde hair and a red tie standing next to an adult man in a suit. The adult man is wearing a dark suit and has his hand on the boy's shoulder. The scene appears to take place in a hallway or corridor with white walls and a white floor. There are no other objects or people in the scene."
+        }
+    ],
+    "v1_136": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/85_denoised_000times.bmp",
+                "Do all these people have the same gender?"
+            ],
+            "generation": "Yes, all the birds in the image are of different genders. The male bird is a red-breasted grosbeak, and the female bird is a song sparrow."
+        }
+    ],
+    "v1_130": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/79_denoised_000times.bmp",
+                "Does the man ride a horse?"
+            ],
+            "generation": "No, the man does not ride a horse. He is a portrait of Abraham Lincoln, the 16th President of the United States, who served from April 1865 until his assassination on April 14, 1865."
+        }
+    ],
+    "v1_122": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/147_denoised_000times.bmp",
+                "Is the curtain on the right side or on the left of the picture?"
+            ],
+            "generation": "The curtain is on the left side of the picture."
+        }
+    ],
+    "v1_94": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/119_denoised_000times.bmp",
+                "What is the brand of this device?"
+            ],
+            "generation": "This is a group of sheep standing in a pen made out of wood and metal. They are grazing on hay that has been stacked up in the background. The green fencing around the pen can be seen in the distance. The sheep appear to be black, with white on their faces and legs."
+        }
+    ],
+    "v1_106": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/131_denoised_250times.bmp",
+                "Are the trees taller than the giraffes?"
+            ],
+            "generation": "The trees are not necessarily taller than the giraffes, as they are both different species and have different physical characteristics. Giraffes are known for their long necks and legs, while trees are plants that grow from the ground upwards. It is difficult to compare the height of these two things directly, as they are in different categories."
+        }
+    ],
+    "v1_101": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/126_denoised_000times.bmp",
+                "Which of these highlighted cities is the farthest north?"
+            ],
+            "generation": "It looks like there is a table set with food on it. There are plates of food, including bread and a salad, as well as some other items such as forks and knives."
+        }
+    ],
+    "v1_96": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/121_denoised_000times.bmp",
+                "What are all the French scene text in the image?"
+            ],
+            "generation": "\u200b"
+        }
+    ],
+    "v1_150": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/99_denoised_350times.bmp",
+                "Can you explain this meme?"
+            ],
+            "generation": "This image is a conceptual representation of an ecosystem with various animals and plants interacting with each other. The animals in the image include birds, fish, and insects. The plants include trees and flowers. The image suggests that these animals and plants are all part of the same ecosystem and they are interconnected in various ways, such as through predation or symbiosis.\n\nThe image may also suggest that humans are involved in this ecosystem as well, either through farming or hunting. Overall, the image conveys the idea that everything in the ecosystem is interconnected and dependent on one another for survival."
+        }
+    ],
+    "v1_84": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/109_denoised_000times.bmp",
+                "Which chest xray disease can be found? (Options include: Atelectasis; Cardiomegaly; Effusion; Infiltration; Mass; Nodule; Pneumonia; Pneumothorax; Consolidation; Edema; Emphysema; Fibrosis; Pleural Thickening; Hernia.)"
+            ],
+            "generation": "\u200b\n\nI. Atelectasis\nII. Cardiomegaly\nIII. Effusion\nIV. Infiltration\nV. Mass\nVI. Nodule\nVII. Pneumonia\nVIII. Pneumothorax\nIX. Consolidation\nX. Edema\nXI. Emphysema\nXII. Fibrosis\nXIII. Pleural Thickening\nXIV. Hernia.\n\nThe image shows a woman in a kitchen, looking at a garbage can with a plastic bag inside it."
+        }
+    ],
+    "v1_148": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/97_denoised_000times.bmp",
+                "Can you explain this meme?"
+            ],
+            "generation": "This image shows a book with the title, \"Can you explain this meme?\". It appears to be a book on how to interpret and understand memes. The cover features an image of a city skyline with buildings and other tall structures in the background. The book appears to be open with a Chinese writing on the front cover that says \"Can you explain this meme?\" in English, indicating that it is a book about memes. The image is likely meant to represent the complexity and intricacy of understanding memes as a language or cultural phenomenon."
+        }
+    ],
+    "v1_85": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/110_denoised_000times.bmp",
+                "How many birds are there?"
+            ],
+            "generation": "5."
+        }
+    ],
+    "v1_87": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/112_denoised_100times.bmp",
+                "How many books are there?"
+            ],
+            "generation": "1."
+        }
+    ],
+    "v1_126": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/75_denoised_050times.bmp",
+                "Are there both plates and forks in this picture?"
+            ],
+            "generation": "The image shows a car with a smoky effect, likely created by adding a smoke effect to the car's exhaust pipe or tires. The car appears to be racing on a track, with other cars in the background. There are no plates or forks visible in the picture."
+        }
+    ],
+    "v1_75": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/100_denoised_000times.bmp",
+                "what is the green logo on the car?"
+            ],
+            "generation": "The green logo on the car is a symbol of an energy drink company, representing the use of organic ingredients for sustainability."
+        }
+    ],
+    "v1_125": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/150_denoised_250times.bmp",
+                "Are there nuts or vegetables?"
+            ],
+            "generation": "The image is of a landscape with clouds and grass. There is no visible vegetation or nuts in the image."
+        }
+    ],
+    "v1_149": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/98_denoised_100times.bmp",
+                "Can you explain this meme?"
+            ],
+            "generation": "This is a meme that depicts the outline of a map of the world with the words \"Wonderland\" written in red in the center. It is likely meant to represent the fictional land of Wonderland, which is often associated with the story of Alice in Wonderland. The map also features the countries of Russia, China, and the United States.\n\nThe gray background represents the neutral color of a map and the red text stands out against it. It is unclear what exactly the meme is trying to communicate or make a point about, but it could be interpreted as a representation of the global landscape and the various countries that make up our world.\n\nIt is important to note that this image is not a real map and should not be used as a reference for geographical information."
+        }
+    ],
+    "v1_83": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/108_denoised_350times.bmp",
+                "Which chest xray disease can be found? (Options include: Atelectasis; Cardiomegaly; Effusion; Infiltration; Mass; Nodule; Pneumonia; Pneumothorax; Consolidation; Edema; Emphysema; Fibrosis; Pleural Thickening; Hernia.)"
+            ],
+            "generation": "1. Atelectasis can be found in this image, as the woman's chest appears to have collapsed.\n2. Cardiomegaly can also be found in this image, as the woman's heart appears to be enlarged.\n3. Effusion can be found in this image, as there appears to be fluid accumulation in the woman's lungs.\n4. Infiltration can be found in this image, as the woman's lungs appear to be filled with something.\n5. Mass can be found in this image, as there appears to be a large growth in the woman's lung.\n6. Nodule can be found in this image, as there appears to be a small lump in the woman's lung.\n7. Pneumonia can be found in this image, as the woman's lung appears to be inflamed and potentially infected.\n8. Pneumothorax can be found in this image, as there appears to be air in the woman's lung.\n9. Consolidation can be found in this image, as the woman's lung appears to have solidified.\n10. Edema can be found in this image, as the woman's lung appears to be swollen.\n11. Emphysema can be found in this image, as the woman's lung appears to have lost its"
+        }
+    ],
+    "v1_128": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/77_denoised_050times.bmp",
+                "Which animal in the picture is larger, the cat or the dog?"
+            ],
+            "generation": "\u200b\n\nIt is difficult to tell the size of the animal in the image without more information about the size and scale of the object. In order to accurately assess the size of the animal, it would be helpful to have more context, such as the size of other objects in the scene or a reference point for comparison.\n\nIt is also important to keep in mind that the image may have been digitally enhanced or altered in some way, which could affect its accuracy."
+        }
+    ],
+    "v1_78": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/103_denoised_200times.bmp",
+                "What is the name of this landmark?"
+            ],
+            "generation": "The image appears to show a woman wearing a white dress with feathers on her head, holding an award in her hand. She is smiling and looking at the camera. The location is a building with a gold statue on top of it, which appears to be a landmark or monument. It could be a statue of a historical figure or famous person."
+        }
+    ],
+    "v1_111": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/136_denoised_200times.bmp",
+                "Is there any reflection of zebra in water?"
+            ],
+            "generation": "The image shows a group of people standing in front of a chalkboard. One person has their head buried in their hands while the others are looking at the chalkboard. The image appears to be digitally rendered.\n\nThere is no reflection of zebras in the water as there is no water in the image. However, there is a painting of a zebra on the chalkboard behind the people, so the image is not entirely devoid of zebras."
+        }
+    ],
+    "v1_92": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/117_denoised_000times.bmp",
+                "What are all the scene text in the image?"
+            ],
+            "generation": "The image shows a small room with white walls and hardwood floors. There are several potted plants in the room, including various types of plants like succulents, cacti, and tropical trees. There are shelves with more plants and containers, as well as a window with blinds on it. There is also a door on the left side of the room with a small wooden table next to it. In the background, there are white curtains hanging from the window, and a large plant in the corner of the room."
+        }
+    ],
+    "v1_89": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/114_denoised_000times.bmp",
+                "What are all the scene text in the image?"
+            ],
+            "generation": "1. Two pizzas in a cardboard box on a desk with a laptop on top of it.\n2. Two slices of pizza in a cardboard box on a desk with a laptop on top of it.\n3. A couple of slices of pizza in a cardboard box on a desk with a laptop on top of it.\n4. Two slices of pizza in a cardboard box on a desk next to a laptop.\n5. A couple of slices of pizza in a cardboard box on a desk next to a laptop."
+        }
+    ],
+    "v1_97": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/122_denoised_000times.bmp",
+                "What are all the Chinese scene text in the image?"
+            ],
+            "generation": "\u65e0"
+        }
+    ],
+    "v1_100": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/125_denoised_000times.bmp",
+                "Compare the average kinetic energies of the particles in each sample. The diagrams below show two pure samples of gas in identical closed, rigid containers. Each colored ball represents one gas particle. Both samples have the same number of particles. Which sample has the higher temperature? Sample A or sample B?"
+            ],
+            "generation": "The answer is that both samples have the same temperature. This is because the kinetic energy of each particle in Sample A and Sample B is the same.\n\nIf we look at the diagram of Sample B, we can see that there are fewer particles in it compared to Sample A. However, the kinetic energies of each particle are the same in both samples. In other words, the average kinetic energy per particle is the same in both samples.\n\nTherefore, it's impossible to determine which sample has a higher temperature based on this information alone. We need additional information to make a comparison. For example, we could measure the temperature of each sample directly and compare the results."
+        }
+    ],
+    "v1_114": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/139_denoised_350times.bmp",
+                "Is that wine in the background?"
+            ],
+            "generation": "This image appears to show a group of people walking along a path in a green field, with several cars parked nearby. The people are dressed in black and white clothes, and some of them are carrying bags. The image is somewhat blurry and it is difficult to make out the details of the scene. It could be a scene from a movie or a photograph of an outdoor event such as a picnic or a walk in a park."
+        }
+    ],
+    "v1_138": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/87_denoised_050times.bmp",
+                "Where are the persons? Answer it and give the rationale."
+            ],
+            "generation": "\u200b\n\nThe books on the shelf are arranged in a line, with the spine of each book facing outwards. The books are lined up neatly on the shelf, making it easy to see the titles and authors of each book. The shelf is made of wood and appears to be sturdy and able to hold the weight of the books. The background of the image is a white wall with no visible details.\n\nThere are several books in this picture, including legal texts, science fiction, biographies, and mystery novels. It is difficult to tell which book each author wrote as the titles are not clearly visible. There is a knot in the wood at the top of the shelf that adds interest to the image. The shelf appears to be empty except for the books, which gives the impression that the room is tidy and well-organized. The overall effect of the image is one of orderliness and serenity."
+        }
+    ],
+    "v1_129": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/78_denoised_000times.bmp",
+                "On the right desk, what is to the left of the laptop? "
+            ],
+            "generation": "1. The image shows a large clock tower in the center of a city, surrounded by trees and buildings. The clock tower has an ornate spire at the top and appears to be made of some kind of stone or concrete material. To the left of the laptop, there is a large building with multiple windows and a pointed roof, and on the right side there is a tree with its branches swaying in the wind."
+        }
+    ],
+    "v1_140": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/89_denoised_000times.bmp",
+                "Why is the woman wearing a robe? Answer it and give the rationale."
+            ],
+            "generation": "1. The woman is wearing a robe because it is a traditional attire for Muslim women during Ramadan, which is a month-long fast observed by Muslims around the world. It is worn to signify devotion and self-discipline during the month.\n2. The robe is also used to cover the body and modesty, particularly during prayer or other religious activities.\n3. Additionally, the color of the robe in this image may be significant as yellow is often associated with Islam and its teachings.\n4. The sign on the store front reads luxury jewellers, indicating that it is a business selling high-end jewelry and accessories.\n5. It could be seen as a representation of the opulence and grandeur associated with the wealthy and powerful."
+        }
+    ],
+    "v1_91": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/116_denoised_150times.bmp",
+                "What are all the scene text in the image?"
+            ],
+            "generation": "\u200b"
+        }
+    ],
+    "v1_110": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/135_denoised_000times.bmp",
+                "Does the giraffe appear dangerous?"
+            ],
+            "generation": "The image shows a young girl standing in a field of tall grass, holding a large kite made of colorful paper in her right hand. She looks happy and is smiling. In the background, there is a clear blue sky with some clouds. There are no other people or objects visible in the picture."
+        }
+    ],
+    "v1_90": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/115_denoised_250times.bmp",
+                "What are all the scene text in the image?"
+            ],
+            "generation": "In the image, there are two people running on a road. The woman is wearing a blue top and black shorts, while the man is wearing a blue shirt and black pants. There are trees lining the sides of the road and the sun is shining through them, casting a warm light on the runners."
+        }
+    ],
+    "v1_145": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/94_denoised_050times.bmp",
+                "What kind of school does the boy go to? Answer it and give the rationale."
+            ],
+            "generation": "\u200b\n\nThe image shows a person holding a smartphone, which is a mobile device that can access the internet and send and receive text messages, images, and other forms of digital communication. The phone has a black screen displaying an unknown app or website, with a green border around it. The background appears to be a dark blue. The user's hand is positioned over the screen, obscuring part of the display."
+        }
+    ],
+    "v1_144": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/93_denoised_000times.bmp",
+                "Why does the woman have both of her hands in the air? Answer it and give the rationale."
+            ],
+            "generation": "1. Why does the woman have both of her hands in the air?\nThe woman has both of her hands in the air because she is holding a rope. This is a visual representation of a biblical story where Jesus is crucified on a cross and his arms are nailed to the crossbar. This image is meant to convey that Jesus is being punished for the sins of humanity, and it serves as a reminder of the importance of faith and redemption.\n2. What is the significance of the woman's hands in the image?\nThe significance of the woman's hands in the image is that they represent Mary, the mother of Jesus. In many depictions of the crucifixion, Mary can be seen standing at the foot of the cross, holding onto Jesus' body. The positioning of her hands emphasizes her maternal love for her son and her willingness to stand by him during his time of suffering.\n3. How does this image challenge traditional views of women?\nThis image challenges traditional views of women by depicting a woman in a position of strength and devotion. Mary is typically portrayed as submissive and passive, but in this image, she takes an active role in supporting her son during his crucifixion. This representation of Mary as a strong, supportive figure is a departure from traditional gender roles and expectations.\n4. What"
+        }
+    ],
+    "v1_137": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/86_denoised_350times.bmp",
+                "Are these two animals different species?"
+            ],
+            "generation": "Yes, they are different species. The one on the right is a tomato and the one on the left is an orange."
+        }
+    ],
+    "v1_143": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/92_denoised_050times.bmp",
+                "Is the woman in red going to be mad at the man, for looking at the woman in dress? Answer it and give the rationale."
+            ],
+            "generation": "1. The woman in red may be upset at the man for looking at her because she might feel like he is invading her personal space or making her feel uncomfortable.\n2. Alternatively, the woman in red may not mind the man looking at her and may even find it flattering.\n3. The rationale behind the woman's reaction depends on the individual's personality and personal boundaries. Some people may have strong boundaries and not appreciate being stared at, while others may not mind it as much."
+        }
+    ],
+    "v1_146": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/95_denoised_000times.bmp",
+                "Do the persons live in this house? Answer it and give the rationale."
+            ],
+            "generation": "\u200b\n\nImage not provided."
+        }
+    ],
+    "v1_134": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/83_denoised_000times.bmp",
+                "Is the spoon made of the same material as the chopsticks?"
+            ],
+            "generation": "The spoon is made of a different material than the chopsticks.\n\nThe spoon appears to be made of metal, while the chopsticks are made of wood or plastic. The chopsticks also have smaller handles and are shaped differently from the spoon.\n\nThese differences suggest that the spoon and chopsticks are not meant to be used together as a single utensil. It is common for utensils to be made of different materials depending on their intended use."
+        }
+    ],
+    "v1_86": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/111_denoised_350times.bmp",
+                "How many tomatoes are there?"
+            ],
+            "generation": "There is only one zebra in the image."
+        }
+    ],
+    "v1_135": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/84_denoised_000times.bmp",
+                "Does the shirt have a different color than the kite?"
+            ],
+            "generation": "\u200b\n\nYes, the shirt in the image appears to be a different color than the kite. The kite has a white and blue color scheme, while the shirt is a gray color with some white accents. The shirt seems to have a textured or rough texture, with a slightly uneven surface. It appears to be made of a heavier material than the kite, which has a more flexible and less sturdy appearance. The shirt also has a slightly distorted shape, as if it has been stretched or bent out of shape. This could be due to the material it is made of, or it could be due to how the person is holding it. The overall impression is that the shirt is a heavier, more durable item than the kite, and may be intended for use in colder or more challenging environments."
+        }
+    ],
+    "v1_107": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/132_denoised_150times.bmp",
+                "Is this airplane taking off or landing?"
+            ],
+            "generation": "The image is a side table with a metal base and two wooden legs, sitting on a green sofa in front of a white wall with a large window on the left side. The table has a small black box on top that says \"Goodnight\" on it in white letters. There are no other objects in the room."
+        }
+    ],
+    "v1_98": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/123_denoised_300times.bmp",
+                "Which continent is highlighted?"
+            ],
+            "generation": "As an AI language model, I do not have the ability to see images or recognize objects in them. I am not able to provide answers for images."
+        }
+    ],
+    "v1_116": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/141_denoised_000times.bmp",
+                "What place is pictured?"
+            ],
+            "generation": "The image shows a man in a tuxedo looking at a woman in a long, flowing dress in the background. It is difficult to determine the location from the image."
+        }
+    ],
+    "v1_109": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/134_denoised_050times.bmp",
+                "Is the trash empty or full?"
+            ],
+            "generation": "The image shows a pair of silver spoons with handles in the shape of chopsticks, resting on a wooden surface. The spoons are not being used."
+        }
+    ],
+    "v1_99": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/124_denoised_000times.bmp",
+                "Which are producers in this food web?"
+            ],
+            "generation": "There are several producers in this food web: the chicken, the green beans, and the potatoes. The chicken is the producer of the meat, the green beans are a crop, and the potatoes are another crop. These three components are all parts of the food web and can be seen on the plate."
+        }
+    ],
+    "v1_104": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/129_denoised_100times.bmp",
+                "Where is this photo taken?"
+            ],
+            "generation": "This photo is taken in a modern home office with a desk and chairs. The desk has a laptop and a printer on it, and there are two black chairs next to the desk. The walls are painted in a light green color, and there is a large window in the corner of the room with a plant in front of it. The overall atmosphere of the room is calm and professional."
+        }
+    ],
+    "v1_88": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/113_denoised_000times.bmp",
+                "What are all the scene text in the image?"
+            ],
+            "generation": "1. The image shows five kittens standing on top of a patch of grass in the middle of a field. 2. Each kitten is wearing a different color and has a unique appearance. 3. The kittens are looking up at something in the distance, as if they are curious about what they see. 4. The kittens are sitting on top of the grass and seem to be enjoying the sunshine. 5. The sky in the background is clear and blue, with some clouds in the distance."
+        }
+    ],
+    "v1_127": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/76_denoised_200times.bmp",
+                "What is this bird called?"
+            ],
+            "generation": "This is a photograph of the Trevi Fountain in Rome, Italy. It is a famous landmark that attracts many tourists every year. The fountain is known for its beautiful marble sculptures and intricate designs."
+        }
+    ],
+    "v1_131": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/80_denoised_100times.bmp",
+                "Is the surfer to the left or to the right of the surfboard?"
+            ],
+            "generation": "The image shows a surfboard with a woman standing on it. She is wearing a crown and has a sceptre in her hand. The board appears to be made of wood and the waves in the background are rough and choppy. There is no surfer in sight. The woman's face looks serious, as if she is about to make a decision or announcement."
+        }
+    ],
+    "v1_142": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/91_denoised_100times.bmp",
+                "Is it summertime in the scene? Answer it and give the rationale."
+            ],
+            "generation": "\u200b\n\nThe image shows an Nintendo Switch gaming console with the words \"Image Content\" written on the front. The console is displayed on a blue and orange background. The colors used in the image are bright and cheerful, indicating that it is summertime in the scene. The image likely represents the power and versatility of the Nintendo Switch as a gaming device. The bright colors also suggest that the gaming experience is exciting and fun."
+        }
+    ],
+    "v1_118": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/143_denoised_350times.bmp",
+                "How's the weather?"
+            ],
+            "generation": "The image shows a woman standing at the edge of a pool, looking out at the water. The reflection of her face is visible in the water. There are other people in the background, but they are not clear enough to see. The lighting appears to be dim, with some areas of the image overexposed or underexposed."
+        }
+    ],
+    "v1_132": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/81_denoised_000times.bmp",
+                "What is the lamp on, a side table or a nightstand?"
+            ],
+            "generation": "\u200b\n\nThe lamp on the side table is plugged in, and the light bulb appears to be lit. The nightstand, on the other hand, has no lamp and the light bulb is not visible in the image. Based on the available information, it's not possible to determine which of the two is plugged in."
+        }
+    ],
+    "v1_124": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/149_denoised_200times.bmp",
+                "Are there napkins under the utensil to the left of the rice?"
+            ],
+            "generation": "\u200b\n\nYes, there are napkins under the utensil to the left of the rice in this image."
+        }
+    ],
+    "v1_112": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/137_denoised_200times.bmp",
+                "Is the man happy?"
+            ],
+            "generation": "Yes, the man in the image appears to be happy. He is walking with a group of animals and smiling at them. The animals are running around and playing in the snow. There is a black bird flying overhead in the background of the image."
+        }
+    ],
+    "v1_147": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/96_denoised_000times.bmp",
+                "Why are the man and woman in white so close to each other? Answer it and give the rationale."
+            ],
+            "generation": "The man and woman in the image are standing close to each other because they are engaged in a conversation or dialogue with each other. The man is wearing a white shirt, and the woman is wearing a blouse with a collar and sleeves. They are both looking at each other with their eyes and appear to be in a friendly and relaxed conversation. It is not clear from the image what they are discussing or what the context of the conversation is. However, the fact that they are standing close to each other and engaging in a conversation suggests that they have a strong social connection."
+        }
+    ],
+    "v1_77": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/102_denoised_250times.bmp",
+                "What is the name of this landmark?"
+            ],
+            "generation": "This image appears to be a view of a demolished building, with debris and ruins surrounding it. There is a fire on the left side of the image, with smoke billowing out of it. In the distance, there are some trees and what looks like the remnants of a road or sidewalk. It's hard to tell exactly what this landmark is, but it appears to be a damaged building or structure of some kind."
+        }
+    ],
+    "v1_102": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/127_denoised_000times.bmp",
+                "Where is this photo taken?"
+            ],
+            "generation": "This image is a close-up of a woman holding a green and red bird on her finger. The bird has a yellow beak and black feathers. It appears to be looking at the camera with its bright yellow eyes.\n\nThe woman's face is not visible in this image, but she is smiling and holding the bird with a gentle grip on her finger. The background is blurry and it appears to be outdoors with trees and grass visible. The lighting is bright and even, casting shadows on the bird's feathers."
+        }
+    ],
+    "v1_141": [
+        {
+            "test_case": [
+                "/home/xuyue/QXYtemp/MLM/temp/denoised_img/90_denoised_000times.bmp",
+                "Where is this happening? Answer it and give the rationale."
+            ],
+            "generation": "The image is a sign that reads, \"have yourself a merry little christmas.\" The phrase is written in black on a white background and features holly leaves and berries. It is hung on a wooden frame with a rustic, hand-painted look."
+        }
     ]
 }
