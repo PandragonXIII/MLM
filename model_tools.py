@@ -22,6 +22,21 @@ from minigpt4.common.dist_utils import get_rank
 from minigpt4.common.registry import registry
 from minigpt4.conversation.conversation import Chat,CONV_VISION_Vicuna0
 
+from openai import OpenAI
+import httpx
+import base64
+from io import BytesIO
+
+
+# REMINDER: gpt4 only support png,jp(e)g,webp,gif now
+def encode_image(image_path):
+    """convert image to jpeg and encode with base64"""
+    img = Image.open(image_path).convert("RGB")
+    im_file = BytesIO()
+    img.save(im_file, format="JPEG")
+    im_bytes = im_file.getvalue()  # im_bytes: image in binary format.
+    return base64.b64encode(im_bytes).decode('utf-8')
+
 def compute_cosine(a_vec:np.ndarray , b_vec:np.ndarray):
     """calculate cosine similarity"""
     norms1 = np.linalg.norm(a_vec, axis=1)
@@ -256,7 +271,7 @@ def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0
 def get_response(model_name, texts, images, a=Args()):
     """
     get different model response with given texts and images pairs
-    :model_name: on of "llava", "minigpt4", "blip",...
+    :model_name: on of "llava", "minigpt4", "blip","gpt4"...
     """
     answers = []
     t_start=time.time()
@@ -311,6 +326,35 @@ def get_response(model_name, texts, images, a=Args()):
             answers.append(answer)
         del model
         torch.cuda.empty_cache()
+    elif model_name=="gpt4":
+        client = OpenAI(
+        http_client=httpx.Client(
+            base_url="https://api.xiaoai.plus/v1",
+            follow_redirects=True,
+            ),
+        )
+        
+        for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            base64_image = encode_image(images[i].filename)
+            response = client.chat.completions.create(
+                model="gpt-4-vision-preview",
+                messages=[
+                    {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": texts[i]},
+                        {"type": "image_url",
+                        "image_url": {"url": f"data:image/jpeg;base64,{base64_image}",
+                                      "detail": "low"},
+                        }
+                    ],
+                    }
+                ],
+                max_tokens=300
+            )
+            answer = response.choices[0].message.content
+            answers.append(answer)
+            time.sleep(1)
     else:
         raise Exception("unrecognised model_name, please choose from llava,blip,minigpt4,qwen")
     t_gen = time.time()-t_start

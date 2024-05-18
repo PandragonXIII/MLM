@@ -67,11 +67,11 @@
 - [ ] use MM-Vet to eval model performance
   - [x] process the images into 224*224
   - [x] support batch process to avoid out of memory
-  - [ ] support multi-round test
-- [ ] prepare GPT-4 api
+  - [x] support multi-round test
+- [x] prepare GPT-4 api
 
 #### MEET 5.6
-- [ ] Transfer(test result with harmbench)
+- [x] Transfer(test result with harmbench)
  - [x] Llava
  - [x] mini GPT4
  - [x] ~~BLIP~~
