@@ -34,7 +34,7 @@ if __name__=="__main__":
     parser.add_argument('--pair_mode', type=str, default="combine", help='relation between imgs and texts, should be "combine" or "injection"')
     parser.add_argument('--no_eval', action="store_true", help="disable harmbench evaluation phase" )
     parser.add_argument('--no_detect', action="store_true", help="disable detector phase" )
-    parser.add_argument('--eval_performance', action="store_true", help="test the model with MM-Vet")
+    parser.add_argument('--multirun', type=int, default=1, help="run the precess nultiple times")
     args = parser.parse_args()
 
     a = Args()
@@ -42,69 +42,78 @@ if __name__=="__main__":
     a.text_file = args.text
     a.denoise_checkpoint_num = 8
     a.model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
-    # deal with directory
-    if not os.path.exists(a.temp_dir):
-        os.makedirs(a.temp_dir)
-    else:
-        os.system(f"rm -rf {a.temp_dir}/*")
-    a.image_dir = a.temp_dir+"/denoised_img"
-    os.mkdir(a.image_dir)
-    #
+
+    # create output dir
     if not os.path.exists(a.output_dir):
         os.makedirs(a.output_dir)
     else:
         os.system(f"rm -rf {a.output_dir}/*")
     os.mkdir(a.output_dir+"/img")
 
-    if not args.no_detect:
-        image_num, images = defence(args=args, a=a)
-    else: # generate answers directly without denoise and classify
-        if os.path.isdir(args.img):
-            # read the images
-            dir1 = os.listdir(args.img)
-            # count the number of images in args.img
-            image_num = len(dir1)
-            dir1.sort()
-            images = []
-            for f in dir1:
-                if os.path.isfile(f"{args.img}/{f}"):
-                    images.append(Image.open(f"{args.img}/{f}"))
+    for _ in range(args.multirun):
+        # create temp dir
+        if not os.path.exists(a.temp_dir):
+            os.makedirs(a.temp_dir)
         else:
-            image_num = 1
-            images = [Image.open(args.img)]
+            os.system(f"rm -rf {a.temp_dir}/*")
+        a.image_dir = a.temp_dir+"/denoised_img"
+        os.mkdir(a.image_dir)
+        
 
-    # read the prompts from csv to a list
-    df = pd.read_csv(a.text_file,header=None)
-    texts = df[0].tolist()
-    if args.eval_performance: # mm-vet do not have behav
-        behaviours = df[1].tolist() # read 'v1_x'
-    else:
-        behaviours = df[5].tolist() # for harmbench eval
+        if not args.no_detect:
+            image_num, images = defence(args=args, a=a)
+        else: # generate answers directly without denoise and classify
+            if os.path.isdir(args.img):
+                # read the images
+                dir1 = os.listdir(args.img)
+                # count the number of images in args.img
+                image_num = len(dir1)
+                dir1.sort()
+                images = []
+                for f in dir1:
+                    if os.path.isfile(f"{args.img}/{f}"):
+                        images.append(Image.open(f"{args.img}/{f}"))
+            else:
+                image_num = 1
+                images = [Image.open(args.img)]
 
-    t_finish = time.time()
-    print(f"processed {image_num} images, {len(texts)} texts in {t_finish-t0:.2f}s")
+        # read the prompts from csv to a list
+        df = pd.read_csv(a.text_file,header=None)
+        texts = df[0].tolist()
+        behaviours = df[df.shape[1]-1].tolist() # read behave for harmbench eval(v1_x for mmvet)
+        # if args.eval_performance: # mm-vet do not have behav
+        #     behaviours = df[1].tolist() # read 'v1_x'
+        # else:
+        #     behaviours = df[5].tolist() # for harmbench eval
 
-    # duplicate the texts and behaviours if pair_mode is combine
-    if args.pair_mode=="combine":
-        new_texts = []
-        new_behaviours = []
+        t_finish = time.time()
+        print(f"processed {image_num} images, {len(texts)} texts in {t_finish-t0:.2f}s")
+
+        # duplicate the texts and behaviours if pair_mode is combine
+        if args.pair_mode=="combine":
+            new_texts = []
+            new_behaviours = []
+            for i in range(len(texts)):
+                new_texts.extend([texts[i]]*image_num)
+                new_behaviours.extend([behaviours[i]]*image_num)
+            text_len = len(texts)
+            texts = new_texts
+            behaviours = new_behaviours
+            new_imgs = images*text_len
+            images = new_imgs
+        # generate responses
+        responses = get_response(args.model, texts, images)
+
+        # init dict in the first loop
+        if _==0:
+            res = {}
+            for behav in set(behaviours): # init each behaviour class
+                res[behav]=[]
+        # save QA pairs to dict
         for i in range(len(texts)):
-            new_texts.extend([texts[i]]*image_num)
-            new_behaviours.extend([behaviours[i]]*image_num)
-        text_len = len(texts)
-        texts = new_texts
-        behaviours = new_behaviours
-        new_imgs = images*text_len
-        images = new_imgs
-    # generate responses
-    responses = get_response(args.model, texts, images)
-
-    # save QA pairs to json
-    res = {}
-    for behav in set(behaviours): # init each behaviour class
-        res[behav]=[]
-    for i in range(len(texts)):
-        res[behaviours[i]].append({"test_case":[images[i].filename,texts[i]],"generation":responses[i]}) # type: ignore
+            res[behaviours[i]].append({"test_case":[images[i].filename,texts[i]],"generation":responses[i]}) # type: ignore
+    
+    # save dict to json
     with open(a.output_dir+"/response.json","w") as f:
         json.dump(res,f)
 

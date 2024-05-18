@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tqdm
 import time
+from math import ceil
 
 
 from denoiser.imagenet.DRM import DiffusionRobustModel
@@ -31,12 +32,12 @@ def compute_cosine(a_vec:np.ndarray , b_vec:np.ndarray):
 
 class Args:
     model_path = "/data1/qxy/models/llava-1.5-7b-hf"
-    gpu_id = 0
-    DEVICE = f"cuda:{gpu_id}"
+    DEVICE = "cuda:0"
     image_dir = "/data1/qxy/MLM/temp/denoised_img"
     text_file = "harmbench_behaviors_text_val.csv"
     denoise_checkpoint_num = 8 # (0,350,50)
     pair_mode = "combine"
+    denoise_batch = 50
     # dir for output images
     output_dir = "./output"
     # dir for internal variables
@@ -73,7 +74,7 @@ def defence(args, a:Args):
         image_num = len(os.listdir(args.img))
     else:
         image_num = 1
-    generate_denoised_img(args.img,a.image_dir,8)
+    generate_denoised_img(args.img,a.image_dir,8,batch_size=50)
     print("Done")
     # compute cosine similarity
     print("computing cossim... ",end="")
@@ -177,6 +178,7 @@ def get_similarity_list(args:Args, save_internal=False):
             for j in range(args.denoise_checkpoint_num):
                 text_embed = text_embed_list[i]
                 img_embed = img_embed_list[i*args.denoise_checkpoint_num+j]
+                # FIXME IndexError: list index out of range
                 cossims[i, j] = compute_cosine(img_embed, text_embed)
 
 
@@ -193,7 +195,7 @@ def get_similarity_list(args:Args, save_internal=False):
 
     return cossims
 
-def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0"):
+def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0", batch_size = 50):
     """
     read the specific file or all files(but not dirs) in the path ,
     denoise them for multiple iterations and save them to save_path
@@ -222,28 +224,33 @@ def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0
     else:
         print("Invalid path")
         exit()
-    batch = torch.tensor(np.stack(batch,axis=0)).to(DEVICE).permute(0,3,1,2)
+    batch = torch.tensor(np.stack(batch,axis=0)).permute(0,3,1,2)
 
     # set denoise iteration time
     iterations = range(0,cps*step,step)
-    for it in tqdm.tqdm(iterations):
-        if it!=0:
-            denoise_batch = np.array(model.denoise(batch, it).to("cpu"))
-        else:
-            denoise_batch = np.array(batch.to("cpu"))
-        denoise_batch = denoise_batch.transpose(0,2,3,1)
-        denoise_batch = (denoise_batch+1)/2
-        # print(denoise_batch.shape)
-        # print(denoise_batch.max())
-        # print(denoise_batch.min())
-
-        for i in range(batch.shape[0]):
-            plt.imsave("{save_path}/{name}_denoised_{:0>3d}times.bmp".format(
-                it, save_path=save_path, name=names[i]
-            ), denoise_batch[i])
-        del denoise_batch
-        torch.cuda.empty_cache()
-    del model,batch
+    b_num = ceil(batch.shape[0]/batch_size)
+    for b in tqdm.tqdm(range(b_num),desc="denoise batch"):
+        l = b*batch_size
+        r = (b+1)*batch_size if b<b_num-1 else batch.shape[0]
+        # denoise for each part between l and r
+        part = batch[l:r].to(DEVICE)
+        for it in iterations:
+            if it!=0:
+                denoise_batch = np.array(model.denoise(part, it).to("cpu"))
+            else:
+                denoise_batch = np.array(part.to("cpu"))
+            denoise_batch = denoise_batch.transpose(0,2,3,1)
+            denoise_batch = (denoise_batch+1)/2
+            # print(denoise_batch.shape)
+            # print(denoise_batch.max())
+            # print(denoise_batch.min())
+            for i in range(part.shape[0]):
+                plt.imsave("{save_path}/{name}_denoised_{:0>3d}times.bmp".format(
+                    it, save_path=save_path, name=names[i+l]
+                ), denoise_batch[i])
+            del denoise_batch
+            torch.cuda.empty_cache()
+    del model,batch,part
     torch.cuda.empty_cache()
 
 def get_response(model_name, texts, images, a=Args()):
@@ -261,11 +268,11 @@ def get_response(model_name, texts, images, a=Args()):
         else: # blip
             processor = InstructBlipProcessor.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b")
             model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
-        model.to(a.DEVICE)
+        model.to(a.DEVICE) # type: ignore
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             input = processor(text=f"Human: {texts[i]} <image> Assistant: ", images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
-            output = model.generate(**input,max_length=300) # type: ignore
+            output = model.generate(**input,max_new_tokens=300) # type: ignore
             outnpy=output.to("cpu").numpy()
             answer = processor.decode(outnpy[0], skip_special_tokens=True)
             answers.append(answer.split('Assistant: ')[-1].strip())
@@ -276,15 +283,15 @@ def get_response(model_name, texts, images, a=Args()):
         # load models for i2t
         cfg = Config(a)
         model_config = cfg.model_cfg
-        model_config.device_8bit = a.gpu_id
+        model_config.device_8bit = int(a.DEVICE[-1]) # get gpu_id
         model_cls = registry.get_model_class(model_config.arch)  # model_config.arch: minigpt-4
-        model = model_cls.from_config(model_config).to('cuda:{}'.format(a.gpu_id))
+        model = model_cls.from_config(model_config).to(a.DEVICE)
 
         vis_processor_cfg = cfg.datasets_cfg.cc_sbu_align.vis_processor.train
         vis_processor     = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)       
         num_beams = 1
         temperature = 1.0
-        chat = Chat(model, vis_processor, device='cuda:{}'.format(a.gpu_id))
+        chat = Chat(model, vis_processor, device=a.DEVICE)
         print("Done")
         # start querying
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
@@ -298,14 +305,14 @@ def get_response(model_name, texts, images, a=Args()):
         model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True,fp32=True).eval()
         model.to(a.DEVICE)
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
-            input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"Human: {texts[i]} Assistant: "}])
+            input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"Human: {texts[i]} Assistant: "}]) # type: ignore
             # autoregressively complete prompt
             answer, history = model.chat(tokenizer, query=input, history=None ,max_new_tokens=300)
             answers.append(answer)
         del model
         torch.cuda.empty_cache()
     else:
-        raise Exception("unrecognised model_name, please choose from llava,blip,minigpt4")
+        raise Exception("unrecognised model_name, please choose from llava,blip,minigpt4,qwen")
     t_gen = time.time()-t_start
     print(f"generation part takes {t_gen:.2f}s")
     return answers

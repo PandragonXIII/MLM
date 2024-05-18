@@ -47,7 +47,7 @@
 ```
 
 
-## 模块使用方法
+#### 模块使用方法
 1. 数据准备：
   - 将query以csv格式储存，每个一行
   - 将对应的images存放在单独的文件夹下
@@ -65,7 +65,10 @@
 
 #### 5.16 UPD
 - [ ] use MM-Vet to eval model performance
-  - [ ] process the images into 224*224
+  - [x] process the images into 224*224
+  - [x] support batch process to avoid out of memory
+  - [ ] support multi-round test
+- [ ] prepare GPT-4 api
 
 #### MEET 5.6
 - [ ] Transfer(test result with harmbench)
