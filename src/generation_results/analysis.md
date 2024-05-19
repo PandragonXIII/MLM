@@ -62,7 +62,7 @@ with defence: 783.59s; 7.84s/query
 # performance evaluation
 average with 3 generations:
         ,rec,ocr,know,gen,spat,math,total,std
-{'blip_no_defence': [9.1, 11.0, 4.17, 12.37, 13.27, 8.87, 8.43, 1.03], 'blip_with_defence': [7.63, 8.73, 2.77, 8.8, 8.33, 8.33, 7.33, 0.68], 'llava_no_defence': [2.13, 2.8, 0.27, 0.27, 3.6, 2.7, 2.23, 0.05], 'llava_with_defence': [4.4, 0.9, 0.0, 0.7, 1.17, 0.0, 3.17, 0.45], 'minigpt4_no_defence': [7.67, 5.3, 1.23, 2.63, 8.67, 3.8, 6.4, 1.93], 'minigpt4_with_defence': [12.0, 7.33, 1.77, 3.03, 13.3, 3.2, 9.77, 1.74]}
+{'blip_no_defence': [9.1, 11.0, 4.17, 12.37, 13.27, 8.87, 8.43, 1.03], 'blip_with_defence': [7.63, 8.73, 2.77, 8.8, 8.33, 8.33, 7.33, 0.68], 'gpt4_no_defence': [5.03, 6.2, 0.8, 0.0, 5.73, 8.97, 5.67, 0.17], 'gpt4_with_defence': [4.67, 6.2, 0.8, 0.0, 5.73, 8.97, 5.5, 0.5], 'llava_no_defence': [2.13, 2.8, 0.27, 0.27, 3.6, 2.7, 2.23, 0.05], 'llava_with_defence': [4.4, 0.9, 0.0, 0.7, 1.17, 0.0, 3.17, 0.45], 'minigpt4_no_defence': [7.67, 5.3, 1.23, 2.63, 8.67, 3.8, 6.4, 1.93], 'minigpt4_with_defence': [12.0, 7.33, 1.77, 3.03, 13.3, 3.2, 9.77, 1.74]}
 
 <details>
 <summary> aborted data </summary>

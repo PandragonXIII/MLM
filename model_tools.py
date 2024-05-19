@@ -28,6 +28,9 @@ import base64
 from io import BytesIO
 
 
+os.environ["OPENAI_API_KEY"] = "sk-xxxxxxx"
+os.environ["OPENAI_BASE_URL"] = ""
+
 # REMINDER: gpt4 only support png,jp(e)g,webp,gif now
 def encode_image(image_path):
     """convert image to jpeg and encode with base64"""
@@ -336,23 +339,36 @@ def get_response(model_name, texts, images, a=Args()):
         
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             base64_image = encode_image(images[i].filename)
-            response = client.chat.completions.create(
-                model="gpt-4-vision-preview",
-                messages=[
-                    {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": texts[i]},
-                        {"type": "image_url",
-                        "image_url": {"url": f"data:image/jpeg;base64,{base64_image}",
-                                      "detail": "low"},
-                        }
-                    ],
-                    }
-                ],
-                max_tokens=300
-            )
-            answer = response.choices[0].message.content
+            errorcnt=1
+            while errorcnt>0:
+                try: # api may raise error
+                    response = client.chat.completions.create(
+                        model="gpt-4-vision-preview",
+                        messages=[
+                            {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": texts[i]},
+                                {"type": "image_url",
+                                "image_url": {"url": f"data:image/jpeg;base64,{base64_image}",
+                                            "detail": "low"},
+                                }
+                            ],
+                            }
+                        ],
+                        max_tokens=300
+                    )
+                except Exception as e:
+                    errorcnt+=1
+                    time.sleep(3)
+                    if errorcnt>6:
+                        print(f"exception encountered with query{i}")
+                        print(e)
+                        answer=""
+                        break
+                else:
+                    errorcnt=0 # successfully generated, break loop
+                    answer = response.choices[0].message.content
             answers.append(answer)
             time.sleep(1)
     else:
