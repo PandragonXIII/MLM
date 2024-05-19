@@ -60,6 +60,12 @@ without defence: 10min 2sec: 602s; 6.02s/query
 with defence: 783.59s; 7.84s/query
 
 # performance evaluation
+average with 3 generations:
+        ,rec,ocr,know,gen,spat,math,total,std
+{'blip_no_defence': [9.1, 11.0, 4.17, 12.37, 13.27, 8.87, 8.43, 1.03], 'blip_with_defence': [7.63, 8.73, 2.77, 8.8, 8.33, 8.33, 7.33, 0.68], 'llava_no_defence': [2.13, 2.8, 0.27, 0.27, 3.6, 2.7, 2.23, 0.05], 'llava_with_defence': [4.4, 0.9, 0.0, 0.7, 1.17, 0.0, 3.17, 0.45], 'minigpt4_no_defence': [7.67, 5.3, 1.23, 2.63, 8.67, 3.8, 6.4, 1.93], 'minigpt4_with_defence': [12.0, 7.33, 1.77, 3.03, 13.3, 3.2, 9.77, 1.74]}
+
+<details>
+<summary> aborted data </summary>
 #### llava-7b
 with defence:
     ,rec,ocr,know,gen,spat,math,total,std,runs
@@ -75,6 +81,9 @@ w/wo: 7.3/6.4&5.3/3.2&4.5/5.2&8.6/9.4&6.8/4.1&0.0/0.0&5.9/4.8&0.0/0.0&[5.9]/[4.8
 with defence:
     ,rec,ocr,know,gen,spat,math,total,std,runs
 blip_ans,10.5,9.9,5.4,13.9,10.1,3.5,8.9,0.0,[8.9]
+
+,rec,ocr,know,gen,spat,math,total,std,runs
+blip_no_defence_0,10.0,11.9,4.8,13.6,13.9,7.7,8.9,0.0,[8.9]
 
 no defence:
     ,rec,ocr,know,gen,spat,math,total,std,runs
@@ -103,3 +112,5 @@ no defence:
 qwen_nodetect_ans,22.4,12.0,23.5,29.8,14.5,3.8,16.8,0.0,[16.8]
 
 w/wo: 21.9/22.4&9.7/12.0&20.4/23.5&27.1/29.8&11.5/14.5&0.4/3.8&16.0/16.8&0.0/0.0&[16.0]/[16.8]
+
+</details>

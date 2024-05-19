@@ -20,16 +20,8 @@ def reformat(filename:str,read_dir:str,save_dir:str):
         json.dump(ndic, f1)
 
 
-command = """python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/query.csv \
-    --img /home/xuyue/QXYtemp/MLM/block_input/img --model MODEL  \
-    --pair_mode injection  --threshold -0.0005046081542968749 \
-    --no_eval --multirun 3"""
-command_nodetect = """python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/query.csv \
-    --img /home/xuyue/QXYtemp/MLM/block_input/img --model MODEL  \
-    --pair_mode injection  --threshold -0.0005046081542968749 \
-    --no_eval --multirun 3 --no_detect"""
 
-models = ["llava", "blip", "minigpt4"]
+models = ["gpt4"]
 for model in models:
     os.system(f"""nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/query.csv \
     --img /home/xuyue/QXYtemp/MLM/block_input/img --model {model} \
