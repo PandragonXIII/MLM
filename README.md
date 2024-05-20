@@ -59,9 +59,12 @@
 ```
 3. 结果会输出到/output目录，denoise_000表示判定为无害图片，其他则取cossim下降最大的图片
 
-
+### 更新日志
 <details>
-<summary>更新日志</summary>
+
+#### 5.20 MEET
+- [ ] 测试GPT-4的攻击、防御效果
+- [ ] 使用原始图片测试各模型在mm-vet的表现，与原文对比
 
 #### 5.16 UPD
 - [ ] use MM-Vet to eval model performance
