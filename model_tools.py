@@ -288,12 +288,12 @@ def get_response(model_name, texts, images, a=Args()):
             model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
         model.to(a.DEVICE) # type: ignore
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
-            input = processor(text=f"Human: {texts[i]} <image> Assistant: ", images=images[i], return_tensors="pt").to("cuda:0")
+            input = processor(text=f"USER: <image>\n{texts[i]}\nASSISTANT:", images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
             output = model.generate(**input,max_new_tokens=300) # type: ignore
             outnpy=output.to("cpu").numpy()
             answer = processor.decode(outnpy[0], skip_special_tokens=True)
-            answers.append(answer.split('Assistant: ')[-1].strip())
+            answers.append(answer.split('ASSISTANT:')[-1].strip())
         del model
         torch.cuda.empty_cache()
     elif model_name.lower()=="minigpt4":
@@ -314,7 +314,7 @@ def get_response(model_name, texts, images, a=Args()):
         # start querying
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
             answers.append(query_minigpt(
-                question="<image>"+texts[i], img=images[i],chat=chat
+                question="<image>\n"+texts[i], img=images[i],chat=chat
             ))
         del chat,model,vis_processor
         torch.cuda.empty_cache()
@@ -323,7 +323,7 @@ def get_response(model_name, texts, images, a=Args()):
         model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True,fp32=True).eval()
         model.to(a.DEVICE)
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
-            input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"Human: {texts[i]} Assistant: "}]) # type: ignore
+            input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"{texts[i]}"}]) # type: ignore
             # autoregressively complete prompt
             answer, history = model.chat(tokenizer, query=input, history=None ,max_new_tokens=300)
             answers.append(answer)
@@ -351,7 +351,7 @@ def get_response(model_name, texts, images, a=Args()):
                                 {"type": "text", "text": texts[i]},
                                 {"type": "image_url",
                                 "image_url": {"url": f"data:image/jpeg;base64,{base64_image}",
-                                            "detail": "low"},
+                                            "detail": "auto"},
                                 }
                             ],
                             }

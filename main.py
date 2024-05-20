@@ -102,6 +102,7 @@ if __name__=="__main__":
             new_imgs = images*text_len
             images = new_imgs
         # generate responses
+        print(f"using {args.model} for generation")
         responses = get_response(args.model, texts, images)
 
         # init dict in the first loop
