@@ -18,7 +18,6 @@ import pandas as pd
 from model_tools import *
 from defender import Defender
 import sys
-import denoiser.imagenet.denoise
 import time
 import json
 

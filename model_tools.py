@@ -1,12 +1,13 @@
 from transformers import AutoModelForPreTraining, AutoTokenizer, AutoImageProcessor
 import torch
-from PIL import Image
+from PIL import Image, ImageOps
 import os, csv
 import numpy as np
 import matplotlib.pyplot as plt
 import tqdm
 import time
 from math import ceil
+import json
 
 
 from denoiser.imagenet.DRM import DiffusionRobustModel
@@ -28,8 +29,24 @@ import base64
 from io import BytesIO
 
 
-os.environ["OPENAI_API_KEY"] = "sk-xxxxxxx"
-os.environ["OPENAI_BASE_URL"] = ""
+openai_settings = json.load(open("../openai_env_var.json"))
+os.environ["OPENAI_API_KEY"] = openai_settings["api_key"]
+os.environ["OPENAI_BASE_URL"] = openai_settings["url"]
+
+def resize_keep_ratio(img:Image.Image):
+    if img.height>img.width:
+        nw = img.width*224//img.height
+        nimg = img.resize((nw,224))
+        lappend = (224-nw)//2
+        rappend = 224-nw-lappend
+        nimg = ImageOps.expand(nimg,(lappend,0,rappend,0))
+    else:
+        nh = img.height*224//img.width
+        nimg = img.resize((224,nh))
+        uappend = (224-nh)//2
+        bappend = 224-nh-uappend
+        nimg = ImageOps.expand(nimg,(0,uappend,0,bappend))
+    return nimg
 
 # REMINDER: gpt4 only support png,jp(e)g,webp,gif now
 def encode_image(image_path):
@@ -81,6 +98,7 @@ class Args:
 
 def defence(args, a:Args):
     """
+    resize the input image if needed
     denoise, calculate cossim and choose the safe images
     return (image_num, images)
     """
@@ -215,61 +233,60 @@ def get_similarity_list(args:Args, save_internal=False):
 
 def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0", batch_size = 50):
     """
-    read the specific file or all files(but not dirs) in the path ,
-    denoise them for multiple iterations and save them to save_path
+    read all img file under given dir, and convert to RGB
+    copy the original size image as denoise000,
+    then resize to 224*224,
+    denoise for multiple iterations and save them to save_path
     
     :path: path of dir or file of image(s)
-    :cps: denoise range(0,step*n,step) times
+    :cps: denoise range(0,step*cps,step) times
             step=50 by default
     """
+    
+    assert os.path.isdir(path)
+    resized_imgs = []
+    img_names = []
+    dir1 = os.listdir(path) # list of img names
+    dir1.sort()
+    for filename in dir1:
+        img = Image.open(path+"/"+filename).convert("RGB")
+        # save the original image
+        savename=os.path.splitext(filename)[0]+"_denoised_000times.jpg"
+        img.save(os.path.join(save_path,savename))
+        # resize for denoise
+        resized_imgs.append(
+            resize_keep_ratio(img=img)
+        )
+        img_names.append(filename)
+    if cps<=1:
+        return
+    
     model = DiffusionRobustModel()
-
-    batch = []
-    names = []
-    if os.path.isdir(path): # denoise all image under given dir
-        dir1 = os.listdir(path)
-        dir1.sort()
-        for fn in dir1:
-            if not os.path.isfile(path+"/"+fn):
-                continue
-            img = np.array(plt.imread(path+"/"+fn)/255*2-1).astype(np.float32)
-            batch.append(img)
-            names.append(os.path.splitext(fn)[0])
-    elif os.path.isfile(path): # denoise specific image
-        img = np.array(plt.imread(path)/255*2-1).astype(np.float32)
-        batch.append(img)
-        names.append(os.path.splitext(os.path.basename(path))[0])
-    else:
-        print("Invalid path")
-        exit()
-    batch = torch.tensor(np.stack(batch,axis=0)).permute(0,3,1,2)
-
-    # set denoise iteration time
-    iterations = range(0,cps*step,step)
-    b_num = ceil(batch.shape[0]/batch_size)
+    iterations = range(step,cps*step,step)
+    b_num = ceil(len(resized_imgs)/batch_size) # how man runs do we need
     for b in tqdm.tqdm(range(b_num),desc="denoise batch"):
         l = b*batch_size
-        r = (b+1)*batch_size if b<b_num-1 else batch.shape[0]
+        r = (b+1)*batch_size if b<b_num-1 else len(resized_imgs)
         # denoise for each part between l and r
-        part = batch[l:r].to(DEVICE)
+        part = resized_imgs[l:r]
+        partname = img_names[l:r]
         for it in iterations:
-            if it!=0:
-                denoise_batch = np.array(model.denoise(part, it).to("cpu"))
-            else:
-                denoise_batch = np.array(part.to("cpu"))
-            denoise_batch = denoise_batch.transpose(0,2,3,1)
-            denoise_batch = (denoise_batch+1)/2
-            # print(denoise_batch.shape)
-            # print(denoise_batch.max())
-            # print(denoise_batch.min())
-            for i in range(part.shape[0]):
-                plt.imsave("{save_path}/{name}_denoised_{:0>3d}times.bmp".format(
-                    it, save_path=save_path, name=names[i+l]
-                ), denoise_batch[i])
-            del denoise_batch
-            torch.cuda.empty_cache()
-    del model,batch,part
+            # project value between -1,1
+            ary = [np.array(_,dtype=np.float32)/255*2-1 for _ in part]
+            ary = np.array(ary)
+            ary = torch.tensor(ary).permute(0,3,1,2).to(DEVICE)
+            denoised_ary=np.array(model.denoise(ary, it).to("cpu"))
+            denoised_ary=denoised_ary.transpose(0,2,3,1)
+            denoised_ary = (denoised_ary+1)/2*255
+            denoised_ary = denoised_ary.astype(np.uint8)
+            for i in range(denoised_ary.shape[0]):
+                img=Image.fromarray(denoised_ary[i])
+                sn = os.path.splitext(partname[i])[0]+"_denoised_{:0>3d}times.jpg".format(it)
+                img.save(os.path.join(save_path,sn))
+    del model
     torch.cuda.empty_cache()
+    return
+
 
 def get_response(model_name, texts, images, a=Args()):
     """
@@ -288,12 +305,12 @@ def get_response(model_name, texts, images, a=Args()):
             model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
         model.to(a.DEVICE) # type: ignore
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
-            input = processor(text=f"USER: <image>\n{texts[i]}\nASSISTANT:", images=images[i], return_tensors="pt").to("cuda:0")
+            input = processor(text=f"<image>\n{texts[i]}\n", images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
             output = model.generate(**input,max_new_tokens=300) # type: ignore
             outnpy=output.to("cpu").numpy()
             answer = processor.decode(outnpy[0], skip_special_tokens=True)
-            answers.append(answer.split('ASSISTANT:')[-1].strip())
+            answers.append(answer.replace(f"\n{texts[i]}\n","").strip())
         del model
         torch.cuda.empty_cache()
     elif model_name.lower()=="minigpt4":
