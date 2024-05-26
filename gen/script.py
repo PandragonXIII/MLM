@@ -12,6 +12,6 @@ for fn in origins:
             d3[k]=v[2]
     d = [d1,d2,d3]
     for i in range(3):
-        with open(f"./separate/{fn[:-5]}_{i}.json","w") as fs:
+        with open(f"./separate/{fn[:-5]}_{i}(new).json","w") as fs:
             json.dump(d[i],fs)
         

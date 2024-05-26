@@ -10,15 +10,19 @@ dirs = os.listdir(srcdir)
 dirs.sort()
 data = dict()
 for dir in dirs:
-    with open(f"{srcdir}/{dir}/{dir}_gpt-4-32k-0613-cap-score-1runs.csv") as f:
+    if dir.endswith("(new)"):
+        dir = dir[:-5]
+    else:
+        continue
+    with open(f"{srcdir}/{dir}(new)/{dir}new_gpt-4-32k-0613-cap-score-1runs.csv") as f:
         reader = csv.reader(f)
         reader.__next__()
         for row in reader:
             # print(row)
-            if row[0][:-2] not in data:
-                data[row[0][:-2]] = []
+            if row[0][:-5] not in data:
+                data[row[0][:-5]] = []
             run = [float(j) for j in row[1:8]]
-            data[row[0][:-2]].append(run)
+            data[row[0][:-5]].append(run)
 # calculate average
 for k in data.keys():
     std = numpy.std([data[k][i][-1] for i in range(3)])

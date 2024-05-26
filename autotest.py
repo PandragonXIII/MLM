@@ -20,11 +20,13 @@ def reformat(filename:str,read_dir:str,save_dir:str):
         json.dump(ndic, f1)
 
 
+imgdir = "/home/xuyue/QXYtemp/mm-vet-data/images218"
+textfile = "/home/xuyue/QXYtemp/mm-vet-data/mmvet_query.csv"
 
-models = ["gpt4"]
+models = ["blip","llava","minigpt4"]
 for model in models:
-    os.system(f"""nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/query.csv \
-    --img /home/xuyue/QXYtemp/MLM/block_input/img --model {model} \
+    os.system(f"""nohup python ./main.py --text {textfile} \
+    --img {imgdir} --model {model} \
     --pair_mode injection  --threshold -0.0005046081542968749 \
     --no_eval --multirun 3 &""")
     time.sleep(600)
@@ -33,8 +35,8 @@ for model in models:
     reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen")
     print(f"-------{model} with defence generation complete-------")
     time.sleep(10)
-    os.system(f"""nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/query.csv \
-    --img /home/xuyue/QXYtemp/MLM/block_input/img --model {model} \
+    os.system(f"""nohup python ./main.py --text {textfile} \
+    --img {imgdir} --model {model} \
     --pair_mode injection  --threshold -0.0005046081542968749 \
     --no_eval --no_detect --multirun 3 &""")
     time.sleep(600)
