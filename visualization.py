@@ -202,8 +202,52 @@ def cossim_line_of_all_image(path:str, cpnum=8):
     plt.tight_layout()
     plt.savefig(f"./src/results/cossim_line.png")
 
+def cossim_line_of_adv_vs_clean_image(path:str, cpnum=8):
+    """
+    plot the line plot of cosine similarity of image after denoising.
+    given the path of the similarity matrix csv file, plot the line plot of each image type.
+    """
+    df = pd.read_csv(path)
+    df = df[df["is_malicious"]==1]
+    # delete is_malicious
+    df = df.drop(columns=["is_malicious"])
+    collist = []
+    for col in df.columns:
+         if "prompt_constrained_inf_" in col:
+            collist.append(col)
+    df = df.drop(columns=collist)
+    # get all image classes
+    img_classes = set(["_".join(col.split("_")[:-2])+"_" for col in df.columns])
+    img_classes = sorted(list(img_classes))
+    #
+    fig, ax = plt.subplots(1,1)
+    xticks = [i for i in range(0,cpnum*50,50)]
+    clean_means = []
+    adv_means = []
+    for img_class in img_classes:
+        cols = [col for col in df.columns if img_class in col]
+        assert len(cols) >= cpnum # check if there are enough columns
+        cols = cols[:cpnum] # and only use the first cpnum columns
+        data = df[cols].mean().tolist()
+        if "clean" in img_class:
+            clean_means.append(data)
+        else:
+            adv_means.append(data)
+    clean_means = np.mean(clean_means,axis=0)
+    adv_means = np.mean(adv_means,axis=0)
+    ax.plot(xticks, clean_means, label="clean")
+    ax.plot(xticks, adv_means, label="adversarial")
+
+    ax.legend(bbox_to_anchor=(0.05, 1.05), loc='lower left', borderaxespad=0.)
+    ax.set_xlabel("denoise times")
+    ax.set_ylabel("cosine similarity")
+    plt.tight_layout()
+    plt.savefig(f"./src/results/cossim_line_grouped.png")
+
 if __name__ == "__main__":
-    delta_cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv",it=350)
+    cossim_line_of_adv_vs_clean_image(
+    "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv")
+    # delta_cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv",it=350)
     # train_data_decline_line()
 
     # cossim_line_of_all_image("./src/intermediate-data/similarity_matrix_validation.csv", cpnum=8)
