@@ -16,8 +16,15 @@ def reformat(filename:str,read_dir:str,save_dir:str):
         print(f"query number: {len(dic.keys())}")
         for k,v in dic.items():
             ndic[k]=[conversation["generation"] for conversation in v]
-    with open(f"{save_dir}/{filename}","w") as f1:
+    dp = os.path.join(save_dir,filename.split(".")[0])
+    if not os.path.exists(dp):
+        os.mkdir(dp)
+    
+    with open(f"{dp}/{filename}","w") as f1:
         json.dump(ndic, f1)
+    # save original response json
+    with open(f"{dp}/response.json") as f:
+        json.dump(dic,f)
 
 
 imgdir = "/home/xuyue/QXYtemp/mm-vet-data/images218"
