@@ -92,7 +92,8 @@ class Defender():
             "recall":[],
             "precision":[],
             "f1":[],
-            "classification threshold":[]
+            "classification threshold":[],
+            "fpr":[]
         }
         # get the Test Set clean image data for prediction
         clean_header = [col for col in df.columns if "clean_test" in col]
@@ -121,16 +122,18 @@ class Defender():
             recall = tp/(tp+fn)
             precision = tp/(tp+fp)
             f1 = 2*precision*recall/(precision+recall)
+            fpr = fp/(fp+tn)
             results["constraint"].append(adv_class.split("_")[-1])
             results["accuracy"].append(acc)
             results["recall"].append(recall)
             results["precision"].append(precision)
             results["f1"].append(f1)
             results["classification threshold"].append(self.threshold)
+            results["fpr"].append(fpr)  
         results = pd.DataFrame(results)
         return results
 
-
+'''
 def test_defender_on_validation_set():
     """
     test the defender on validation set and save the results
@@ -551,6 +554,8 @@ def test_defender_on_malicious_test_set():
     print("data percentage: 0.995")
     print(results[results["data percentage"]==0.995])
 
+'''
+
 def test_imgdetector(datapath:str,savepath:str,cpnum=8,data_rate=[0.95, 0.975, 0.99, 0.995]):
     path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
     data = pd.read_csv(path)
@@ -574,6 +579,6 @@ if __name__ == "__main__":
     test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
                      savepath="./src/analysis/imgdetector_ValSet_results.csv",
                      data_rate=[0.95, 0.975, 0.99, 0.995,1])
-    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
-                     savepath="./src/analysis/imgdetector_TestSet_results.csv",
-                     data_rate=[0.995,1])
+    # test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
+    #                  savepath="./src/analysis/imgdetector_TestSet_results.csv",
+    #                  data_rate=[0.95, 0.975, 0.99, 0.995,1])
