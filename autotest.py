@@ -23,14 +23,14 @@ def reformat(filename:str,read_dir:str,save_dir:str):
     with open(f"{dp}/{filename}","w") as f1:
         json.dump(ndic, f1)
     # save original response json
-    with open(f"{dp}/response.json") as f:
+    with open(f"{dp}/response.json","w") as f:
         json.dump(dic,f)
 
 
 imgdir = "/home/xuyue/QXYtemp/mm-vet-data/images218"
 textfile = "/home/xuyue/QXYtemp/mm-vet-data/mmvet_query.csv"
 
-models = ["blip","llava","minigpt4"]
+models = ["minigpt4"]
 for model in models:
     os.system(f"""nohup python ./main.py --text {textfile} \
     --img {imgdir} --model {model} \
