@@ -10,6 +10,8 @@ return statistics (e.g. confusion matrix)
 
 import numpy as np
 import pandas as pd
+from typing import List
+import matplotlib.pyplot as plt
 
 class Defender():
     """
@@ -21,7 +23,7 @@ class Defender():
         self.threshold = threshold
         print(f"Defender initialized with threshold={self.threshold}")
     
-    def train(self, data:pd.DataFrame, ratio=0.9):
+    def train(self, data:pd.DataFrame| List[pd.DataFrame], ratio=0.9):
         """
         calculate threshold with given data and specified conservative ratio
         :data: malicious query(text) v.s. clean image cosine similarity
@@ -29,6 +31,11 @@ class Defender():
             rows: different text
         :ratio: the ratio of clean image cosine similarity decrease value that should be lower than threshold
         """
+        if type(data) == list:
+            for df in data:
+                names = [i for i in range(df.shape[1])]
+                df.columns = names
+            data = pd.concat(data, axis=0, ignore_index=True)
         # get the first col (origin image) as the base cosine similarity
         base = data.iloc[:,0]
         # get the decrease value
@@ -76,14 +83,15 @@ class Defender():
         else:
             return 0
     
-    def get_confusion_matrix(self, datapath:str,checkpt_num=8):
+    def get_confusion_matrix(self, datapath:str,checkpt_num=8,group=True):
         """test the defender with given cosine similarity data, 
         save the statics to savepath\n
         only consider malicious text\n
         the result contains 4 rows: for each adversarial image, 
         consider it as positive and clean as negative, 
         output the results
-        checkpt_num: the maximum number of denoise times checkpoint to consider"""
+        checkpt_num: the maximum number of denoise times checkpoint to consider
+        group: if true, output separate matrix for different adv image"""
         df = pd.read_csv(datapath)
         df = df[df["is_malicious"]==1] # only consider malicious text input
         results = {
@@ -95,15 +103,21 @@ class Defender():
             "classification threshold":[],
             "fpr":[]
         }
+        fp,tn=0,0
         # get the Test Set clean image data for prediction
-        clean_header = [col for col in df.columns if "clean_test" in col]
-        if len(clean_header)>checkpt_num:
-            clean_header = clean_header[:checkpt_num]
-        clean_data = df[clean_header]
-        # predict with clean image
-        clean_predict = np.array(self.predict(clean_data))
-        fp = sum(clean_predict[:])
-        tn = sum(~clean_predict[:])
+        all_clean_header = [col for col in df.columns if "clean_" in col]
+        clean_classes_names = set(["_".join(h.split("_")[:2]) for h in all_clean_header])
+        for clean_class in clean_classes_names:
+            clean_header = [col for col in df.columns if clean_class+"_" in col]
+            if len(clean_header)>checkpt_num:
+                clean_header = clean_header[:checkpt_num]
+            clean_data = df[clean_header]
+            # predict with clean image
+            clean_predict = np.array(self.predict(clean_data))
+            fp += sum(clean_predict[:])
+            tn += sum(~clean_predict[:])
+
+        tot_tp,tot_fn=0,0
         # get the adversarial image data
         all_adv_header = [col for col in df.columns if "prompt_" in col]
         adv_classes_names = set(["_".join(h.split("_")[:3]) for h in all_adv_header])
@@ -118,12 +132,37 @@ class Defender():
             adv_predict = np.array(self.predict(adv_data))
             tp = sum(adv_predict[:])
             fn = sum(~adv_predict[:])
+            tot_tp+=tp
+            tot_fn+=fn
+
+            if not group: # calculate together later
+                continue
+            # if group, calculate matrix for the class now
+            # check num positive = negative
+            assert tp+fn == fp+tn
+
             acc = (tp+tn)/(tp+fn+fp+tn)
             recall = tp/(tp+fn)
             precision = tp/(tp+fp)
             f1 = 2*precision*recall/(precision+recall)
             fpr = fp/(fp+tn)
             results["constraint"].append(adv_class.split("_")[-1])
+            results["accuracy"].append(acc)
+            results["recall"].append(recall)
+            results["precision"].append(precision)
+            results["f1"].append(f1)
+            results["classification threshold"].append(self.threshold)
+            results["fpr"].append(fpr)  
+        if not group:
+            assert tot_tp+tot_fn==fp+tn
+            tp = tot_tp
+            fn = tot_fn
+            acc = (tp+tn)/(tp+fn+fp+tn)
+            recall = tp/(tp+fn)
+            precision = tp/(tp+fp)
+            f1 = 2*precision*recall/(precision+recall)
+            fpr = fp/(fp+tn)
+            results["constraint"].append("all")
             results["accuracy"].append(acc)
             results["recall"].append(recall)
             results["precision"].append(precision)
@@ -557,28 +596,65 @@ def test_defender_on_malicious_test_set():
 '''
 
 def test_imgdetector(datapath:str,savepath:str,cpnum=8,data_rate=[0.95, 0.975, 0.99, 0.995]):
-    path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
+    # path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
+    path = "./src/intermediate-data/10clean_similarity_matrix_val.csv"
     data = pd.read_csv(path)
     data = data[data["is_malicious"]==1] # only consider malicious text
-    train_data = data[[col for col in data.columns if "clean_resized" in col]][:cpnum]
+    # train_data = data[[col for col in data.columns if "clean_resized" in col]][:cpnum]
+    train_data = []
+    for i in range(10):
+        train_data.append(data.iloc[:,i*8:i*8+8])
     detector = Defender()
     results = []
     for i in data_rate:
         detector.train(train_data,ratio=i)
         # print(f"Threshold: {detector.threshold}")
         # predict on test data and return results
-        confusion = detector.get_confusion_matrix(datapath,checkpt_num=cpnum)
+        confusion = detector.get_confusion_matrix(datapath,checkpt_num=cpnum,group=False)
         confusion["data percentage"] = i
         print(confusion)
         results.append(confusion)
     results = pd.concat(results).sort_values(by=["data percentage","constraint"])
     results.to_csv(savepath, index=False)
     
+def plot_tpr_fpr(datapath:str, savepath:str, cpnum=8):
+    # training data
+    path = "./src/intermediate-data/10clean_similarity_matrix_val.csv"
+    data = pd.read_csv(path)
+    data = data[data["is_malicious"]==1] # only consider malicious text
+    train_data = []
+    for i in range(10):
+        train_data.append(data.iloc[:,i*8:i*8+8])
+    detector = Defender()
+
+    datapoints = []
+    for i in range(80,101):
+        detector.train(train_data,ratio=i/100)
+        # predict on test data and return results
+        confusion = detector.get_confusion_matrix(datapath,checkpt_num=cpnum,group=False)
+        # delete the row of inf
+        confusion = confusion[confusion["constraint"]!="inf"]
+        point = confusion[["recall","fpr"]].mean(axis=0)
+        datapoints.append(point)
+    datapoints = pd.concat(datapoints, axis=1, ignore_index=True)
+
+    # plot
+    plt.clf()
+    plt.scatter(datapoints.loc["fpr"],datapoints.loc["recall"])
+    plt.xlabel("fpr")
+    plt.ylabel("tpr")
+    plt.savefig(savepath)
+
+    
 
 if __name__ == "__main__":
-    test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_validation.csv",
-                     savepath="./src/analysis/imgdetector_ValSet_results.csv",
-                     data_rate=[0.95, 0.975, 0.99, 0.995,1])
-    # test_imgdetector(datapath="./src/intermediate-data/similarity_matrix_test.csv",
-    #                  savepath="./src/analysis/imgdetector_TestSet_results.csv",
-    #                  data_rate=[0.95, 0.975, 0.99, 0.995,1])
+    plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
+                    savepath="./src/analysis/ValSet_tpr-fpr_plot.jpg")
+    plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
+                    savepath="./src/analysis/TestSet_tpr-fpr_plot.jpg")
+    # test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
+    #                  savepath="./src/analysis/10clean_imgdetector_ValSet_results.csv",
+    #                  data_rate=[0.95, 0.975, 0.99, 0.995])
+    # test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
+    #                  savepath="./src/analysis/10clean_imgdetector_TestSet_results.csv",
+    #                  data_rate=[0.95, 0.975, 0.99, 0.995])

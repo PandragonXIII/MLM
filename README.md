@@ -62,6 +62,11 @@
 ### 更新日志
 <details>
 
+#### 5.28 MEET
+- [ ] 用保留的denoise图片序列说明cossim上升的现象
+- [x] ASR的table
+  - [x] plot FPR-TPR图像
+- [x] **testset table中加入FP/N的值**
 #### 5.20 MEET
 - [ ] 测试GPT-4的攻击、防御效果
 - [x] 使用原始图片测试各模型在mm-vet的表现，与原文对比
