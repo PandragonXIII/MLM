@@ -10,6 +10,7 @@ import torch
 from PIL import Image
 import os, csv
 import numpy as np
+import pandas as pd
 
 
 
@@ -30,11 +31,11 @@ def get_similarity_matrix(save_tensors=False):
     DEVICE = "cuda:0"
     TEXT_NUM = 160
     source_dir = "./src"
-    image_dir = "./src/image/denoised"
-    cosine_filename = "similarity_matrix_test.csv"
+    image_dir = "./src/image/testset_denoised"
+    cosine_filename = "4clean_similarity_matrix_test.csv"
     text_malicious_file = "testset_malicious.csv"
     text_benign_file = "testset_benign.csv"
-    img_save_filename = "new_inf_image.pt"
+    img_save_filename = "new_4clean_image.pt"
     text1_save_filename = "harmbench_embeddings_test.pt"
     text2_save_filename = "benign_embeddings_test.pt"
     ########################
@@ -158,7 +159,9 @@ def get_similarity_matrix(save_tensors=False):
     # add column name
     tot = np.concatenate((np.array(img_names).reshape(1,-1), tot), axis=0)
     # save the full similarity matrix as csv
-    np.savetxt(f"{source_dir}/intermediate-data/{cosine_filename}", tot, delimiter=",")
+    t = pd.DataFrame(tot)
+    t.to_csv(f"{source_dir}/intermediate-data/{cosine_filename}", header=False, index=False)
+    # np.savetxt(f"{source_dir}/intermediate-data/{cosine_filename}", tot, delimiter=",")
     print(f"csv file saved at: {source_dir}/intermediate-data/{cosine_filename}")
 
     # analysis
