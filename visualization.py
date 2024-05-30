@@ -131,7 +131,7 @@ def cos_sim_distribution(path:str):
     plt.savefig("./src/results/denoise250_cossim_distribution.png")
     return
 
-def delta_cos_sim_distribution(path:str, it=250):
+def delta_cos_sim_distribution(path:str, it=250, picname="denoised250_delta_cossim_distribution.png"):
     '''input: cosine similarity csv file 
             rows: text
             cols: image
@@ -172,7 +172,8 @@ def delta_cos_sim_distribution(path:str, it=250):
     plt.title(f"delta value of cosine similarity after {it} iters denoise")
     plt.tight_layout()
     # plt.show()
-    plt.savefig(f"./src/results/denoise{it}_delta_cossim_distribution2.png")
+    picname = picname.replace("250", str(it))
+    plt.savefig(f"./src/results/{picname}")
     return
 
 def cossim_line_of_all_image(path:str, cpnum=8):
@@ -245,9 +246,10 @@ def cossim_line_of_adv_vs_clean_image(path:str, cpnum=8):
     plt.savefig(f"./src/results/cossim_line_grouped.png")
 
 if __name__ == "__main__":
-    cossim_line_of_adv_vs_clean_image(
-    "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv")
-    # delta_cos_sim_distribution("./src/intermediate-data/similarity_matrix_validation.csv",it=350)
+    # cossim_line_of_adv_vs_clean_image(
+    # "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv")
+    delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=350, picname="10clean_denoised250_delta_cossim_distribution.png")
+    delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=300, picname="10clean_denoised250_delta_cossim_distribution.png")
     # train_data_decline_line()
 
     # cossim_line_of_all_image("./src/intermediate-data/similarity_matrix_validation.csv", cpnum=8)
