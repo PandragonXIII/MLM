@@ -55,10 +55,11 @@
 ```shell
   python main.py --text path/of/.csv --img path/of/img_dir --threshold optional
   # use the following command to run in background
-  nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/malicious_text.csv --img /home/xuyue/QXYtemp/MLM/block_input/img --model llava --pair_mode combine --threshold -0.0005046081542968749 &
+  nohup python ./main.py --text /home/xuyue/QXYtemp/MLM/block_input/malicious_text.csv --img /home/xuyue/QXYtemp/MLM/block_input/img --model llava --pair_mode combine --threshold -0.003936767578125 &
 ```
 3. 结果会输出到/output目录，denoise_000表示判定为无害图片，其他则取cossim下降最大的图片
 
+after analysis, we choose $-0.003936767578125$(95%) as classification threshold
 ### 更新日志
 <details>
 

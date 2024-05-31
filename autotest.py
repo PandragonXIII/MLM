@@ -34,7 +34,7 @@ models = ["minigpt4"]
 for model in models:
     os.system(f"""nohup python ./main.py --text {textfile} \
     --img {imgdir} --model {model} \
-    --pair_mode injection  --threshold -0.0005046081542968749 \
+    --pair_mode injection  --threshold -0.003936767578125 \
     --no_eval --multirun 3 &""")
     time.sleep(600)
     while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
@@ -44,7 +44,7 @@ for model in models:
     time.sleep(10)
     os.system(f"""nohup python ./main.py --text {textfile} \
     --img {imgdir} --model {model} \
-    --pair_mode injection  --threshold -0.0005046081542968749 \
+    --pair_mode injection  --threshold -0.003936767578125 \
     --no_eval --no_detect --multirun 3 &""")
     time.sleep(600)
     while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):

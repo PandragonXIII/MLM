@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 from typing import List
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 class Defender():
     """
@@ -640,21 +641,33 @@ def plot_tpr_fpr(datapath:str, savepath:str, cpnum=8):
 
     # plot
     plt.clf()
+    # plt.xlim((0,1))
+    # plt.ylim((0,1))
     plt.scatter(datapoints.loc["fpr"],datapoints.loc["recall"])
+    for i in range(80,101):
+        plt.annotate(str(i),(datapoints.loc["fpr"][i-80],datapoints.loc["recall"][i-80]))
     plt.xlabel("fpr")
     plt.ylabel("tpr")
+
+    # # fit the curve 
+    # def func(x,a,b,y0): # with exponential
+    #     return a*np.exp(-x/b)+y0
+    # popt,pcov=curve_fit(func,datapoints.loc["fpr"],datapoints.loc["recall"])
+    # ybar = func(datapoints.loc["fpr"],popt[0],popt[1],popt[2])
+    # plt.plot(datapoints.loc["fpr"],ybar,label="exp fit")
     plt.savefig(savepath)
+    print(datapoints.loc["fpr"],datapoints.loc["recall"])
 
     
 
 if __name__ == "__main__":
-    plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
-                    savepath="./src/analysis/ValSet_tpr-fpr_plot.jpg")
-    plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
-                    savepath="./src/analysis/TestSet_tpr-fpr_plot.jpg")
-    # test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
-    #                  savepath="./src/analysis/10clean_imgdetector_ValSet_results.csv",
-    #                  data_rate=[0.95, 0.975, 0.99, 0.995])
+    # plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
+    #                 savepath="./src/analysis/ValSet_tpr-fpr_plot.jpg")
+    # plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
+    #                 savepath="./src/analysis/TestSet_tpr-fpr_plot.jpg")
+    test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
+                     savepath="./src/analysis/10clean_imgdetector_ValSet_results.csv",
+                     data_rate=[0.95, 0.975, 0.99, 0.995])
     # test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
     #                  savepath="./src/analysis/10clean_imgdetector_TestSet_results.csv",
     #                  data_rate=[0.95, 0.975, 0.99, 0.995])

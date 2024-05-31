@@ -305,9 +305,12 @@ def get_response(model_name, texts, images, a=Args()):
             model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
         model.to(a.DEVICE) # type: ignore
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            if "000" not in images[i].filename and "denoise" in images[i].filename:
+                answers.append("sorry,  I can not assist with that.")
+                continue
             input = processor(text=f"<image>\n{texts[i]}\n", images=images[i], return_tensors="pt").to("cuda:0")
             # autoregressively complete prompt
-            output = model.generate(**input,max_new_tokens=300) # type: ignore
+            output = model.generate(**input,max_new_tokens=512) # type: ignore
             outnpy=output.to("cpu").numpy()
             answer = processor.decode(outnpy[0], skip_special_tokens=True)
             answers.append(answer.replace(f"\n{texts[i]}\n","").strip())
@@ -330,6 +333,9 @@ def get_response(model_name, texts, images, a=Args()):
         print("Done")
         # start querying
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            if "000" not in images[i].filename and "denoise" in images[i].filename: # refuse to answer adv image query
+                answers.append("sorry,  I can not assist with that.")
+                continue
             answers.append(query_minigpt(
                 question="<image>\n"+texts[i], img=images[i],chat=chat
             ))
@@ -340,9 +346,12 @@ def get_response(model_name, texts, images, a=Args()):
         model = AutoModelForCausalLM.from_pretrained("/home/xuyue/Model/Qwen_VL_Chat",trust_remote_code=True,fp32=True).eval()
         model.to(a.DEVICE)
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            if "000" not in images[i].filename and "denoise" in images[i].filename:
+                answers.append("sorry,  I can not assist with that.")
+                continue
             input = tokenizer.from_list_format([{"image":images[i].filename},{"text":f"{texts[i]}"}]) # type: ignore
             # autoregressively complete prompt
-            answer, history = model.chat(tokenizer, query=input, history=None ,max_new_tokens=300)
+            answer, history = model.chat(tokenizer, query=input, history=None ,max_new_tokens=512)
             answers.append(answer)
         del model
         torch.cuda.empty_cache()
@@ -355,6 +364,9 @@ def get_response(model_name, texts, images, a=Args()):
         )
         
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
+            if "000" not in images[i].filename and "denoise" in images[i].filename:
+                answers.append("sorry,  I can not assist with that.")
+                continue
             base64_image = encode_image(images[i].filename)
             errorcnt=1
             while errorcnt>0:
@@ -415,7 +427,7 @@ def answer(chat,chat_state, img_list, num_beams=1, temperature=1.0):
                               img_list=img_list,
                               num_beams=num_beams,
                               temperature=temperature,
-                              max_new_tokens=300,
+                              max_new_tokens=512,
                               max_length=2000)[0]
 
     return llm_message, chat_state, img_list
