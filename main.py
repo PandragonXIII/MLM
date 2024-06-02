@@ -47,7 +47,6 @@ if __name__=="__main__":
         os.makedirs(a.output_dir)
     else:
         os.system(f"rm -rf {a.output_dir}/*")
-    os.mkdir(a.output_dir+"/img")
 
     for _ in range(args.multirun):
         # create temp dir
@@ -59,31 +58,23 @@ if __name__=="__main__":
         os.mkdir(a.image_dir)
         
 
-        if not args.no_detect:
+        if args.no_detect: # generate answers directly without denoise and classify
+            # read the images
+            dir1 = os.listdir(args.img)
+            # count the number of images in args.img
+            dir1.sort()
+            images = []
+            for f in dir1:
+                if os.path.isfile(f"{args.img}/{f}"):
+                    images.append(Image.open(f"{args.img}/{f}"))
+            image_num = len(images)
+        else: # with defence
             image_num, images = defence(args=args, a=a)
-        else: # generate answers directly without denoise and classify
-            if os.path.isdir(args.img):
-                # read the images
-                dir1 = os.listdir(args.img)
-                # count the number of images in args.img
-                image_num = len(dir1)
-                dir1.sort()
-                images = []
-                for f in dir1:
-                    if os.path.isfile(f"{args.img}/{f}"):
-                        images.append(Image.open(f"{args.img}/{f}"))
-            else:
-                image_num = 1
-                images = [Image.open(args.img)]
 
         # read the prompts from csv to a list
         df = pd.read_csv(a.text_file,header=None)
         texts = df[0].tolist()
         behaviours = df[df.shape[1]-1].tolist() # read behave for harmbench eval(v1_x for mmvet)
-        # if args.eval_performance: # mm-vet do not have behav
-        #     behaviours = df[1].tolist() # read 'v1_x'
-        # else:
-        #     behaviours = df[5].tolist() # for harmbench eval
 
         t_finish = time.time()
         print(f"processed {image_num} images, {len(texts)} texts in {t_finish-t0:.2f}s")

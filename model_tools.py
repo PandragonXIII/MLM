@@ -308,13 +308,12 @@ def get_response(model_name, texts, images, a=Args()):
             if "000" not in images[i].filename and "denoise" in images[i].filename:
                 answers.append("sorry,  I can not assist with that.")
                 continue
-            input = processor(text=f"<image>\n{texts[i]}\n", images=images[i], return_tensors="pt").to("cuda:0")
+            input = processor(text=f"<image>\n{texts[i]}\n", images=images[i], return_tensors="pt").to(a.DEVICE)
             # autoregressively complete prompt
             output = model.generate(**input,max_new_tokens=512) # type: ignore
-            outnpy=output.to("cpu").numpy()
-            answer = processor.decode(outnpy[0], skip_special_tokens=True)
+            answer = processor.decode(output[0][2:], skip_special_tokens=True)
             answers.append(answer.replace(f"\n{texts[i]}\n","").strip())
-        del model
+        del model,input
         torch.cuda.empty_cache()
     elif model_name.lower()=="minigpt4":
         print(f"Loading MiniGPT-4 models...",end="")
@@ -356,11 +355,14 @@ def get_response(model_name, texts, images, a=Args()):
         del model
         torch.cuda.empty_cache()
     elif model_name=="gpt4":
+        openai_settings = json.load(open("../openai_env_var.json"))
         client = OpenAI(
-        http_client=httpx.Client(
-            base_url="https://api.xiaoai.plus/v1",
-            follow_redirects=True,
-            ),
+            base_url=openai_settings["url"],
+            api_key=openai_settings["api_key"],
+            http_client=httpx.Client(
+                base_url=openai_settings["url"],
+                follow_redirects=True,
+                ),
         )
         
         for i in tqdm.tqdm(range(len(texts)),desc="generating response"):
@@ -379,21 +381,20 @@ def get_response(model_name, texts, images, a=Args()):
                             "content": [
                                 {"type": "text", "text": texts[i]},
                                 {"type": "image_url",
-                                "image_url": {"url": f"data:image/jpeg;base64,{base64_image}",
-                                            "detail": "auto"},
+                                "image_url": f"data:image/jpeg;base64,{base64_image}"
                                 }
                             ],
                             }
                         ],
-                        max_tokens=300
+                        max_tokens=512
                     )
                 except Exception as e:
                     errorcnt+=1
                     time.sleep(3)
-                    if errorcnt>6:
+                    if errorcnt>3:
                         print(f"exception encountered with query{i}")
                         print(e)
-                        answer=""
+                        answer="sorry,  I can not assist with that."
                         break
                 else:
                     errorcnt=0 # successfully generated, break loop
