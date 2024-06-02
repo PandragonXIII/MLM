@@ -10,4 +10,4 @@ llava without detect: ASR:
 llava with detect: ASR: 0.325
 
 minigpt4 without detect: ASR: 
-minigpt4 with detect: ASR: 0
+minigpt4 with detect: ASR: 

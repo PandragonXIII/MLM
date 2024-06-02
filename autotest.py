@@ -34,7 +34,7 @@ def reformat(filename:str,read_dir:str,save_dir:str):
 imgdir = "/home/xuyue/QXYtemp/MLM/src/image/testset"
 textfile = "/home/xuyue/QXYtemp/MLM/src/text/testset_malicious.csv"
 
-models = ["llava","blip","minigpt4","qwen"]
+models = ["minigpt4","qwen"]
 for model in models:
     os.system(f"""nohup python ./main.py --text {textfile} \
     --img {imgdir} --model {model} \
