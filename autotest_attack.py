@@ -29,30 +29,31 @@ def reformat(filename:str,read_dir:str,save_dir:str):
         os.system(f"cp {read_dir}/response_eval.json {dp}/")
 
 
-imgdir = "/home/xuyue/QXYtemp/mm-vet-data/images218"
-textfile = "/home/xuyue/QXYtemp/mm-vet-data/mmvet_query.csv"
-# imgdir = "/home/xuyue/QXYtemp/MLM/src/image/testset"
-# textfile = "/home/xuyue/QXYtemp/MLM/src/text/testset_malicious.csv"
+# imgdir = "/home/xuyue/QXYtemp/mm-vet-data/images218"
+# textfile = "/home/xuyue/QXYtemp/mm-vet-data/mmvet_query.csv"
+imgdir = "/home/xuyue/QXYtemp/MLM/src/image/testset"
+textfile = "/home/xuyue/QXYtemp/MLM/src/text/testset_malicious.csv"
 
-models = ["minigpt4","qwen","gpt4"]
+models = ["llava","minigpt4"]
 for model in models:
-    os.system(f"""nohup python ./main.py --text {textfile} \
-    --img {imgdir} --model {model} \
-    --pair_mode injection  --threshold -0.003936767578125 \
-    --no_eval --multirun 3 --cuda 1 &""")
-    time.sleep(600)
-    while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
-        time.sleep(60)
-    reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
-    print(f"-------{model} with defence generation complete-------")
+    # os.system(f"""nohup python ./main.py --text {textfile} \
+    # --img {imgdir} --model {model} \
+    # --pair_mode injection  --threshold -0.003936767578125 \
+    # --no_eval --cuda 1 &""")
+    # time.sleep(600)
+    # while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
+    #     time.sleep(60)
+    # reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
+    # print(f"-------{model} with defence generation complete-------")
     time.sleep(10)
     os.system(f"""nohup python ./main.py --text {textfile} \
     --img {imgdir} --model {model} \
-    --pair_mode injection  --threshold -0.003936767578125 \
-    --no_eval --no_detect --multirun 3 --cuda 1 &""")
+    --outdir /home/xuyue/QXYtemp/MLM/gen_attack/{model}_no_defence
+    --pair_mode combine  --threshold -0.003936767578125 \
+    --no_eval --no_detect --cuda 0 &""")
     time.sleep(600)
-    while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
+    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/gen_attack/{model}_no_defence/response.json"):
         time.sleep(60)
-    reformat(f"{model}_no_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
+    # reformat(f"{model}_no_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
     print(f"-------{model} without defence generation complete-------")
     time.sleep(5)

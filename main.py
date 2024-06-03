@@ -34,6 +34,8 @@ if __name__=="__main__":
     parser.add_argument('--no_eval', action="store_true", help="disable harmbench evaluation phase" )
     parser.add_argument('--no_detect', action="store_true", help="disable detector phase" )
     parser.add_argument('--multirun', type=int, default=1, help="run the precess nultiple times")
+    parser.add_argument('--cuda', type=int, default=0, help="run on which device")
+    parser.add_argument('--outdir', type=str, default="./output", help="dir to place the output file")
     args = parser.parse_args()
 
     a = Args()
@@ -41,6 +43,8 @@ if __name__=="__main__":
     a.text_file = args.text
     a.denoise_checkpoint_num = 8
     a.model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
+    a.device = f"cuda:{args.cuda}"
+    a.output_dir = args.outdir
 
     # create output dir
     if not os.path.exists(a.output_dir):
@@ -93,7 +97,7 @@ if __name__=="__main__":
             images = new_imgs
         # generate responses
         print(f"using {args.model} for generation")
-        responses = get_response(args.model, texts, images)
+        responses = get_response(args.model, texts, images, a=a)
 
         # init dict in the first loop
         if _==0:

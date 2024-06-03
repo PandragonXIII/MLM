@@ -48,7 +48,7 @@ class Args:
 
 
 class DiffusionRobustModel(nn.Module):
-    def __init__(self, classifier_name="beit"):
+    def __init__(self, classifier_name="beit",device=0):
         super().__init__()
         model, diffusion = create_model_and_diffusion(
             **args_to_dict(Args(), model_and_diffusion_defaults().keys())
@@ -56,10 +56,11 @@ class DiffusionRobustModel(nn.Module):
         model.load_state_dict(
             torch.load(f"{os.path.dirname(__file__)}/256x256_diffusion_uncond.pt")
         )
-        model.eval().cuda()
+        model.eval().cuda(device)
 
         self.model = model 
         self.diffusion = diffusion 
+        self.device = device
 
         # Load the BEiT model
         # classifier = timm.create_model('beit_large_patch16_512', pretrained=True)
@@ -67,12 +68,12 @@ class DiffusionRobustModel(nn.Module):
         # classifier = timm.create_model('beit_base_patch16_224.in22k_ft_in22k_in1k', pretrained=False, checkpoint_path = "./beit_base_patch16_224.in22k_ft_in22k_in1k/pytorch_model.bin")
         # classifier = timm.create_model('beit_large_patch16_512.in22k_ft_in22k_in1k', pretrained=False, checkpoint_path = "./timm_beit_large_patch16_512/pytorch_model.bin")
         # classifier = timm.create_model("vit_base_patch16_224.dino", pretrained=False,checkpoint_path = "./vit_base_patch16_224.dino/pytorch_model.bin" )
-        classifier.eval().cuda()
+        classifier.eval().cuda(device)
 
         self.classifier = classifier
         os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"
         os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
-        device_ids = [0]
+        device_ids = [device]
         # self.model = torch.nn.DataParallel(self.model, device_ids =device_ids).cuda()
         # self.diffusion  = torch.nn.DataParallel(self.diffusion, device_ids =device_ids).cuda()
         # self.classifier = torch.nn.DataParallel(self.classifier, device_ids =device_ids).cuda()
@@ -83,14 +84,14 @@ class DiffusionRobustModel(nn.Module):
 
         imgs = torch.nn.functional.interpolate(imgs, (224, 224), mode='bicubic', antialias=True)
 
-        imgs = torch.tensor(imgs).cuda()
+        imgs = torch.tensor(imgs).cuda(device=self.device)
         with torch.no_grad():
             out = self.classifier(imgs)
 
         return out
 
     def denoise(self, x_start, t, multistep=False):
-        t_batch = torch.tensor([t] * len(x_start)).cuda()
+        t_batch = torch.tensor([t] * len(x_start)).cuda(device=self.device)
 
         noise = torch.randn_like(x_start)
         
@@ -102,7 +103,7 @@ class DiffusionRobustModel(nn.Module):
                 out = x_t_start
                 for i in range(t)[::-1]:
                     print(i)
-                    t_batch = torch.tensor([i] * len(x_start)).cuda()
+                    t_batch = torch.tensor([i] * len(x_start)).cuda(device=self.device)
                     out = self.diffusion.p_sample(
                         self.model,
                         out,
