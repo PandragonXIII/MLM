@@ -34,22 +34,22 @@ textfile = "/home/xuyue/QXYtemp/mm-vet-data/mmvet_query.csv"
 # imgdir = "/home/xuyue/QXYtemp/MLM/src/image/testset"
 # textfile = "/home/xuyue/QXYtemp/MLM/src/text/testset_malicious.csv"
 
-models = ["minigpt4","qwen","gpt4"]
+models = ["blip"]
 for model in models:
-    os.system(f"""nohup python ./main.py --text {textfile} \
+    # os.system(f"""nohup python ./main.py --text {textfile} \
+    # --img {imgdir} --model {model} \
+    # --pair_mode injection  --threshold -0.003936767578125 \
+    # --no_eval --multirun 3 --cuda 1 &""")
+    # time.sleep(600)
+    # while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
+    #     time.sleep(60)
+    # reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
+    # print(f"-------{model} with defence generation complete-------")
+    time.sleep(10)
+    os.system(f"""nohup python ./main.py --text {textfile} --no_detect \
     --img {imgdir} --model {model} \
     --pair_mode injection  --threshold -0.003936767578125 \
     --no_eval --multirun 3 --cuda 1 &""")
-    time.sleep(600)
-    while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
-        time.sleep(60)
-    reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
-    print(f"-------{model} with defence generation complete-------")
-    time.sleep(10)
-    os.system(f"""nohup python ./main.py --text {textfile} \
-    --img {imgdir} --model {model} \
-    --pair_mode injection  --threshold -0.003936767578125 \
-    --no_eval --no_detect --multirun 3 --cuda 1 &""")
     time.sleep(600)
     while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
         time.sleep(60)
