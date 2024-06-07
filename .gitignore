@@ -1,5 +1,6 @@
 src/text/MMLU
 src/text/Harmbench
+src/QR_cases/*
 .vscode
 __pycache__
 denoiser/imagenet/256x256_diffusion_uncond.pt

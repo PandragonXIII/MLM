@@ -36,6 +36,7 @@ if __name__=="__main__":
     parser.add_argument('--multirun', type=int, default=1, help="run the precess nultiple times")
     parser.add_argument('--cuda', type=int, default=0, help="run on which device")
     parser.add_argument('--outdir', type=str, default="./output", help="dir to place the output file")
+    parser.add_argument('--tempdir', type=str, default="./temp", help="dir to place the temporary file")
     args = parser.parse_args()
 
     a = Args()
@@ -45,6 +46,7 @@ if __name__=="__main__":
     a.model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
     a.device = f"cuda:{args.cuda}"
     a.output_dir = args.outdir
+    a.temp_dir = args.tempdir
 
     # create output dir
     if not os.path.exists(a.output_dir):
