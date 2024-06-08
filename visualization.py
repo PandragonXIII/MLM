@@ -245,11 +245,37 @@ def cossim_line_of_adv_vs_clean_image(path:str, cpnum=8):
     plt.tight_layout()
     plt.savefig(f"./src/results/cossim_line_grouped.png")
 
+def mmvet_double_histogram():
+    data = { #model:origin,defence
+        "blip":(19.37,12.67),
+        "llava":(30.97,19.13),
+        "minigpt4":(21.43,12.97),
+        "qwen":(46.23,29.23)
+    }
+    origin_scores = []
+    defence_scores = []
+    for v in data.values():
+        origin_scores.append(v[0])
+        defence_scores.append(v[1])
+    plt.figure()
+    total_width, n = 0.8,2
+    width = total_width/n
+    x = np.arange(len(data))
+    x1 = x-width/2
+    x2 = x1+width
+    plt.title("MM-Vet score")
+    plt.ylabel("Score")
+    plt.bar(x1,origin_scores,width=width,label="Base",color="#295f7a")
+    plt.bar(x2,defence_scores,width=width,label="CIDer",color="#629b8b")
+    plt.xticks(x,data.keys())
+    plt.legend()
+    plt.savefig("./src/results/mmvet_score_bar.png")
 if __name__ == "__main__":
+    mmvet_double_histogram()
     # cossim_line_of_adv_vs_clean_image(
     # "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv")
-    delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=350, picname="10clean_denoised250_delta_cossim_distribution.png")
-    delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=300, picname="10clean_denoised250_delta_cossim_distribution.png")
+    # delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=350, picname="10clean_denoised250_delta_cossim_distribution.png")
+    # delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=300, picname="10clean_denoised250_delta_cossim_distribution.png")
     # train_data_decline_line()
 
     # cossim_line_of_all_image("./src/intermediate-data/similarity_matrix_validation.csv", cpnum=8)

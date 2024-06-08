@@ -35,29 +35,31 @@ def reformat(filename:str,read_dir:str,save_dir:str):
 # textfile = "/home/xuyue/QXYtemp/MLM/src/text/testset_malicious.csv"
 # imgdir = "/home/xuyue/QXYtemp/MLM/block_input/test_img"
 # textfile = "/home/xuyue/QXYtemp/MLM/block_input/test_text.csv"
-imgdir = "/home/xuyue/QXYtemp/MLM/src/QR_cases/jpgimgs" # new type attack img
-textfile = "/home/xuyue/QXYtemp/MLM/src/QR_cases/test_cases_id.csv"
+imgdir = "/home/xuyue/QXYtemp/MLM/src/imgJP_cases/200images" # new type attack img
+textfile = "/home/xuyue/QXYtemp/MLM/src/imgJP_cases/test_cases.csv"
 
-models = ["llava","qwen"]
+group_dir = "gen_JP_attack"
+
+models = ["minigpt4","blip"]
 for model in models:
     os.system(f"""nohup python ./main.py --text {textfile} \
-    --outdir /home/xuyue/QXYtemp/MLM/gen_new_attack/{model}_with_defence \
+    --outdir /home/xuyue/QXYtemp/MLM/{group_dir}/{model}_with_defence \
     --img {imgdir} --model {model} \
     --pair_mode injection  --threshold -0.003936767578125 \
     --no_eval --cuda 1 --tempdir ./temp_{model} &""")
     time.sleep(300)
-    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/gen_new_attack/{model}_with_defence/response.json"):
+    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/{group_dir}/{model}_with_defence/response.json"):
         time.sleep(60)
     # reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
     print(f"-------{model} with defence generation complete-------")
     time.sleep(10)
     os.system(f"""nohup python ./main.py --text {textfile} --no_detect \
     --img {imgdir} --model {model} \
-    --outdir /home/xuyue/QXYtemp/MLM/gen_new_attack/{model}_no_defence \
+    --outdir /home/xuyue/QXYtemp/MLM/{group_dir}/{model}_no_defence \
     --pair_mode injection  --threshold -0.003936767578125 \
     --no_eval --cuda 1 --tempdir ./temp_{model} &""")
     time.sleep(300)
-    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/gen_new_attack/{model}_no_defence/response.json"):
+    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/{group_dir}/{model}_no_defence/response.json"):
         time.sleep(60)
     # reformat(f"{model}_no_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
     print(f"-------{model} without defence generation complete-------")
