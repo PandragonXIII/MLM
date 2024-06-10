@@ -636,38 +636,54 @@ def plot_tpr_fpr(datapath:str, savepath:str, cpnum=8):
         # delete the row of inf
         confusion = confusion[confusion["constraint"]!="inf"]
         point = confusion[["recall","fpr"]].mean(axis=0)
-        datapoints.append(point)
+        if i==95:
+            chosen_pt=point
+        else:
+            datapoints.append(point)
     datapoints = pd.concat(datapoints, axis=1, ignore_index=True)
 
     # plot
     plt.clf()
+    plt.figure(figsize=(4.4,3.2))
+
+    # plot the curve 
+    func = lambda x: 1.08131*x**0.14027
+    x = np.arange(0,0.5,0.005)
+    y = [func(x1) for x1 in x]
+    plt.plot(x,y,color="gray",alpha=1,linestyle='--',linewidth=4,zorder=1)
+
+
     # plt.xlim((0,1))
     # plt.ylim((0,1))
-    plt.scatter(datapoints.loc["fpr"],datapoints.loc["recall"])
-    for i in range(80,101):
-        plt.annotate(str(i),(datapoints.loc["fpr"][i-80],datapoints.loc["recall"][i-80]))
-    plt.xlabel("fpr")
-    plt.ylabel("tpr")
+    plt.scatter(datapoints.loc["fpr"],datapoints.loc["recall"],s=80,c="#23bac5",alpha=0.7,zorder=2)
+    plt.scatter(chosen_pt[1],chosen_pt[0],s=150,c="#fd763f",marker="X",
+                linewidth=1,edgecolors='w',zorder=3)
+    plt.annotate("95%",(chosen_pt[1],chosen_pt[0]),xytext=(chosen_pt[1]-0.02,chosen_pt[0]+0.05),xycoords="data")
+    # for i in range(80,101):
+    #     plt.annotate(str(i),(datapoints.loc["fpr"][i-80],datapoints.loc["recall"][i-80]))
+    plt.xlabel("False Positive Rate",fontsize=11)
+    plt.ylabel("True Positive Rate",fontsize=11)
 
-    # # fit the curve 
-    # def func(x,a,b,y0): # with exponential
-    #     return a*np.exp(-x/b)+y0
-    # popt,pcov=curve_fit(func,datapoints.loc["fpr"],datapoints.loc["recall"])
-    # ybar = func(datapoints.loc["fpr"],popt[0],popt[1],popt[2])
-    # plt.plot(datapoints.loc["fpr"],ybar,label="exp fit")
+    plt.yticks(np.arange(0,1,0.2),['{:.0%}'.format(_) for _ in np.arange(0,1,0.2)])
+    plt.xticks(np.arange(0,0.5,0.1),['{:.0%}'.format(_) for _ in np.arange(0,0.5,0.1)])
+
+    
+
+    plt.tight_layout()
     plt.savefig(savepath)
+    plt.savefig(savepath.rstrip(".jpg")+".pdf")
     print(datapoints.loc["fpr"],datapoints.loc["recall"])
 
     
 
 if __name__ == "__main__":
-    # plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
-    #                 savepath="./src/analysis/ValSet_tpr-fpr_plot.jpg")
+    plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
+                    savepath="./src/analysis/ValSet_tpr-fpr_plot(new).jpg")
     # plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
     #                 savepath="./src/analysis/TestSet_tpr-fpr_plot.jpg")
-    test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
-                     savepath="./src/analysis/10clean_imgdetector_ValSet_results.csv",
-                     data_rate=[0.95, 0.975, 0.99, 0.995])
+    # test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
+    #                  savepath="./src/analysis/10clean_imgdetector_ValSet_results.csv",
+    #                  data_rate=[0.95, 0.975, 0.99, 0.995])
     # test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
     #                  savepath="./src/analysis/10clean_imgdetector_TestSet_results.csv",
     #                  data_rate=[0.95, 0.975, 0.99, 0.995])

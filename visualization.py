@@ -11,6 +11,7 @@ import seaborn as sns
 import numpy as np
 import joypy.joyplot
 import matplotlib.cm as cm
+import csv
 
 
 
@@ -245,6 +246,51 @@ def cossim_line_of_adv_vs_clean_image(path:str, cpnum=8):
     plt.tight_layout()
     plt.savefig(f"./src/results/cossim_line_grouped.png")
 
+def cossim_line_grouped(clean_path:str,adv_path:str, cpnum=8):
+    """
+    plot the line plot of cosine similarity of image after denoising.
+    given the path of the similarity matrix csv file, plot the line plot of each image type.
+    """
+    dfadv = pd.read_csv(adv_path)
+    dfadv = dfadv[dfadv["is_malicious"]==1]
+    dfadv = dfadv.drop(columns=["is_malicious"])
+    advdata = dfadv[[col for col in dfadv.columns if "prompt_constrained" in col and "prompt_constrained_inf_" not in col]]
+    advvar = advdata.var(axis=0)
+    advvar = advvar.to_numpy().reshape((4,-1)).mean(axis=0).T[:8]
+    advmean = advdata.mean(axis=0)
+    advmean = advmean.to_numpy().reshape((4,-1)).mean(axis=0).T[:8]
+    advr1 = list(map(lambda x:x[0]-x[1],zip(advmean,advvar)))
+    advr2 = list(map(lambda x:x[0]+x[1],zip(advmean,advvar)))
+
+
+    df = pd.read_csv(clean_path)
+    df = df[df["is_malicious"]==1]
+    # delete is_malicious
+    df = df.drop(columns=["is_malicious"])
+    cleanvar = df.var(axis=0)
+    cleanvar = cleanvar.to_numpy().reshape((-1,cpnum)).mean(axis=0)
+    cleandata = df.mean(axis=0)
+    print(cleandata)
+    cleanmean = cleandata.to_numpy().reshape((-1,cpnum)).mean(axis=0)
+    cleanr1 = list(map(lambda x:x[0]-x[1],zip(cleanmean,cleanvar)))
+    cleanr2 = list(map(lambda x:x[0]+x[1],zip(cleanmean,cleanvar)))
+
+    xticks = [i*50 for i in range(0,cpnum)]
+    plt.figure(figsize=(4.2,3.2))
+    plt.plot(xticks, cleanmean, label="clean",color="#23bac5")
+    plt.plot(xticks, advmean, label="adversarial",color="#fd763f")
+
+    # variance
+    plt.fill_between(xticks,advr1,advr2,color="#fd763f",alpha=0.2,edgecolor=None)
+    plt.fill_between(xticks,cleanr1,cleanr2,color="#23bac5",alpha=0.2,edgecolor=None)
+    # plt.legend(bbox_to_anchor=(0.05, 1.05), loc='lower left', borderaxespad=0.,ncol=2)
+    plt.legend(ncol=2)
+    plt.xlabel("Denoise Times")
+    plt.ylabel("Cosine Similarity")
+    plt.tight_layout()
+    plt.savefig(f"./src/results/cossim_line_grouped(new).png")
+    plt.savefig(f"./src/results/cossim_line_grouped(new).pdf")
+
 def mmvet_double_histogram():
     data = { #model:origin,defence
         "blip":(19.37,12.67),
@@ -270,8 +316,144 @@ def mmvet_double_histogram():
     plt.xticks(x,data.keys())
     plt.legend()
     plt.savefig("./src/results/mmvet_score_bar.png")
+
+def grouped_cossim_hist(denoise_times=0):
+    cleanfp = "/home/xuyue/QXYtemp/MLM/src/intermediate-data/10clean_similarity_matrix_val.csv"
+    cleandf = pd.read_csv(cleanfp)
+    cleandf = cleandf[cleandf["is_malicious"]==1].drop(["is_malicious"],axis=1)
+
+    wanted_name = "_{:0>3d}times".format(denoise_times)
+    wanted_cols = [col for col in cleandf.columns if wanted_name in col]
+    cleandata = cleandf[wanted_cols]
+    # flatten to 1d
+    cleandata = pd.DataFrame(cleandata.to_numpy().reshape(-1))
+    cleandata.columns = ["Cosine Similarity"]
+    cleandata["img_type"]="clean"
+    print(f"there are {cleandata.shape} clean data points")
+
+    advfp = "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv"
+    advdf = pd.read_csv(advfp)
+    advdf = advdf[advdf["is_malicious"]==1].drop(["is_malicious"],axis=1)
+    advdf = advdf[[col for col in advdf.columns if "prompt_constrained_" in col and "inf_" not in col]]
+
+    wanted_name = "_{:0>3d}times".format(denoise_times)
+    wanted_cols = [col for col in advdf.columns if wanted_name in col]
+    advdata = advdf[wanted_cols]
+    # flatten to 1d
+    advdata = pd.DataFrame(advdata.to_numpy().reshape(-1))
+    advdata.columns = ["Cosine Similarity"]
+    advdata["img_type"]="adversarial"
+    print(f"there are {advdata.shape} adv data points")
+
+    plt.clf()
+    data = pd.concat([cleandata,advdata],axis=0,ignore_index=True)
+    f,ax = plt.subplots(1,1,figsize=(4.3,3.2))
+    sns.kdeplot(cleandata,x="Cosine Similarity",color = "#23bac5",ax=ax,fill=True,alpha=0.5)
+    sns.kdeplot(advdata,x="Cosine Similarity",color = "#fd763f",ax=ax,fill=True,alpha=0.5)
+    plt.legend(["clean","adversarial"],loc="upper left")
+    plt.tight_layout()
+
+    plt.savefig(f"./src/results/cossim_hist_grouped.jpg")
+    plt.savefig(f"./src/results/cossim_hist_grouped.pdf")
+
+def grouped_delta_cossim_hist(denoise_times="min"):
+    cleanfp = "/home/xuyue/QXYtemp/MLM/src/intermediate-data/4clean_similarity_matrix_val.csv"
+    cleandf = pd.read_csv(cleanfp)
+    cleandf = cleandf[cleandf["is_malicious"]==1].drop(["is_malicious"],axis=1)
+    cleandf = cleandf[[col for col in cleandf.columns if "clean" in col]]
+
+    # wanted_name = "_{:0>3d}times".format(denoise_times)
+    # wanted_cols = [col for col in cleandf.columns if wanted_name in col]
+    # cleandata = cleandf[wanted_cols]
+    cleandata = cleandf.to_numpy().reshape((-1,8))
+    cleandata = cleandata.min(axis=1)
+    # cleandata = cleandata[:,7]
+
+    cleanbase = cleandf[[col for col in cleandf.columns if "_000times" in col]]
+    cleanbase = cleanbase.to_numpy().reshape((-1))
+    # flatten to 1d
+    cleandata = pd.DataFrame((cleanbase-cleandata).reshape(-1))
+    cleandata.columns = ["Delta Cosine Similarity"]
+    cleandata["img_type"]="clean"
+    print(f"there are {cleandata.shape} clean data points")
+
+    advfp = "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv"
+    advdf = pd.read_csv(advfp)
+    advdf = advdf[advdf["is_malicious"]==1].drop(["is_malicious"],axis=1)
+    advdf = advdf[[col for col in advdf.columns if "prompt_constrained_" in col and "inf_" not in col]]
+
+    # wanted_name = "_{:0>3d}times".format(denoise_times)
+    # wanted_cols = [col for col in advdf.columns if wanted_name in col]
+    # advdata = advdf[wanted_cols]
+    advdata = advdf.to_numpy().reshape((-1,9)).min(axis=1)
+    # advdata = advdata[:,7]
+
+    advbase = advdf[[col for col in advdf.columns if "_000times" in col]]
+    advbase = advbase.to_numpy().reshape((-1))
+    # flatten to 1d
+    advdata = pd.DataFrame((advbase-advdata).reshape(-1))
+    advdata.columns = ["Delta Cosine Similarity"]
+    advdata["img_type"]="adversarial"
+    print(f"there are {advdata.shape} adv data points")
+
+    data = pd.concat([cleandata,advdata],axis=0,ignore_index=True)
+
+    plt.clf()
+    f,ax = plt.subplots(figsize=(4.2,3.2))
+    sns.kdeplot(cleandata,x="Delta Cosine Similarity",color = "#23bac5",ax=ax,fill=True,alpha=0.5)
+    sns.kdeplot(advdata,x="Delta Cosine Similarity",color = "#fd763f",ax=ax,fill=True,alpha=0.5)
+    plt.legend(["clean","adversarial"])
+
+    plt.tight_layout()
+    plt.savefig(f"./src/results/deltacossim_hist_grouped_{denoise_times}times.jpg")
+    plt.savefig(f"./src/results/deltacossim_hist_grouped_{denoise_times}times.pdf")
+
+def asr_barplot():
+    # data = {#(base,CIDER,Jailguard) with adv image
+    #     "LLaVA-v1.5-7B":(0.609375   ,0          ,0.45),
+    #     "InstructBlip":(0.096875    ,0.0234375  ,0.16),
+    #     "MiniGPT4-7B":  (0.5734375  ,0.0921875  ,0.195),
+    #     "Qwen":         (0.071875   ,0.0109375  ,0.055),
+    #     "GPT4v":        (0,0,0)
+    # }
+    data = {# ["LLaVA-v1.5-7B","InstructBlip","MiniGPT4-7B","Qwen","GPT4v"]
+        "base":(0.609375,0.096875,0.5734375,0.071875,0),
+        "CIDER":(0,0.0234375,0.0921875,0.0109375,0),
+        "Jailguard":(0.45,0.16,0.195,0.055,0.005)
+    }
+    # df = pd.DataFrame.from_dict(data=data,orient="index",columns=["base","CIDER","Jailguard"])
+    # print(df)
+    x=np.arange(5)
+    width=0.27
+    counter=0
+    plt.clf()
+    OTHER_FONT=11
+    plt.rcParams['font.size'] = 8
+    f,ax = plt.subplots(layout="constrained",figsize=(10,3.9))
+    colors=["#fd763f","#23bac5","#eeca40"]
+    for k,v in data.items():
+        offset = width*counter
+        rects = ax.bar(x+offset, v, width, label=k,color=colors[counter])
+        ax.bar_label(rects,padding=1, fmt=lambda x: f'{(x)*100:0.2f}%')
+        counter+=1
+    ax.set_ylabel("Attack Success Rate",fontsize=OTHER_FONT)
+    ax.set_xticks(x+width,["LLaVA-v1.5-7B","InstructBlip","MiniGPT4","Qwen","GPT4V"],
+                  rotation=0,fontsize=OTHER_FONT)
+    ax.legend(fontsize=OTHER_FONT)
+    ax.set_yticklabels([f'{x1*100:.0f}%' for x1 in ax.get_yticks()],fontsize=OTHER_FONT) 
+
+    plt.tight_layout()
+    plt.savefig(f"./src/results/asr_bar.jpg")
+    plt.savefig(f"./src/results/asr_bar.pdf")
+
+
 if __name__ == "__main__":
-    mmvet_double_histogram()
+    asr_barplot()
+    # grouped_delta_cossim_hist()
+    # grouped_cossim_hist()
+    # cossim_line_grouped("/home/xuyue/QXYtemp/MLM/src/intermediate-data/10clean_similarity_matrix_val(new).csv",
+    #                     "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv")
+    # mmvet_double_histogram()
     # cossim_line_of_adv_vs_clean_image(
     # "/home/xuyue/QXYtemp/MLM/src/intermediate-data/similarity_matrix_validation.csv")
     # delta_cos_sim_distribution("./src/intermediate-data/10clean_similarity_matrix_val.csv",it=350, picname="10clean_denoised250_delta_cossim_distribution.png")

@@ -63,8 +63,18 @@ after analysis, we choose $-0.003936767578125$(95%) as classification threshold
 ### 更新日志
 <details>
 
+#### 6.8
+- [x] 10clean v.s. 4adv cossim histogram
+  - 直方图+拟合曲线
+  - 透明度
+- [x] 10clean v.s. 4adv delta cossim histogram 
+  - 350 denoise
+  - 直方图+拟合曲线
+  - 取denoise后的最小值
+- [x] ASR of different model with different defend method
+
 #### 6.3 MEET
-- [ ] 分别计算clean和adv图片的ASR
+- [x] 分别计算clean和adv图片的ASR
 
 #### 5.28 MEET
 - [ ] 用保留的denoise图片序列说明cossim上升的现象

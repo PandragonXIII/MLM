@@ -38,8 +38,8 @@ for i in range(1,5):
     plt.title(model_names[i-1],fontsize=FONTSIZE)
     if i!=2 and i!=4:
         plt.ylabel("Score",fontsize=FONTSIZE)
-    plt.bar(x1,origin_scores,width=width,label="Base",color="#295f7a")
-    plt.bar(x2,defence_scores,width=width,label="CIDER",color="#629b8b")
+    plt.bar(x1,origin_scores,width=width,label="Base",color="#fd763f")
+    plt.bar(x2,defence_scores,width=width,label="CIDER",color="#23bac5")
     plt.ylim((0,63))
     plt.yticks(fontsize=FONTSIZE)
     plt.xticks(x,xtik,rotation=20,fontsize=FONTSIZE)
@@ -58,5 +58,5 @@ plt.tight_layout()
 lines,labels = fig.axes[-1].get_legend_handles_labels()
 plt.legend(lines,labels,bbox_to_anchor=(-0.12,2.85),fontsize=FONTSIZE,loc="upper center",ncol=2)
 
-plt.savefig("./performance_bar.eps",bbox_inches='tight')
-plt.savefig("./performance_bar2.jpg",bbox_inches='tight')
+plt.savefig("./performance_bar.pdf",bbox_inches='tight')
+plt.savefig("./performance_bar.jpg",bbox_inches='tight')
