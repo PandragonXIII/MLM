@@ -1,4 +1,5 @@
 from transformers import AutoModelForPreTraining, AutoTokenizer, AutoImageProcessor
+# from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
 import torch
 from PIL import Image, ImageOps
 import os, csv
@@ -27,6 +28,9 @@ from openai import OpenAI
 import httpx
 import base64
 from io import BytesIO
+
+from skimage import img_as_float
+from skimage.restoration import denoise_nl_means, estimate_sigma
 
 
 openai_settings = json.load(open("../openai_env_var.json"))
@@ -110,7 +114,8 @@ def defence(args, a:Args):
         image_num = len(os.listdir(args.img))
     else:
         image_num = 1
-    generate_denoised_img(args.img,a.image_dir,8,batch_size=50)
+    generate_denoised_img(args.img,a.image_dir,8,batch_size=50,device=a.device)
+    # generate_denoised_img_with_NLM(args.img,a.image_dir,a.denoise_checkpoint_num,batch_size=50,device=a.device)
     print("Done")
     # compute cosine similarity
     print("computing cossim... ",end="")
@@ -287,6 +292,72 @@ def generate_denoised_img(path:str, save_path, cps:int , step=50, DEVICE="cuda:0
     torch.cuda.empty_cache()
     return
 
+def generate_denoised_img_with_NLM(path:str, save_path, cps:int , step=1, device="cuda:1", batch_size = 50):
+    """
+    read all img file under given dir, and convert to RGB
+    copy the original size image as denoise000,
+    then resize to 224*224,
+    denoise for multiple iterations and save them to save_path
+    using Non Local Means (NLM)
+    
+    :path: path of dir or file of image(s)
+    :cps: denoise range(0,step*cps,step) times
+            step=1 by default
+    """
+    
+    assert os.path.isdir(path)
+    resized_imgs = []
+    img_names = []
+    dir1 = os.listdir(path) # list of img names
+    dir1.sort()
+    for filename in dir1:
+        img = Image.open(path+"/"+filename).convert("RGB")
+        # save the original image
+        savename=os.path.splitext(filename)[0]+"_denoised_000times.jpg"
+        img.save(os.path.join(save_path,savename))
+        # resize for denoise
+        resized_imgs.append(
+            resize_keep_ratio(img=img)
+        )
+        img_names.append(filename)
+    if cps<=1:
+        return
+    
+    # model = DiffusionRobustModel(device=int(device[-1]))
+    iterations = range(step,cps*step,step)
+    b_num = ceil(len(resized_imgs)/batch_size) # how man runs do we need
+    for b in tqdm.tqdm(range(b_num),desc="denoise batch"):
+        l = b*batch_size
+        r = (b+1)*batch_size if b<b_num-1 else len(resized_imgs)
+        # denoise for each part between l and r
+        part = resized_imgs[l:r]
+        partname = img_names[l:r]
+        for it in iterations:
+            # project value between -1,1
+            ary = [np.array(_,dtype=np.float32)/255*2-1 for _ in part]
+            ary = np.array(ary)
+            denoised_ary = []
+            for img_temp in ary:
+                sigma_est = np.mean(estimate_sigma(img_temp, channel_axis=-1))
+                patch_kw = dict(
+                    patch_size=5, patch_distance=6, channel_axis=-1  # 5x5 patches  # 13x13 search area
+                )
+                for _ in range(it):
+                    img_temp = denoise_nl_means(
+                        img_temp, h=0.8 * sigma_est, sigma=sigma_est, fast_mode=False, **patch_kw
+                    )
+                denoised_ary.append(img_temp)
+            denoised_ary = np.array(denoised_ary)
+            denoised_ary = (denoised_ary+1)/2*255
+            denoised_ary = denoised_ary.astype(np.uint8)
+            for i in range(denoised_ary.shape[0]):
+                img=Image.fromarray(denoised_ary[i])
+                sn = os.path.splitext(partname[i])[0]+"_denoised_{:0>3d}times.jpg".format(it)
+                img.save(os.path.join(save_path,sn))
+    # del model
+    torch.cuda.empty_cache()
+    return
+
 
 def get_response(model_name, texts, images, a=Args()):
     """
@@ -296,10 +367,13 @@ def get_response(model_name, texts, images, a=Args()):
     answers = []
     t_start=time.time()
     # TODO use batch encode and decode
-    if model_name=="llava" or model_name=="blip":
+    if model_name in ["llava", "blip", "llava1.6"]:
         if model_name=="llava":
             processor = AutoProcessor.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf")
             model = AutoModelForPreTraining.from_pretrained("/home/xuyue/Model/llava-1.5-7b-hf") 
+        elif model_name=="llava1.6":
+            processor = LlavaNextProcessor.from_pretrained("/home/xuyue/Model/llava_1.6_7b_hf")
+            model = LlavaNextForConditionalGeneration.from_pretrained("/home/xuyue/Model/llava_1.6_7b_hf") 
         else: # blip
             processor = InstructBlipProcessor.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b")
             model = InstructBlipForConditionalGeneration.from_pretrained("/home/xuyue/Model/Instructblip-vicuna-7b") 
@@ -439,3 +513,33 @@ def query_minigpt(question,img,chat):
         chat_state = ask(chat,question, chat_state)
         llm_message, chat_state, img_list = answer(chat,chat_state, img_list)
     return llm_message
+
+def get_img_embedding(image_path:list):
+    model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
+    DEVICE = "cuda:1"
+    ########################
+    model = AutoModelForPreTraining.from_pretrained(
+        model_path, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+    model.to(DEVICE)
+    imgprocessor = AutoImageProcessor.from_pretrained(model_path)
+
+    # model.to(DEVICE)
+    images = []
+    for img in image_path:
+        images.append(Image.open(img))
+    
+    res = []
+    for image in images:
+        # img embedding
+        pixel_value = imgprocessor(image, return_tensors="pt").pixel_values.to(DEVICE)
+        image_outputs = model.vision_tower(pixel_value, output_hidden_states=True)
+        selected_image_feature = image_outputs.hidden_states[model.config.vision_feature_layer]
+        selected_image_feature = selected_image_feature[:, 1:] # by default
+        image_features = model.multi_modal_projector(selected_image_feature)
+        # calculate average to compress the 2th dimension
+        image_features = torch.mean(image_features, dim=1).detach().to("cpu")
+        res.append(image_features)
+    del pixel_value, image_outputs, selected_image_feature
+    # model.to("cpu")
+    torch.cuda.empty_cache()
+    return res

@@ -5,7 +5,7 @@ model:
   end_sym: "###"
   low_resource: True
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/home/xuyue/QXYtemp/MLM/minigpt4/prerained_minigpt4_7b.pth'
+  ckpt: '/home/xuyue/OverallEval/Defense_method/JailGuard-main/JailGuard/checkpoint/pretrained_minigpt4_vicuna13b.pth'
 
 
 datasets:

@@ -1,0 +1,22 @@
+processing images... /home/xuyue/miniconda3/envs/llava/lib/python3.10/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+denoise batch:   0%|          | 0/1 [00:00<?, ?it/s]denoise batch: 100%|██████████| 1/1 [00:01<00:00,  1.03s/it]denoise batch: 100%|██████████| 1/1 [00:01<00:00,  1.03s/it]
+Done
+computing cossim... Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:00,  2.36it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:00<00:00,  2.93it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  3.06it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:01<00:00,  2.95it/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+csv file saved at: ./temp_minigpt4_prompt_constrained_imageJP
+Done
+Defender initialized with threshold=-0.003936767578125
+processed 1 images, 160 texts in 20.96s
+using minigpt4 for generation
+Loading MiniGPT-4 models...You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [01:12<01:12, 72.24s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:21<00:00, 35.20s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:21<00:00, 40.75s/it]
+Loading Q-Former
+/home/xuyue/miniconda3/envs/llava/lib/python3.10/site-packages/huggingface_hub/file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Loading Q-Former Done
+Load MiniGPT-4 Checkpoint: /home/xuyue/QXYtemp/MLM/minigpt4/prerained_minigpt4_7b.pth
+Done
+generating response:   0%|          | 0/160 [00:00<?, ?it/s]generating response:  18%|█▊        | 29/160 [00:59<04:27,  2.04s/it]generating response:  21%|██▏       | 34/160 [01:58<08:19,  3.96s/it]generating response:  29%|██▉       | 47/160 [02:57<07:58,  4.23s/it]generating response:  32%|███▏      | 51/160 [03:56<10:40,  5.88s/it]generating response:  35%|███▌      | 56/160 [04:55<12:24,  7.16s/it]generating response:  45%|████▌     | 72/160 [05:53<07:54,  5.39s/it]generating response:  46%|████▌     | 73/160 [06:52<11:09,  7.69s/it]generating response:  57%|█████▋    | 91/160 [07:51<06:11,  5.38s/it]generating response:  59%|█████▉    | 94/160 [08:50<07:38,  6.95s/it]generating response:  59%|█████▉    | 95/160 [09:49<10:22,  9.57s/it]generating response:  62%|██████▏   | 99/160 [10:46<10:48, 10.63s/it]generating response:  62%|██████▎   | 100/160 [11:45<14:12, 14.21s/it]generating response:  72%|███████▏  | 115/160 [12:45<05:56,  7.93s/it]generating response:  99%|█████████▉| 158/160 [13:44<00:06,  3.25s/it]generating response:  99%|█████████▉| 159/160 [14:43<00:04,  4.53s/it]generating response: 100%|██████████| 160/160 [14:43<00:00,  5.52s/it]
+generation part takes 997.72s
+Full generation completed in 1018.68s

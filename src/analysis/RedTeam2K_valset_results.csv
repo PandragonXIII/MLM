@@ -1,0 +1,2 @@
+constraint,accuracy,recall,precision,f1,classification threshold,fpr,data percentage
+all,0.800625,0.64075,0.9419331128261669,0.762684124386252,-0.003936767578125,0.03949506311711036,-1

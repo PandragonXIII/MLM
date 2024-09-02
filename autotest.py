@@ -29,26 +29,32 @@ def reformat(filename:str,read_dir:str,save_dir:str):
 
 imgdir = "/home/xuyue/QXYtemp/mm-vet-data/images218"
 textfile = "/home/xuyue/QXYtemp/mm-vet-data/mmvet_query.csv"
+# imgdir = "/home/xuyue/QXYtemp/MLM/block_input/test_img"
+# textfile = "/home/xuyue/QXYtemp/MLM/block_input/test_text.csv"
+
+group_dir = "gen_mmvet_denoised"
 
 models = ["minigpt4"]
 for model in models:
     os.system(f"""nohup python ./main.py --text {textfile} \
+    --outdir /home/xuyue/QXYtemp/MLM/{group_dir}/{model}_with_defence \
     --img {imgdir} --model {model} \
     --pair_mode injection  --threshold -0.003936767578125 \
-    --no_eval --multirun 3 &""")
-    time.sleep(600)
-    while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
-        time.sleep(30)
-    reformat(f"{model}_with_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen")
+    --no_eval --multirun 3 --cuda 1 --tempdir ./temp_{model} &""")
+    time.sleep(300)
+    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/{group_dir}/{model}_with_defence/response.json"):
+        time.sleep(60)
+    # reformat(f"{model}_with_defence.json",f"/home/xuyue/QXYtemp/MLM/{group_dir}/{model}_with_defence",f"/home/xuyue/QXYtemp/MLM/{group_dir}")
     print(f"-------{model} with defence generation complete-------")
     time.sleep(10)
-    os.system(f"""nohup python ./main.py --text {textfile} \
+    os.system(f"""nohup python ./main.py --text {textfile} --no_detect \
+    --outdir /home/xuyue/QXYtemp/MLM/{group_dir}/{model}_no_defence \
     --img {imgdir} --model {model} \
     --pair_mode injection  --threshold -0.003936767578125 \
-    --no_eval --no_detect --multirun 3 &""")
-    time.sleep(600)
-    while not os.path.exists("/home/xuyue/QXYtemp/MLM/output/response.json"):
-        time.sleep(30)
-    reformat(f"{model}_no_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen")
+    --no_eval --multirun 3 --cuda 1 --tempdir ./temp_{model} &""")
+    time.sleep(300)
+    while not os.path.exists(f"/home/xuyue/QXYtemp/MLM/{group_dir}/{model}_no_defence/response.json"):
+        time.sleep(60)
+    # reformat(f"{model}_no_defence.json","/home/xuyue/QXYtemp/MLM/output","/home/xuyue/QXYtemp/MLM/gen_mmvet")
     print(f"-------{model} without defence generation complete-------")
     time.sleep(5)

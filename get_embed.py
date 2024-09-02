@@ -28,11 +28,11 @@ def get_similarity_matrix(save_tensors=False):
     """get the similarity matrix with each text and image embeddings combination
         is used while developing"""
     model_path = "/home/xuyue/Model/llava-1.5-7b-hf"
-    DEVICE = "cuda:0"
+    DEVICE = "cuda:1"
     TEXT_NUM = 160
     source_dir = "./src"
-    image_dir = "./src/image/testset_denoised"
-    cosine_filename = "4clean_similarity_matrix_test.csv"
+    image_dir = "./src/image/testset_NLM_denoised"
+    cosine_filename = "NLM_similarity_matrix_test.csv"
     text_malicious_file = "testset_malicious.csv"
     text_benign_file = "testset_benign.csv"
     img_save_filename = "new_4clean_image.pt"
@@ -103,8 +103,8 @@ def get_similarity_matrix(save_tensors=False):
             if cnt>=TEXT_NUM:
                 break
             # only keep FunctionalCategory=standard rows
-            if row[1]!="standard":
-                continue
+            # if row[1]!="standard":
+            #     continue
             cnt+=1
             text = row[0]
             ret = get_text_embedding(text)

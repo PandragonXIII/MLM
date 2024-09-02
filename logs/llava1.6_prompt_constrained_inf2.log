@@ -1,0 +1,16 @@
+processing images... denoise batch:   0%|          | 0/1 [00:00<?, ?it/s]denoise batch: 100%|██████████| 1/1 [00:01<00:00,  1.02s/it]denoise batch: 100%|██████████| 1/1 [00:01<00:00,  1.02s/it]
+Done
+computing cossim... /home/xuyue/miniconda3/envs/llava1.6/lib/python3.10/site-packages/transformers/models/llava/configuration_llava.py:103: FutureWarning: The `vocab_size` argument is deprecated and will be removed in v4.42, since it can be inferred from the `text_config`. Passing this argument has no effect
+  warnings.warn(
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:00,  4.35it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:00<00:00,  4.86it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00,  5.54it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00,  5.26it/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+csv file saved at: ./temp_llava1.6_prompt_constrained_inf2
+Done
+Defender initialized with threshold=-0.003936767578125
+processed 1 images, 160 texts in 13.46s
+using llava1.6 for generation
+You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:00<00:01,  1.13it/s]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:01<00:00,  1.20it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.15it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:02<00:00,  1.16it/s]
+generating response:   0%|          | 0/160 [00:00<?, ?it/s]generating response:   2%|▏         | 3/160 [00:20<17:49,  6.81s/it]generating response:  21%|██        | 33/160 [00:27<01:25,  1.48it/s]generating response:  63%|██████▎   | 101/160 [01:00<00:31,  1.89it/s]generating response:  66%|██████▋   | 106/160 [01:25<00:45,  1.17it/s]generating response:  89%|████████▉ | 143/160 [01:57<00:14,  1.16it/s]generating response:  95%|█████████▌| 152/160 [01:59<00:06,  1.28it/s]generating response:  96%|█████████▌| 153/160 [02:17<00:07,  1.12s/it]generating response:  98%|█████████▊| 156/160 [02:35<00:06,  1.51s/it]generating response:  98%|█████████▊| 157/160 [03:07<00:07,  2.66s/it]generating response: 100%|██████████| 160/160 [03:07<00:00,  1.17s/it]
+generation part takes 196.05s
+Full generation completed in 209.52s

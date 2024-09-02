@@ -1,5 +1,6 @@
 import csv, os
 import math
+import random
 
 def get_binign_validation():
     # for each of the .csv file in ./MMLU, read the first line and store in ./MMLU/first_line.csv
@@ -55,4 +56,26 @@ def get_malicious_test(file_name:str):
 
 if __name__ == "__main__":
     # get_benign_test("testset_benign.csv")
-    get_malicious_test("testset_malicious.csv")
+    # get_malicious_test("testset_malicious.csv")
+    # with open(f"./src/text/RedTeam_2K.csv", "r", encoding="utf-8") as fr:
+    #         reader = csv.reader(fr)
+    #         origin_data = [r for r in reader]
+    # data = random.sample(origin_data,k=200)
+    # with open(f"./src/text/RedTeam_200.csv", "w", encoding="utf-8") as fw:
+    #     writer = csv.writer(fw, lineterminator="\n")
+    #     for r in data:
+    #         writer.writerow(r)
+    with open(f"./src/text/RedTeam_1800.csv", "r", encoding="utf-8") as fr:
+            reader = csv.reader(fr)
+            origin_data = [r for r in reader]
+    data = random.sample(origin_data,k=200)
+    with open(f"./src/text/RedTeam_test_200.csv", "w", encoding="utf-8") as fw:
+        writer = csv.writer(fw, lineterminator="\n")
+        for r in data:
+            writer.writerow(r)
+    data2 = random.sample(data,k=100)
+    with open(f"./src/text/RedTeam_test_100.csv", "w", encoding="utf-8") as fw:
+        writer = csv.writer(fw, lineterminator="\n")
+        for r in data2:
+            writer.writerow(r)
+    pass

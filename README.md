@@ -63,6 +63,35 @@ after analysis, we choose $-0.003936767578125$(95%) as classification threshold
 ### 更新日志
 <details>
 
+#### re buttle
+1. RedTeam2K 扩充数据集
+  
+#### Final Dead Line
+- [ ] 论证Finding 1: Adversarial images contain harmful information
+  - [x] 计算每条text的clean-adv并画分布图
+  - [ ] 
+- [x] 为检测部分写伪代码
+- [ ] 改文章时态，用现在时
+- [ ] Finally, to measure the influence of utility, we use GPT-4 to score the model's responses to questions from the MM-Vet benchmark.这个地方要再详细一下，什么样的score，范围是多少，prompt是什么（可以放到appendix）
+
+
+#### 6.10
+- [x] 测试denoise版本的mmvet
+- [x] 测试denoise版本的ASR
+
+#### 6.8
+- [x] 10clean v.s. 4adv cossim histogram
+  - 直方图+拟合曲线
+  - 透明度
+- [x] 10clean v.s. 4adv delta cossim histogram 
+  - 350 denoise
+  - 直方图+拟合曲线
+  - 取denoise后的最小值
+- [x] ASR of different model with different defend method
+
+#### 6.3 MEET
+- [x] 分别计算clean和adv图片的ASR
+
 #### 5.28 MEET
 - [ ] 用保留的denoise图片序列说明cossim上升的现象
 - [x] ASR的table

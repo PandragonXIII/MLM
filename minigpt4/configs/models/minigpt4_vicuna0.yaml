@@ -15,7 +15,7 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "/home/xuyue/Model/vicuna-7b/vicuna-7B"
+  llama_model: "/home/xuyue/Model/vicuna-13b/"
 
 preprocess:
     vis_processor:

@@ -24,7 +24,7 @@ class Defender():
         self.threshold = threshold
         print(f"Defender initialized with threshold={self.threshold}")
     
-    def train(self, data:pd.DataFrame| List[pd.DataFrame], ratio=0.9):
+    def train(self, data, ratio=0.9):
         """
         calculate threshold with given data and specified conservative ratio
         :data: malicious query(text) v.s. clean image cosine similarity
@@ -98,7 +98,7 @@ class Defender():
         results = {
             "constraint":[],
             "accuracy":[],
-            "recall":[],
+            "recall(dsr)":[],
             "precision":[],
             "f1":[],
             "classification threshold":[],
@@ -149,7 +149,7 @@ class Defender():
             fpr = fp/(fp+tn)
             results["constraint"].append(adv_class.split("_")[-1])
             results["accuracy"].append(acc)
-            results["recall"].append(recall)
+            results["recall(dsr)"].append(recall)
             results["precision"].append(precision)
             results["f1"].append(f1)
             results["classification threshold"].append(self.threshold)
@@ -165,7 +165,7 @@ class Defender():
             fpr = fp/(fp+tn)
             results["constraint"].append("all")
             results["accuracy"].append(acc)
-            results["recall"].append(recall)
+            results["recall(dsr)"].append(recall)
             results["precision"].append(precision)
             results["f1"].append(f1)
             results["classification threshold"].append(self.threshold)
@@ -596,19 +596,19 @@ def test_defender_on_malicious_test_set():
 
 '''
 
-def test_imgdetector(datapath:str,savepath:str,cpnum=8,data_rate=[0.95, 0.975, 0.99, 0.995]):
-    # path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
-    path = "./src/intermediate-data/10clean_similarity_matrix_val.csv"
+def test_imgdetector(datapath:str,savepath:str,cpnum=8,data_rate=[0.95, 0.97, 0.99, 0.995]):
+    path = "./src/intermediate-data/similarity_matrix_validation.csv" # load training data
+    # path = "./src/intermediate-data/10clean_RedTeam2K_similarity_matrix_val.csv"
     data = pd.read_csv(path)
     data = data[data["is_malicious"]==1] # only consider malicious text
     # train_data = data[[col for col in data.columns if "clean_resized" in col]][:cpnum]
     train_data = []
     for i in range(10):
         train_data.append(data.iloc[:,i*8:i*8+8])
-    detector = Defender()
+    detector = Defender(-0.0018310546875)
     results = []
     for i in data_rate:
-        detector.train(train_data,ratio=i)
+        # detector.train(train_data,ratio=i)
         # print(f"Threshold: {detector.threshold}")
         # predict on test data and return results
         confusion = detector.get_confusion_matrix(datapath,checkpt_num=cpnum,group=False)
@@ -620,7 +620,7 @@ def test_imgdetector(datapath:str,savepath:str,cpnum=8,data_rate=[0.95, 0.975, 0
     
 def plot_tpr_fpr(datapath:str, savepath:str, cpnum=8):
     # training data
-    path = "./src/intermediate-data/10clean_similarity_matrix_val.csv"
+    path = "./src/intermediate-data/10clean_RedTeam2K_similarity_matrix_val.csv"
     data = pd.read_csv(path)
     data = data[data["is_malicious"]==1] # only consider malicious text
     train_data = []
@@ -629,40 +629,58 @@ def plot_tpr_fpr(datapath:str, savepath:str, cpnum=8):
     detector = Defender()
 
     datapoints = []
+    percentage = 90 # the chosen threshold point
     for i in range(80,101):
         detector.train(train_data,ratio=i/100)
         # predict on test data and return results
         confusion = detector.get_confusion_matrix(datapath,checkpt_num=cpnum,group=False)
         # delete the row of inf
         confusion = confusion[confusion["constraint"]!="inf"]
-        point = confusion[["recall","fpr"]].mean(axis=0)
-        datapoints.append(point)
+        point = confusion[["recall(dsr)","fpr"]].mean(axis=0)
+        if i==percentage:
+            chosen_pt=point
+        else:
+            datapoints.append(point)
     datapoints = pd.concat(datapoints, axis=1, ignore_index=True)
 
     # plot
     plt.clf()
     # plt.xlim((0,1))
     # plt.ylim((0,1))
-    plt.scatter(datapoints.loc["fpr"],datapoints.loc["recall"])
-    for i in range(80,101):
-        plt.annotate(str(i),(datapoints.loc["fpr"][i-80],datapoints.loc["recall"][i-80]))
-    plt.xlabel("fpr")
-    plt.ylabel("tpr")
+    plt.scatter(datapoints.loc["fpr"],datapoints.loc["recall(dsr)"],s=80,c="#23bac5",alpha=0.7,zorder=2)
+    plt.scatter(chosen_pt[1],chosen_pt[0],s=150,c="#fd763f",marker="X",
+                linewidth=1,edgecolors='w',zorder=3)
+    plt.annotate(f"{percentage}%",(chosen_pt[1],chosen_pt[0]),xytext=(chosen_pt[1]-0.02,chosen_pt[0]+0.05),xycoords="data")
+    # for i in range(80,101):
+    #     plt.annotate(str(i),(datapoints.loc["fpr"][i-80],datapoints.loc["recall"][i-80]))
+    plt.xlabel("False Positive Rate",fontsize=11)
+    plt.ylabel("True Positive Rate",fontsize=11)
 
-    # # fit the curve 
-    # def func(x,a,b,y0): # with exponential
-    #     return a*np.exp(-x/b)+y0
-    # popt,pcov=curve_fit(func,datapoints.loc["fpr"],datapoints.loc["recall"])
-    # ybar = func(datapoints.loc["fpr"],popt[0],popt[1],popt[2])
-    # plt.plot(datapoints.loc["fpr"],ybar,label="exp fit")
+    plt.yticks(np.arange(0,1,0.2),['{:.0%}'.format(_) for _ in np.arange(0,1,0.2)])
+    plt.xticks(np.arange(0,0.5,0.1),['{:.0%}'.format(_) for _ in np.arange(0,0.5,0.1)])
+
+    
+
+    plt.tight_layout()
     plt.savefig(savepath)
-    print(datapoints.loc["fpr"],datapoints.loc["recall"])
+    plt.savefig(savepath.rstrip(".jpg")+".pdf")
+    print(datapoints.loc["fpr"],datapoints.loc["recall(dsr)"])
 
     
 
 if __name__ == "__main__":
+    # plot_tpr_fpr(datapath="./AE/NLM_similarity_matrix_val.csv",
+    #                 savepath="./AE/NLM-valset-fpr_plot.jpg")
+    # plot_tpr_fpr(datapath="./src/intermediate-data/RedTeam2K_similarity_matrix_test.csv",
+    #                 savepath="./src/analysis/RedTeam2K_TestSet_tpr-fpr_plot.jpg")
+    test_imgdetector(datapath="./AE/NLM_similarity_matrix_test.csv",
+                     savepath="./AE/NLM_similarity_matrix_test_results.csv",data_rate=[-1])
+    
+    # test_imgdetector(datapath="./src/intermediate-data/RedTeam2K_valset_similarity_matrix.csv",
+    #                  savepath="./src/analysis/RedTeam2K_valset_results.csv",
+    #                  data_rate=[-1])
     # plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
-    #                 savepath="./src/analysis/ValSet_tpr-fpr_plot.jpg")
+    #                 savepath="./src/analysis/ValSet_tpr-fpr_plot(new).jpg")
     # plot_tpr_fpr(datapath="./src/intermediate-data/4clean_similarity_matrix_test.csv",
     #                 savepath="./src/analysis/TestSet_tpr-fpr_plot.jpg")
     test_imgdetector(datapath="./src/intermediate-data/4clean_similarity_matrix_val.csv",
